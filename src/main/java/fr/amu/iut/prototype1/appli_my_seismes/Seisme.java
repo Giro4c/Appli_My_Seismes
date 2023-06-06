@@ -29,9 +29,27 @@ public class Seisme {
         super();
         this.id = id;
         this.date = Calendar.getInstance();
-        this.date.set(Calendar.YEAR, Integer.valueOf(date.split("/")[0]));
-        this.date.set(Calendar.MONTH, Integer.valueOf(date.split("/")[1]) - 1);
-        this.date.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date.split("/")[2]));
+        this.setDate(date);
+        this.heure = heure;
+        this.nom = nom;
+        this.region = region;
+        this.choc = choc;
+        this.xRGF93 = xRGF93;
+        this.yRGF93 = yRGF93;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.intensite = intensite;
+        this.qualiteIntensiteEpicentre = qualiteIntensiteEpicentre;
+
+    }
+
+    public Seisme(Integer id, int annee, int mois, int jour, Integer heure, String nom, String region,
+                  Integer choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
+                  Integer intensite, String qualiteIntensiteEpicentre) {
+        super();
+        this.id = id;
+        this.date = Calendar.getInstance();
+        this.setDate(annee, mois, jour);
         this.heure = heure;
         this.nom = nom;
         this.region = region;
