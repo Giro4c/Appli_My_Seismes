@@ -1,6 +1,7 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class Seisme {
@@ -10,7 +11,7 @@ public class Seisme {
 
 
     private Integer id;
-    private Date date;
+    private Calendar date;
     private Integer heure;
     private String nom;
     private String region;
@@ -22,12 +23,15 @@ public class Seisme {
     private Integer intensite;
     private String qualiteIntensiteEpicentre;
 
-    public Seisme(Integer id, Date date, Integer heure, String nom, String region,
+    public Seisme(Integer id, String date, Integer heure, String nom, String region,
                   Integer choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
                   Integer intensite, String qualiteIntensiteEpicentre) {
         super();
         this.id = id;
-        this.date = date;
+        this.date = Calendar.getInstance();
+        this.date.set(Calendar.YEAR, Integer.valueOf(date.split("/")[0]));
+        this.date.set(Calendar.MONTH, Integer.valueOf(date.split("/")[1]) - 1);
+        this.date.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date.split("/")[2]));
         this.heure = heure;
         this.nom = nom;
         this.region = region;
@@ -125,12 +129,35 @@ public class Seisme {
         this.heure = heure;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return date;
     }
+    public String getDateString() {
+        return "" + date.get(Calendar.YEAR) + "/" + (date.get(Calendar.MONTH)+1) + "/" + date.get(Calendar.DAY_OF_MONTH);
+    }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
+    }
+    public void setDate(String date) {
+        if (date.split("/").length == 3) {
+            this.date.set(Calendar.YEAR, Integer.valueOf(date.split("/")[0]));
+            this.date.set(Calendar.MONTH, Integer.valueOf(date.split("/")[1]) - 1);
+            this.date.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date.split("/")[2]));
+        }
+        else {
+            System.err.println("Error: Incorrect Date String format.");
+        }
+    }
+    public void setDate(int year, int month, int day) {
+        if (year > 0 && month > 0 && day > 0) {
+            this.date.set(Calendar.YEAR, year);
+            this.date.set(Calendar.MONTH, month - 1);
+            this.date.set(Calendar.DAY_OF_MONTH, day);
+        }
+        else {
+            System.err.println("Error: Incorrect Date Value format.");
+        }
     }
 
     public Integer getId() {
