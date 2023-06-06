@@ -43,7 +43,7 @@ public class Seisme {
 
     }
 
-    public Seisme(Integer id, int annee, int mois, int jour, Integer heure, String nom, String region,
+    public Seisme(Integer id, Integer annee, Integer mois, Integer jour, Integer heure, String nom, String region,
                   Integer choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
                   Integer intensite, String qualiteIntensiteEpicentre) {
         super();
@@ -158,10 +158,16 @@ public class Seisme {
         this.date = date;
     }
     public void setDate(String date) {
-        if (date.split("/").length == 3) {
-            this.date.set(Calendar.YEAR, Integer.valueOf(date.split("/")[0]));
-            this.date.set(Calendar.MONTH, Integer.valueOf(date.split("/")[1]) - 1);
-            this.date.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date.split("/")[2]));
+        String[] dateSplit = date.split("/");
+        if (dateSplit.length == 3) {
+            this.date.set(Calendar.YEAR, Integer.valueOf(dateSplit[0]));
+            this.date.set(Calendar.MONTH, Integer.valueOf(dateSplit[1]) - 1);
+            this.date.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dateSplit[2]));
+        }
+        else if (dateSplit.length == 2){
+            this.date.set(Calendar.YEAR, Integer.valueOf(dateSplit[0]));
+            this.date.set(Calendar.MONTH, Integer.valueOf(dateSplit[1]) - 1);
+            this.date.set(Calendar.DAY_OF_MONTH, 0);
         }
         else {
             System.err.println("Error: Incorrect Date String format.");
