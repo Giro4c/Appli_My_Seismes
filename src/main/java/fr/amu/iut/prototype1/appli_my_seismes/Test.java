@@ -6,7 +6,20 @@ import java.util.spi.CalendarDataProvider;
 public class Test {
 
     public static void main(String[] args){
-        experimentationOnCalender();
+        //experimentationOnCalender();
+        testEqualsInteger();
+    }
+
+    private static void testEqualsInteger(){
+        Integer int1 = null;
+        Integer int2 = Integer.valueOf(1);
+        Integer int3 = Integer.valueOf(1);
+
+        System.out.println(int1 == int2);
+        System.out.println(int1 != int2);
+        System.out.println(int3 == int2);
+        System.out.println(int3 != int2);
+        //System.out.println(int2.equals(int1));
     }
 
     private static void experimentationOnCalender(){

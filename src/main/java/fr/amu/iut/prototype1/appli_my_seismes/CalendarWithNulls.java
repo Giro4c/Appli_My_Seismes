@@ -80,7 +80,7 @@ public class CalendarWithNulls {
                 str = str + "]";
             }
             else {
-                str = str + ",";
+                str = str + ", ";
             }
         }
         str = str + " ]";
@@ -105,15 +105,18 @@ public class CalendarWithNulls {
         if (getAnnee() != null){
             date = date + getAnnee() + "/";
         }
-        else {
+        /*else {
             date = date + "/";
-        }
+        }*/
         if (getMois() == null){
             if (getJour() != null){
                 date = date + "/" + getJour();
             }
         }
         else {
+            if (getAnnee() == null && getJour() == null){
+                date = date + "/";
+            }
             date = date + (getMois()+1) + "/";
             if (getJour() != null){
                 date = date + getJour();
@@ -154,16 +157,61 @@ public class CalendarWithNulls {
         CalendarWithNulls calendarWithNulls = (CalendarWithNulls) o;
         if (this.fullDate == null) {
             if (calendarWithNulls.fullDate != null) return false;
+            return true;
         }
         else {
             // On utilise ici les getters car ils prennent aussi en compte les valeurs de isDetermined
             // Permettra double verif ou de se passer de la verif de isDetermined si les champs non utilisés dans isDetermined sont toujours en valeur pas défaut
-            if (this.getAnnee() != calendarWithNulls.getAnnee()) return false;
-            if (this.getMois() != calendarWithNulls.getMois()) return false;
-            if (this.getJour() != calendarWithNulls.getJour()) return false;
-            if (this.getHeure() != calendarWithNulls.getHeure()) return false;
-            if (this.getMinute() != calendarWithNulls.getMinute()) return false;
-            if (this.getSeconde() != calendarWithNulls.getSeconde()) return false;
+
+            // Année
+            if (this.getAnnee() == null){
+                if (calendarWithNulls.getAnnee() != null) return false;
+            }
+            else {
+                if (calendarWithNulls.getAnnee() == null) return false;
+                if (this.getAnnee().intValue() != calendarWithNulls.getAnnee().intValue()) return false;
+            }
+            // Mois
+            if (this.getMois() == null){
+                if (calendarWithNulls.getMois() != null) return false;
+            }
+            else {
+                if (calendarWithNulls.getMois() == null) return false;
+                if (this.getMois().intValue() != calendarWithNulls.getMois().intValue()) return false;
+            }
+            // Jour
+            if (this.getJour() == null){
+                if (calendarWithNulls.getJour() != null) return false;
+            }
+            else {
+                if (calendarWithNulls.getJour() == null) return false;
+                if (this.getJour().intValue() != calendarWithNulls.getJour().intValue()) return false;
+            }
+            // Heure
+            if (this.getHeure() == null){
+                if (calendarWithNulls.getHeure() != null) return false;
+            }
+            else {
+                if (calendarWithNulls.getHeure() == null) return false;
+                if (this.getHeure().intValue() != calendarWithNulls.getHeure().intValue()) return false;
+            }
+            // Minute
+            if (this.getMinute() == null){
+                if (calendarWithNulls.getMinute() != null) return false;
+            }
+            else {
+                if (calendarWithNulls.getMinute() == null) return false;
+                if (this.getMinute().intValue() != calendarWithNulls.getMinute().intValue()) return false;
+            }
+            // Seconde
+            if (this.getSeconde() == null){
+                if (calendarWithNulls.getSeconde() != null) return false;
+            }
+            else {
+                if (calendarWithNulls.getSeconde() == null) return false;
+                if (this.getSeconde().intValue() != calendarWithNulls.getSeconde().intValue()) return false;
+            }
+
         }
 
         return true;
@@ -182,6 +230,14 @@ public class CalendarWithNulls {
     /*
     *   GETTERS
     */
+
+    /**
+     * Renvoie l'array de valeurs booléennes isDetermined qui indique si un champ du Calendar fullDate a une valeur associée déterminée (non nulle)
+     * @return Renvoie le Boolean Array isDetermined.
+     */
+    public boolean[] getIsDetermined() {
+        return isDetermined;
+    }
 
     /**
      * Renvoie la valeur du champ YEAR (Année) du calendrier sauf si la valeur est "non déterminée" où la méthode renvoie null.
@@ -296,5 +352,7 @@ public class CalendarWithNulls {
             fullDate.set(Calendar.SECOND, seconde);
         }
     }
+
+
 
 }
