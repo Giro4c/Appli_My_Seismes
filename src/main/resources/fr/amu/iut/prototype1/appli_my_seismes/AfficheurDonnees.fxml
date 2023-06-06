@@ -23,6 +23,15 @@
                     <TableColumn fx:id="column1" text="Attribut 1" />
                     <TableColumn fx:id="column2" text="Attribut 2" />
                     <TableColumn fx:id="column3" text="Attribut 3" />
+                    <TableColumn fx:id="column4" text="Attribut 4" />
+                    <TableColumn fx:id="column5" text="Attribut 5" />
+                    <TableColumn fx:id="column6" text="Attribut 6" />
+                    <TableColumn fx:id="column7" text="Attribut 7" />
+                    <TableColumn fx:id="column8" text="Attribut 8" />
+                    <TableColumn fx:id="column9" text="Attribut 9" />
+                    <TableColumn fx:id="column10" text="Attribut 10" />
+                    <TableColumn fx:id="column11" text="Attribut 11" />
+                    <TableColumn fx:id="column12" text="Attribut 12" />
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

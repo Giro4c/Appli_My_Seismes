@@ -23,6 +23,8 @@ public class AfficheurDonnees extends Application {
         //ListeSeismes.listeTestSeismes();
 
     }
-
+    public static void main(String[] args) {
+        launch();
+    }
 }
 
