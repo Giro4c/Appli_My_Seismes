@@ -3,7 +3,7 @@ package fr.amu.iut.prototype1.appli_my_seismes;
 import java.util.ArrayList;
 
 public class ListeSeismes {
-    private ArrayList<Seisme> listeTestSeismes() {
+    public ArrayList<Seisme> listeTestSeismes() {
         ArrayList<Seisme> listeSeisme = new ArrayList();
 
         //initialisation des tests seismes
@@ -47,30 +47,30 @@ public class ListeSeismes {
 
 
         //affichage de la liste
-        for (int i=0;i<listeSeisme.size();++i) {
-            System.out.println("ID : " + listeSeisme.get(i).getId());
-            System.out.println("Date : " + listeSeisme.get(i).getDate().getTime());
-            System.out.println("Heure : " + listeSeisme.get(i).getHeure());
-            System.out.println("Nom : " + listeSeisme.get(i).getNom());
-            System.out.println("Région : " +listeSeisme.get(i).getRegion());
-            System.out.println("Choc : " + listeSeisme.get(i).getChoc());
-            System.out.println("X : " + listeSeisme.get(i).getxRGF93());
-            System.out.println("Y : " + listeSeisme.get(i).getyRGF93());
-            System.out.println("Latitude : " + listeSeisme.get(i).getLatitude());
-            System.out.println("Longitude : " + listeSeisme.get(i).getLongitude());
-            System.out.println("Intensite : " + listeSeisme.get(i).getIntensite());
-            System.out.println("IntensiteEpicentre : " + listeSeisme.get(i).getQualiteIntensiteEpicentre());
-            System.out.println("-----------------------");
-        }
+//        for (int i=0;i<listeSeisme.size();++i) {
+//            System.out.println("ID : " + listeSeisme.get(i).getId());
+//            System.out.println("Date : " + listeSeisme.get(i).getDate().getTime());
+//            System.out.println("Heure : " + listeSeisme.get(i).getHeure());
+//            System.out.println("Nom : " + listeSeisme.get(i).getNom());
+//            System.out.println("Région : " +listeSeisme.get(i).getRegion());
+//            System.out.println("Choc : " + listeSeisme.get(i).getChoc());
+//            System.out.println("X : " + listeSeisme.get(i).getxRGF93());
+//            System.out.println("Y : " + listeSeisme.get(i).getyRGF93());
+//            System.out.println("Latitude : " + listeSeisme.get(i).getLatitude());
+//            System.out.println("Longitude : " + listeSeisme.get(i).getLongitude());
+//            System.out.println("Intensite : " + listeSeisme.get(i).getIntensite());
+//            System.out.println("IntensiteEpicentre : " + listeSeisme.get(i).getQualiteIntensiteEpicentre());
+//            System.out.println("-----------------------");
+//        }
 
 
         // Accès à la liste des labels d'attributs statique de la classe Seisme
         ArrayList<String> labelsAttributs = Seisme.getListLabelsAttributs();
 
-        // Affichage des labels des attributs
-        for (String label : labelsAttributs) {
-            System.out.println("Label attribut: " + label);
-        }
+//        // Affichage des labels des attributs
+//        for (String label : labelsAttributs) {
+//            System.out.println("Label attribut: " + label);
+//        }
 
         return listeSeisme;
     }
