@@ -10,20 +10,13 @@ public class AfficheurDonnees extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Création d'un objet Seisme
 
 
-        // Accès à la liste des labels d'attributs statique de la classe Seisme
-        ArrayList<String> labelsAttributs = Seisme.getListLabelsAttributs();
-
-        // Affichage des labels des attributs
-        for (String label : labelsAttributs) {
-            System.out.println("Label attribut: " + label);
-        }
+        listeTestSeismes();
 
     }
 
-    ArrayList<Seisme> listeTestSeismes() {
+    private ArrayList<Seisme> listeTestSeismes() {
         ArrayList listeSeisme = new ArrayList();
 
 
@@ -69,7 +62,7 @@ public class AfficheurDonnees extends Application {
 
         }
 
-             /*
+        /*
         Integer id = seisme.getId();
         Date date = seisme.getDate();
         Integer heure = seisme.getHeure();
@@ -95,6 +88,14 @@ public class AfficheurDonnees extends Application {
         System.out.println("Longitude: " + longitude);
         System.out.println("Intensité: " + intensite);
         System.out.println("Qualité intensité épicentre: " + qualiteIntensiteEpicentre);*/
+
+        // Accès à la liste des labels d'attributs statique de la classe Seisme
+        ArrayList<String> labelsAttributs = Seisme.getListLabelsAttributs();
+
+        // Affichage des labels des attributs
+        for (String label : labelsAttributs) {
+            System.out.println("Label attribut: " + label);
+        }
 
         return listeSeisme;
     }
