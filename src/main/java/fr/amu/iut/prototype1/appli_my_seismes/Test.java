@@ -12,7 +12,23 @@ public class Test {
         //testStringSplitForTime();
         //testStringSplitForDate();
         testCSVReader();
+        //testRemoveGuillemetsString();
 
+    }
+
+    private static void testRemoveGuillemetsString(){
+        System.out.println("Test d'enlever les guillements dans une String");
+        String strTest = "\"6 h\"";
+        System.out.println("String initiale : " + strTest);
+        strTest = strTest.replaceAll("\"", "");
+        System.out.println("String après : " + strTest);
+        //System.out.println("Premier caractere après : " + strTest.charAt(0));
+
+        // Remplace modif dans CalendarWithNulls par modif dans CSVReader
+        /* CalendarWithNulls calendarWithNulls = new CalendarWithNulls(2,2,2,2,2,2);
+        System.out.println("Avant setTime : " + calendarWithNulls.getTimeString());
+        calendarWithNulls.setTime("\"6 h\"");
+        System.out.println("Après setTime : " + calendarWithNulls.getTimeString());*/
     }
 
     private static void testCSVReader(){

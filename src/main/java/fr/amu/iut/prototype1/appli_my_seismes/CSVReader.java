@@ -65,19 +65,19 @@ public class CSVReader {
                 id = Integer.valueOf(csvLine[0]);
             }
             // For the Date attribute
-            date = csvLine[1];
+            date = csvLine[1].replaceAll("\"", "");
 
             // For the Heure attribute
-            heure = csvLine[2];
+            heure = csvLine[2].replaceAll("\"", "");
 
             // For the Nom attribute
-            nom = csvLine[3];
+            nom = csvLine[3].replaceAll("\"", "");
 
             // For the Region attribute
-            region = csvLine[4];
+            region = csvLine[4].replaceAll("\"", "");
 
             // For the Choc attribute
-            choc = csvLine[5];
+            choc = csvLine[5].replaceAll("\"", "");
 
             // For the xRFG93 attribute
             if (csvLine[6].equals("")){
@@ -115,7 +115,7 @@ public class CSVReader {
                 intensite = Double.valueOf(csvLine[10]);
             }
             // For the QualiteIntensite attribute
-            qualiteIntensite = csvLine[11];
+            qualiteIntensite = csvLine[11].replaceAll("\"", "");
 
             listSeismes.add(new Seisme(id, date, heure, nom, region, choc,
                     xRGF93, yRGF93, latitude, longitude, intensite, qualiteIntensite));
