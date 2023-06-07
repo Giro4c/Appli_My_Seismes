@@ -1,7 +1,10 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,14 +13,15 @@ public class CSVReader {
     public static ArrayList<String> CSVFileReader(String csvFileName){
         ArrayList<String> listDonnees = new ArrayList<>();
         try {
-            File csvFile = new File(csvFileName);
-            Scanner csvScanner = new Scanner(csvFile);
-            while (csvScanner.hasNextLine()){
-                listDonnees.add(csvScanner.nextLine());
+            BufferedReader csvReader = new BufferedReader(new FileReader(csvFileName));
+            String line = csvReader.readLine();
+            while (line != null){
+                listDonnees.add(line);
+                line = csvReader.readLine();
             }
-            csvScanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Une erreur est survenue : Impossible de trouver le fichier.");
+            csvReader.close();
+        } catch (IOException e) {
+            System.out.println("Une erreur est survenue.");
             e.printStackTrace();
         }
         return listDonnees;

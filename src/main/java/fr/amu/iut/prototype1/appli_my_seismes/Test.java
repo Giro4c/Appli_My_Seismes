@@ -11,12 +11,12 @@ public class Test {
         //testEqualsInteger();
         //testStringSplitForTime();
         //testStringSplitForDate();
-        //testCSVReader();
+        testCSVReader();
 
     }
 
     private static void testCSVReader(){
-        ArrayList<String> testCSV = CSVReader.CSVFileReader("SisFrance_seismes_MINI.csv");
+        ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv");
         for (String str : testCSV){
             System.out.println(str);
         }
