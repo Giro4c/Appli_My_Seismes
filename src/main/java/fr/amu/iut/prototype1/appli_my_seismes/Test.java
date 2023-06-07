@@ -1,5 +1,6 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.spi.CalendarDataProvider;
 
@@ -9,7 +10,17 @@ public class Test {
         //experimentationOnCalender();
         //testEqualsInteger();
         //testStringSplitForTime();
-        testStringSplitForDate();
+        //testStringSplitForDate();
+        //testCSVReader();
+
+    }
+
+    private static void testCSVReader(){
+        ArrayList<String> testCSV = CSVReader.CSVFileReader("SisFrance_seismes_MINI.csv");
+        for (String str : testCSV){
+            System.out.println(str);
+        }
+
     }
 
     private static void showContentStringArray(String[] arrayStr){
