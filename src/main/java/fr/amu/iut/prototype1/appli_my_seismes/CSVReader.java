@@ -20,8 +20,12 @@ public class CSVReader {
                 line = csvReader.readLine();
             }
             csvReader.close();
-        } catch (IOException e) {
-            System.out.println("Une erreur est survenue.");
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Le fichier CSV n'a pas été trouvé : " + csvFileName);
+            e.printStackTrace(); }
+        catch (IOException e) {
+            System.out.println("Une erreur est survenue : " + csvFileName);
             e.printStackTrace();
         }
         return listDonnees;

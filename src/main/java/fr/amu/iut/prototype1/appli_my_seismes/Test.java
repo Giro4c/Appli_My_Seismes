@@ -32,7 +32,7 @@ public class Test {
     }
 
     private static void testCSVReader(){
-        ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv");
+        ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv");
 
 //        for (String str : testCSV){
 //            System.out.println(str);

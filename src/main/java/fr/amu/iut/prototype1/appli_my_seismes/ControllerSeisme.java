@@ -7,7 +7,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ControllerSeisme {
     @FXML
@@ -65,9 +64,10 @@ public class ControllerSeisme {
         column11.setCellValueFactory(new PropertyValueFactory<>("attribute11"));
         column12.setCellValueFactory(new PropertyValueFactory<>("attribute12"));
 
-        //Implemantation de la listeSeismes de test
-        ListeSeismes listeSeismes = new ListeSeismes();
-        ArrayList<Seisme> listeSeisme = listeSeismes.listeTestSeismes();
+
+        // Lecture Du CSV choisi et conversion des lignes en objet Seisme
+        ArrayList<String> CSVString = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv");
+        ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(CSVString);
 
 
         // remplissage du tableview par la listeTest avec boucle for
@@ -75,39 +75,28 @@ public class ControllerSeisme {
 
         for (Seisme seisme : listeSeisme) {
             // Convertissage en string des attributs
-            String attribut1 = Integer.toString(seisme.getId());
+            String attribut1 = seisme.getId() != null ? Integer.toString(seisme.getId()) : "";
             String attribut2 = seisme.getCalendar().getDateString();
             String attribut3 = seisme.getCalendar().getTimeString();
             String attribut4 = seisme.getNom();
             String attribut5 = seisme.getRegion();
             String attribut6 = seisme.getChoc();
-            String attribut7 = Double.toString(seisme.getxRGF93());
-            String attribut8 = Double.toString(seisme.getyRGF93());
-            String attribut9 = Double.toString(seisme.getLatitude());
-            String attribut10 = Double.toString(seisme.getLongitude());
-            String attribut11 = Double.toString(seisme.getIntensite());
+            String attribut7 = seisme.getxRGF93() != null ? Double.toString(seisme.getxRGF93()) : "";
+            String attribut8 = seisme.getyRGF93() != null ? Double.toString(seisme.getyRGF93()) : "";
+            String attribut9 = seisme.getLatitude() != null ? Double.toString(seisme.getLatitude()) : "";
+            String attribut10 = seisme.getLongitude() != null ? Double.toString(seisme.getLongitude()) : "";
+            String attribut11 = seisme.getIntensite() != null ? Double.toString(seisme.getIntensite()) : "";
             String attribut12 = seisme.getQualiteIntensiteEpicentre();
 
 
 
+
             // Créez une instance de DonneesColonnes avec les attributs convertis
-            DonneesColonnes donnees = new DonneesColonnes(attribut1, attribut2, attribut3, attribut4, attribut5, attribut6, attribut7, attribut8,attribut9, attribut10, attribut11, attribut12);
+            DonneesColonnes donnees = new DonneesColonnes(attribut1, attribut2, attribut3, attribut4, attribut5, attribut6, attribut7, attribut8, attribut9, attribut10, attribut11, attribut12);
 
             // Ajout des données a la liste data
             data.add(donnees);
         }
-
-
-
-
-
-
-
-
-//        data.add(new DonneesColonnes("Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3"));
-//        data.add(new DonneesColonnes("Valeur 4", "Valeur 5", "Valeur 6", "Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3"));
-//        data.add(new DonneesColonnes("Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3", "Valeur 1", "Valeur 2", "Valeur 3"));
-
 
 
         tableView.getItems().addAll(data);
