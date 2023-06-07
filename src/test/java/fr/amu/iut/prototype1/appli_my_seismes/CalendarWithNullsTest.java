@@ -271,4 +271,78 @@ class CalendarWithNullsTest {
         assertNull(calendar.getSeconde());
         assertFalse(calendar.getIsDetermined()[Calendar.SECOND]);
     }
+
+    @Test
+    void setDate() {
+        CalendarWithNulls calendar = new CalendarWithNulls(1,1,1,1,1,1);
+        // Test Format : ""
+        calendar.setDate("");
+        assertTrue((calendar.getAnnee() == null && calendar.getMois() == null && calendar.getJour() == null));
+
+        // Test Format : AAAA/MM/JJ
+        calendar.setDate("2023/7/5");
+        assertTrue((calendar.getAnnee() == 2023 && calendar.getMois() == 6 && calendar.getJour() == 5));
+
+        // Test Format : AAAA/MM/
+        calendar.setDate("2023/7/");
+        assertTrue((calendar.getAnnee() == 2023 && calendar.getMois() == 6 && calendar.getJour() == null));
+
+        // Test Format : AAAA/
+        calendar.setDate("2023/");
+        assertTrue((calendar.getAnnee() == 2023 && calendar.getMois() == null && calendar.getJour() == null));
+
+        // Test Format : AAAA//JJ
+        calendar.setDate("2023//5");
+        assertTrue((calendar.getAnnee() == 2023 && calendar.getMois() == null && calendar.getJour() == 5));
+
+        // Test Format : /JJ
+        calendar.setDate("/5");
+        assertTrue((calendar.getAnnee() == null && calendar.getMois() == null && calendar.getJour() == 5));
+
+        // Test Format : MM/JJ
+        calendar.setDate("7/5");
+        assertTrue((calendar.getAnnee() == null && calendar.getMois() == 6 && calendar.getJour() == 5));
+
+        // Test Format : /MM/
+        calendar.setDate("/7/");
+        assertTrue((calendar.getAnnee() == null && calendar.getMois() == 6 && calendar.getJour() == null));
+
+    }
+
+    @Test
+    void setTime() {
+        CalendarWithNulls calendar = new CalendarWithNulls(1,1,1,1,1,1);
+        // Test Format : ""
+        calendar.setTime("");
+        assertTrue((calendar.getHeure() == null && calendar.getMinute() == null && calendar.getSeconde() == null));
+
+        // Test Format : "- h - min - sec"
+        calendar.setTime("13 h 40 min 24 sec");
+        assertTrue((calendar.getHeure() == 13 && calendar.getMinute() == 40 && calendar.getSeconde() == 24));
+
+        // Test Format : "- h - min"
+        calendar.setTime("13 h 40 min");
+        assertTrue((calendar.getHeure() == 13 && calendar.getMinute() == 40 && calendar.getSeconde() == null));
+
+        // Test Format : "- h"
+        calendar.setTime("13 h");
+        assertTrue((calendar.getHeure() == 13 && calendar.getMinute() == null && calendar.getSeconde() == null));
+
+        // Test Format : "- h - sec"
+        calendar.setTime("13 h 24 sec");
+        assertTrue((calendar.getHeure() == 13 && calendar.getMinute() == null && calendar.getSeconde() == 24));
+
+        // Test Format : "- sec"
+        calendar.setTime("24 sec");
+        assertTrue((calendar.getHeure() == null && calendar.getMinute() == null && calendar.getSeconde() == 24));
+
+        // Test Format : "- min - sec"
+        calendar.setTime("40 min 24 sec");
+        assertTrue((calendar.getHeure() == null && calendar.getMinute() == 40 && calendar.getSeconde() == 24));
+
+        // Test Format : "- min"
+        calendar.setTime("40 min");
+        assertTrue((calendar.getHeure() == null && calendar.getMinute() == 40 && calendar.getSeconde() == null));
+
+    }
 }

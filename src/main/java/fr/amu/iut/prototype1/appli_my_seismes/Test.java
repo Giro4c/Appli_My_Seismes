@@ -7,7 +7,80 @@ public class Test {
 
     public static void main(String[] args){
         //experimentationOnCalender();
-        testEqualsInteger();
+        //testEqualsInteger();
+        //testStringSplitForTime();
+        testStringSplitForDate();
+    }
+
+    private static void showContentStringArray(String[] arrayStr){
+        for (String str : arrayStr){
+            if (str.equals("")){
+                System.out.println("Vide");
+            }
+            else{
+                System.out.println(str);
+            }
+        }
+        System.out.println("Taille : " + arrayStr.length);
+        System.out.println();
+        System.out.println();
+    }
+
+    private static void testStringSplitForTime(){
+        String[] split;
+        // Test Format : ""
+        split = "".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- h - min - sec"
+        split = "13 h 40 min 24 sec".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- h - min"
+        split = "13 h 40 min".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- h"
+        split = "13 h".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- h - sec"
+        split = "13 h 24 sec".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- sec"
+        split = "24 sec".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- min - sec"
+        split = "40 min 24 sec".split(" ");
+        showContentStringArray(split);
+        // Test Format : "- min"
+        split = "40 min".split(" ");
+        showContentStringArray(split);
+
+    }
+
+    private static void testStringSplitForDate(){
+        String[] split;
+        // Test Format : ""
+        split = "".split("/");
+        showContentStringArray(split);
+        // Test Format : AAAA/MM/JJ
+        split = "2023/7/5".split("/");
+        showContentStringArray(split);
+        // Test Format : AAAA/MM/
+        split = "2023/7/".split("/");
+        showContentStringArray(split);
+        // Test Format : AAAA/
+        split = "2023/".split("/");
+        showContentStringArray(split);
+        // Test Format : AAAA//JJ
+        split = "2023//5".split("/");
+        showContentStringArray(split);
+        // Test Format : /JJ
+        split = "/5".split("/");
+        showContentStringArray(split);
+        // Test Format : MM/JJ
+        split = "7/5".split("/");
+        showContentStringArray(split);
+        // Test Format : /MM/
+        split = "/7/".split("/");
+        showContentStringArray(split);
     }
 
     private static void testEqualsInteger(){

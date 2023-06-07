@@ -64,6 +64,17 @@ public class CalendarWithNulls {
         setSeconde(seconde);
     }
 
+    /**
+     * Constructeur complet de la classe CalendarWithNulls qui permet d'affecter des
+     * valeurs à chaque champ de calendrier pris en compte par la classe.
+     * @param date Une String contennant une date au format AAAA/MM/JJ
+     * @param time  Une String contennant une heure au format "-h - min - sec"
+     */
+    public CalendarWithNulls(String date, String time) {
+        super();
+        setDate(date);
+        setTime(time);
+    }
 
     @Override
     public String toString(){
@@ -86,6 +97,8 @@ public class CalendarWithNulls {
         str = str + " ]";
         return str;
     }
+
+
 
     /**
      * Revoie une string de la date sous le format initial AAAA/MM/JJ.<br>
@@ -126,6 +139,58 @@ public class CalendarWithNulls {
     }
 
     /**
+     * Change la valeur de la date en fonction d'une string de format initial AAAA/MM/JJ.
+     * Ghange ainsi les valeurs des champs YEAR (Année), MONTH (Mois) et DAY_OF_MONTH (Jour du mois)
+     * @param date String de format initial AAAA/MM/JJ
+     */
+    public void setDate(String date){
+        String[] split = date.split("/");
+        if (split.length == 1){
+            if (split[0].equals("")){
+                setAnnee(null);
+            }
+            else{
+                setAnnee(Integer.valueOf(split[0]));
+            }
+            setMois(null);
+            setJour(null);
+        }
+        else if (split.length == 2){
+            if (date.charAt(0) == '/'){
+                setAnnee(null);
+                if (date.charAt(date.length() - 1) == '/'){
+                    setMois(Integer.valueOf(split[1]) - 1);
+                    setJour(null);
+                }
+                else{
+                    setMois(null);
+                    setJour(Integer.valueOf(split[1]));
+                }
+            }
+            else if (date.charAt(date.length() - 1) == '/'){
+                setAnnee(Integer.valueOf(split[0]));
+                setMois(Integer.valueOf(split[1]) - 1);
+                setJour(null);
+            }
+            else{
+                setAnnee(null);
+                setMois(Integer.valueOf(split[0]) - 1);
+                setJour(Integer.valueOf(split[1]));
+            }
+        }
+        else if (split.length == 3){
+            setAnnee(Integer.valueOf(split[0]));
+            if (split[1].equals("")){
+                setMois(null);
+            }
+            else{
+                setMois(Integer.valueOf(split[1]) - 1);
+            }
+            setJour(Integer.valueOf(split[2]));
+        }
+    }
+
+    /**
      * Renvoie une string du temps sous le format initial "- h - min - sec".
      * Le format s'adapte aux valeurs non déterminées de manière à ce qu'il ne soit pas renvoyé une string avec trop d'espaces.
      * @return String de temps au format "- h - min - sec"
@@ -148,6 +213,41 @@ public class CalendarWithNulls {
             time = time + getSeconde() + " sec";
         }
         return time;
+    }
+
+    /**
+     * Change la valeur de la date en fonction d'une string de format initial "- h - min - sec".
+     * Ghange ainsi les valeurs des champs HOUR_OF_DAY (Heure du jour), MINUTE (Minute) et SECOND (Seconde)
+     * @param time String de format initial "- h - min - sec"
+     */
+    public void setTime(String time){
+        String[] split = time.split(" ");
+        boolean hourSet = false;
+        boolean minuteSet = false;
+        boolean secondSet = false;
+        for (int indexValue = 0; indexValue < split.length - 1; indexValue = indexValue + 2){
+            if (split[indexValue + 1].equals("h")){
+                setHeure(Integer.valueOf(split[indexValue]));
+                hourSet = true;
+            }
+            else if (split[indexValue + 1].equals("min")){
+                setMinute(Integer.valueOf(split[indexValue]));
+                minuteSet = true;
+            }
+            else if (split[indexValue + 1].equals("sec")){
+                setSeconde(Integer.valueOf(split[indexValue]));
+                secondSet = true;
+            }
+        }
+        if (!hourSet){
+            setHeure(null);
+        }
+        if (!minuteSet){
+            setMinute(null);
+        }
+        if (!secondSet){
+            setSeconde(null);
+        }
     }
 
     @Override

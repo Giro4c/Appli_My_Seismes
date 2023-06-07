@@ -38,8 +38,7 @@ public class CSVReader {
         ArrayList<Seisme> listSeismes = new ArrayList<>();
         // Declaration de variables de stockage temporaires pour l'instensiation d'un séisme
         Integer id;
-        String date;
-        Integer heure;
+        CalendarWithNulls date;
         String nom;
         String region;
         Integer choc;
@@ -59,19 +58,20 @@ public class CSVReader {
                 id = Integer.valueOf(csvLine[0]);
             }
             // For the Date attribute
-            if (csvLine[1] == null || csvLine[1].equals("")){
+            /*if (csvLine[1] == null || csvLine[1].equals("")){
                 date = null;
             }
             else {
                 date = csvLine[1];
-            }
+            }*/
+            date = new CalendarWithNulls();
             // For the Heure attribute
-            if (csvLine[2] == null || csvLine[2].equals("")){
+            /*if (csvLine[2] == null || csvLine[2].equals("")){
                 heure = null;
             }
             else {
                 heure = Integer.valueOf(csvLine[2]);
-            }
+            }*/
             // For the Nom attribute
             if (csvLine[3] == null || csvLine[3].equals("")){
                 nom = null;
@@ -136,7 +136,7 @@ public class CSVReader {
                 qualiteIntensite = csvLine[11];
             }
 
-            listSeismes.add(new Seisme(id, date, heure, nom, region, choc,
+            listSeismes.add(new Seisme(id, date, nom, region, choc,
                     xRGF93, yRGF93, latitude, longitude, intensite, qualiteIntensite));
 
 
