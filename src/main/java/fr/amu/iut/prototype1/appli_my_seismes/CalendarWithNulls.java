@@ -188,6 +188,9 @@ public class CalendarWithNulls {
             }
             setJour(Integer.valueOf(split[2]));
         }
+        else {
+            System.err.println("Error: Incorrect Date String format.");
+        }
     }
 
     /**
@@ -222,31 +225,34 @@ public class CalendarWithNulls {
      */
     public void setTime(String time){
         String[] split = time.split(" ");
-        boolean hourSet = false;
-        boolean minuteSet = false;
-        boolean secondSet = false;
-        for (int indexValue = 0; indexValue < split.length - 1; indexValue = indexValue + 2){
-            if (split[indexValue + 1].equals("h")){
-                setHeure(Integer.valueOf(split[indexValue]));
-                hourSet = true;
+        if (split.length < 7) {
+            boolean hourSet = false;
+            boolean minuteSet = false;
+            boolean secondSet = false;
+            for (int indexValue = 0; indexValue < split.length - 1; indexValue = indexValue + 2) {
+                if (split[indexValue + 1].equals("h")) {
+                    setHeure(Integer.valueOf(split[indexValue]));
+                    hourSet = true;
+                } else if (split[indexValue + 1].equals("min")) {
+                    setMinute(Integer.valueOf(split[indexValue]));
+                    minuteSet = true;
+                } else if (split[indexValue + 1].equals("sec")) {
+                    setSeconde(Integer.valueOf(split[indexValue]));
+                    secondSet = true;
+                }
             }
-            else if (split[indexValue + 1].equals("min")){
-                setMinute(Integer.valueOf(split[indexValue]));
-                minuteSet = true;
+            if (!hourSet) {
+                setHeure(null);
             }
-            else if (split[indexValue + 1].equals("sec")){
-                setSeconde(Integer.valueOf(split[indexValue]));
-                secondSet = true;
+            if (!minuteSet) {
+                setMinute(null);
+            }
+            if (!secondSet) {
+                setSeconde(null);
             }
         }
-        if (!hourSet){
-            setHeure(null);
-        }
-        if (!minuteSet){
-            setMinute(null);
-        }
-        if (!secondSet){
-            setSeconde(null);
+        else {
+            System.err.println("Error: Incorrect Time String format.");
         }
     }
 

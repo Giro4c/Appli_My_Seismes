@@ -1,18 +1,34 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-
+/**
+ * Une classe resprésentant un séisme qui en contient les caractéristiques suivantes :
+ * <ul>
+ *     <li>Identifiant</li>
+ *     <li>Date (Année, Mois et Jour)</li>
+ *     <li>Heure (Heure, Minutes et Secondes)</li>
+ *     <li>Nom</li>
+ *     <li>Région</li>
+ *     <li>Choc</li>
+ *     <li>X en RFG93</li>
+ *     <li>Y en RFG93</li>
+ *     <li>Latitude</li>
+ *     <li>Longitude</li>
+ *     <li>Intensité</li>
+ *     <li>Qualité de l'intensité à l'épicentre</li>
+ * </ul>
+ * @author Camille Girodengo
+ */
 public class Seisme {
 
-    private static ArrayList<String> listLabelsAttributs = new ArrayList<>();
+    public static final int COUNT_ATTRIBUTE_LABELS = 12;
+    private static ArrayList<String> initialListLabelsAttributs = new ArrayList<>();
 
 
 
     private Integer id;
-    private Calendar date;
-    private Integer heure;
+    private CalendarWithNulls calendar;
     private String nom;
     private String region;
     private Integer choc;
@@ -23,14 +39,12 @@ public class Seisme {
     private Integer intensite;
     private String qualiteIntensiteEpicentre;
 
-    public Seisme(Integer id, String date, Integer heure, String nom, String region,
+    public Seisme(Integer id, String date, String heure, String nom, String region,
                   Integer choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
                   Integer intensite, String qualiteIntensiteEpicentre) {
         super();
         this.id = id;
-        this.date = Calendar.getInstance();
-        this.setDate(date);
-        this.heure = heure;
+        this.calendar = new CalendarWithNulls(date, heure);
         this.nom = nom;
         this.region = region;
         this.choc = choc;
@@ -43,153 +57,103 @@ public class Seisme {
 
     }
 
-    public Seisme(Integer id, Integer annee, Integer mois, Integer jour, Integer heure, String nom, String region,
-                  Integer choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
-                  Integer intensite, String qualiteIntensiteEpicentre) {
-        super();
-        this.id = id;
-        this.date = Calendar.getInstance();
-        this.setDate(annee, mois, jour);
-        this.heure = heure;
-        this.nom = nom;
-        this.region = region;
-        this.choc = choc;
-        this.xRGF93 = xRGF93;
-        this.yRGF93 = yRGF93;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.intensite = intensite;
-        this.qualiteIntensiteEpicentre = qualiteIntensiteEpicentre;
-
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seisme seisme = (Seisme) o;
+        return (this.id == seisme.id && this.calendar.equals(seisme.calendar) && this.nom.equals(seisme.nom) &&
+                this.region.equals(seisme.region) && this.choc == seisme.choc && this.xRGF93 == seisme.xRGF93 &&
+                this.yRGF93 == seisme.yRGF93 && this.latitude == seisme.latitude && this.longitude == seisme.longitude &&
+                this.intensite == seisme.intensite && this.qualiteIntensiteEpicentre.equals(qualiteIntensiteEpicentre));
     }
 
-    public static ArrayList<String> getListLabelsAttributs() {
-        return listLabelsAttributs;
+    public static ArrayList<String> getInitialListLabelsAttributs() {
+        return initialListLabelsAttributs;
     }
 
     public String getQualiteIntensiteEpicentre() {
         return qualiteIntensiteEpicentre;
     }
 
-    public void setQualiteIntensiteEpicentre(String qualiteIntensiteEpicentre) {
+    /*public void setQualiteIntensiteEpicentre(String qualiteIntensiteEpicentre) {
         this.qualiteIntensiteEpicentre = qualiteIntensiteEpicentre;
-    }
+    }*/
 
     public Integer getIntensite() {
         return intensite;
     }
 
-    public void setIntensite(Integer intensite) {
+    /*public void setIntensite(Integer intensite) {
         this.intensite = intensite;
-    }
+    }*/
 
     public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    /*public void setLongitude(Double longitude) {
         this.longitude = longitude;
-    }
+    }*/
 
     public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    /*public void setLatitude(Double latitude) {
         this.latitude = latitude;
-    }
+    }*/
 
     public Double getyRGF93() {
         return yRGF93;
     }
 
-    public void setyRGF93(Double yRGF93) {
+    /*public void setyRGF93(Double yRGF93) {
         this.yRGF93 = yRGF93;
-    }
+    }*/
 
     public Double getxRGF93() {
         return xRGF93;
     }
 
-    public void setxRGF93(Double xRGF93) {
+    /*public void setxRGF93(Double xRGF93) {
         this.xRGF93 = xRGF93;
-    }
+    }*/
 
     public Integer getChoc() {
         return choc;
     }
 
-    public void setChoc(Integer choc) {
+    /*public void setChoc(Integer choc) {
         this.choc = choc;
-    }
+    }*/
 
     public String getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    /*public void setRegion(String region) {
         this.region = region;
-    }
+    }*/
 
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
+    /*public void setNom(String nom) {
         this.nom = nom;
-    }
+    }*/
 
-    public Integer getHeure() {
-        return heure;
-    }
-
-    public void setHeure(Integer heure) {
-        this.heure = heure;
-    }
-
-    public Calendar getDate() {
-        return date;
-    }
-    public String getDateString() {
-        return "" + date.get(Calendar.YEAR) + "/" + (date.get(Calendar.MONTH)+1) + "/" + date.get(Calendar.DAY_OF_MONTH);
-    }
-
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
-    public void setDate(String date) {
-        String[] dateSplit = date.split("/");
-        if (dateSplit.length == 3) {
-            this.date.set(Calendar.YEAR, Integer.valueOf(dateSplit[0]));
-            this.date.set(Calendar.MONTH, Integer.valueOf(dateSplit[1]) - 1);
-            this.date.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dateSplit[2]));
-        }
-        else if (dateSplit.length == 2){
-            this.date.set(Calendar.YEAR, Integer.valueOf(dateSplit[0]));
-            this.date.set(Calendar.MONTH, Integer.valueOf(dateSplit[1]) - 1);
-            this.date.set(Calendar.DAY_OF_MONTH, 0);
-        }
-        else {
-            System.err.println("Error: Incorrect Date String format.");
-        }
-    }
-    public void setDate(int year, int month, int day) {
-        if (year > 0 && month > 0 && day > 0) {
-            this.date.set(Calendar.YEAR, year);
-            this.date.set(Calendar.MONTH, month - 1);
-            this.date.set(Calendar.DAY_OF_MONTH, day);
-        }
-        else {
-            System.err.println("Error: Incorrect Date Value format.");
-        }
+    public CalendarWithNulls getCalendar() {
+        return calendar;
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    /*public void setId(Integer id) {
         this.id = id;
-    }
+    }*/
 }
 
