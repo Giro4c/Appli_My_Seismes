@@ -351,6 +351,17 @@ public class CalendarWithNulls {
     }
 
     /**
+     * Permet de déterminer si la date d'un CalendarWithNulls est strictement inférieure à celle contenue dans une String format AAAA/MM/JJ.
+     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
+     * @return Renvoie true si la date est strictement inférieure. Renvoie false si elle est supérieure ou égale.
+     */
+    public boolean isDateInferior(String dateRef){
+        CalendarWithNulls calendarRef = new CalendarWithNulls(dateRef, "");
+        return isDateInferior(calendarRef);
+    }
+
+    /**
      * Permet de déterminer si la date d'un CalendarWithNulls est strictement supérieure à celle d'un autre CalendarWithNulls calendar.
      * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
@@ -375,6 +386,17 @@ public class CalendarWithNulls {
         }
 
         return yearSuperior && monthSuperior && daySuperior;
+    }
+
+    /**
+     * Permet de déterminer si la date d'un CalendarWithNulls est strictement supérieure à celle contenue dans une String format AAAA/MM/JJ.
+     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
+     * @return Renvoie true si la date est strictement supérieure. Renvoie false si elle est inférieure ou égale.
+     */
+    public boolean isDateSuperior(String dateRef){
+        CalendarWithNulls calendarRef = new CalendarWithNulls(dateRef, "");
+        return isDateSuperior(calendarRef);
     }
 
     /**
@@ -405,6 +427,17 @@ public class CalendarWithNulls {
     }
 
     /**
+     * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement inférieure à celle contenue dans une String format "-h - min - sec".
+     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
+     * @return Renvoie true si l'heure est strictement inférieure. Renvoie false si elle est supérieure ou égale.
+     */
+    public boolean isTimeInferior(String timeRef){
+        CalendarWithNulls calendarRef = new CalendarWithNulls("", timeRef);
+        return isTimeInferior(calendarRef);
+    }
+
+    /**
      * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement supérieure à celle d'un autre CalendarWithNulls calendar.
      * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
@@ -429,6 +462,17 @@ public class CalendarWithNulls {
         }
 
         return hourSuperior && minuteSuperior && secondSuperior;
+    }
+
+    /**
+     * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement supérieure à celle contenue dans une String format "-h - min - sec".
+     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
+     * @return Renvoie true si l'heure est strictement supérieure. Renvoie false si elle est inférieure ou égale.
+     */
+    public boolean isTimeSuperior(String timeRef){
+        CalendarWithNulls calendarRef = new CalendarWithNulls("", timeRef);
+        return isTimeSuperior(calendarRef);
     }
 
     /**
