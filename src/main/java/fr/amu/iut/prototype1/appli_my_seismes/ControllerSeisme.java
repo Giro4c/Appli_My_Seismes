@@ -76,8 +76,8 @@ public class ControllerSeisme {
         for (Seisme seisme : listeSeisme) {
             // Convertissage en string des attributs
             String attribut1 = Integer.toString(seisme.getId());
-            String attribut2 = seisme.getDateString();
-            String attribut3 = Integer.toString(seisme.getHeure());
+            String attribut2 = seisme.getCalendar().getDateString();
+            String attribut3 = seisme.getCalendar().getTimeString();
             String attribut4 = seisme.getNom();
             String attribut5 = seisme.getRegion();
             String attribut6 = Integer.toString(seisme.getChoc());

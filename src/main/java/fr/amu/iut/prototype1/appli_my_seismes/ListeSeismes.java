@@ -7,29 +7,29 @@ public class ListeSeismes {
         ArrayList<Seisme> listeSeisme = new ArrayList();
 
         //initialisation des tests seismes
-        Seisme seisme = new Seisme(1, 2020,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme = new Seisme(1, "2020/12/9","10 h", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme2 = new Seisme(2, 2021,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme2 = new Seisme(2, "2021/12/9","10 min", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme3 = new Seisme(3, 2022,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme3 = new Seisme(3, "2022/12/9","10 sec", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme4 = new Seisme(4, 2023,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme4 = new Seisme(4, "2023/12/9","1 h 30 min", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme5 = new Seisme(5, 2019,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme5 = new Seisme(5, "2019/12/9","10 h 52 sec", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme6 = new Seisme(6, 2025,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme6 = new Seisme(6, "2025/12/9","1 h 25 min 1 sec", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme7 = new Seisme(7, 2026,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme7 = new Seisme(7, "2026/12/9","10 h", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme8 = new Seisme(8, 2027,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme8 = new Seisme(8, "2027/12/9","10 h", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme9 = new Seisme(9, 2028,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme9 = new Seisme(9, "2028/12/9","11 h", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme10 = new Seisme(10, 2029,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme10 = new Seisme(10, "2029/12/9","10 h 20 min", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme11 = new Seisme(11, 2030,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme11 = new Seisme(11, "2030/12/9","13 min 30 sec", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
-        Seisme seisme12 = new Seisme(12, 2031,12,9,10, "Seisme1", "PACA", 1, 123.45, 678.90,
+        Seisme seisme12 = new Seisme(12, "2031/12/9","0 h 12 min", "Seisme1", "PACA", 1, 123.45, 678.90,
                 12.34, 56.78, 7, "Bonne");
         //ajout des seismes tests à la liste
         listeSeisme.add(seisme);
@@ -65,7 +65,7 @@ public class ListeSeismes {
 
 
         // Accès à la liste des labels d'attributs statique de la classe Seisme
-        ArrayList<String> labelsAttributs = Seisme.getListLabelsAttributs();
+        ArrayList<String> labelsAttributs = Seisme.getInitialListLabelsAttributs();
 
 //        // Affichage des labels des attributs
 //        for (String label : labelsAttributs) {
