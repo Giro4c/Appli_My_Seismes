@@ -80,12 +80,12 @@ public class ControllerSeisme {
             String attribut3 = seisme.getCalendar().getTimeString();
             String attribut4 = seisme.getNom();
             String attribut5 = seisme.getRegion();
-            String attribut6 = Integer.toString(seisme.getChoc());
+            String attribut6 = seisme.getChoc();
             String attribut7 = Double.toString(seisme.getxRGF93());
             String attribut8 = Double.toString(seisme.getyRGF93());
             String attribut9 = Double.toString(seisme.getLatitude());
             String attribut10 = Double.toString(seisme.getLongitude());
-            String attribut11 = Integer.toString(seisme.getIntensite());
+            String attribut11 = Double.toString(seisme.getIntensite());
             String attribut12 = seisme.getQualiteIntensiteEpicentre();
 
 

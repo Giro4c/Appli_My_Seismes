@@ -32,10 +32,13 @@ public class CSVReader {
             return null;
         }
         String[] csvLine = listDonnees.get(0).split(",");
-        // Ajout des labels de chaque attribut qui caracterise un séisme
-        for (String labelAttribute : csvLine){
-            Seisme.getInitialListLabelsAttributs().add(labelAttribute);
+        if (csvLine.length == Seisme.COUNT_ATTRIBUTE_LABELS) {
+            // Ajout des labels de chaque attribut qui caracterise un séisme
+            for (String labelAttribute : csvLine) {
+                Seisme.getInitialListLabelsAttributs().add(labelAttribute);
+            }
         }
+
         // Remplissage de la liste de séismes
         ArrayList<Seisme> listSeismes = new ArrayList<>();
         // Declaration de variables de stockage temporaires pour l'instensiation d'un séisme
@@ -44,12 +47,12 @@ public class CSVReader {
         String heure;
         String nom;
         String region;
-        Integer choc;
+        String choc;
         Double xRGF93;
         Double yRGF93;
         Double latitude;
         Double longitude;
-        Integer intensite;
+        Double intensite;
         String qualiteIntensite;
         for (int indexSeisme = 1; indexSeisme < listDonnees.size(); ++indexSeisme){
             csvLine = listDonnees.get(indexSeisme).split(",");
@@ -74,12 +77,8 @@ public class CSVReader {
             region = csvLine[4];
 
             // For the Choc attribute
-            if (csvLine[5].equals("")){
-                choc = null;
-            }
-            else {
-                choc = Integer.valueOf(csvLine[5]);
-            }
+            choc = csvLine[5];
+
             // For the xRFG93 attribute
             if (csvLine[6].equals("")){
                 xRGF93 = null;
@@ -113,7 +112,7 @@ public class CSVReader {
                 intensite = null;
             }
             else {
-                intensite = Integer.valueOf(csvLine[10]);
+                intensite = Double.valueOf(csvLine[10]);
             }
             // For the QualiteIntensite attribute
             qualiteIntensite = csvLine[11];

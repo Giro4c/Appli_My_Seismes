@@ -17,8 +17,26 @@ public class Test {
 
     private static void testCSVReader(){
         ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv");
-        for (String str : testCSV){
-            System.out.println(str);
+
+//        for (String str : testCSV){
+//            System.out.println(str);
+//        }
+
+        ArrayList<Seisme> testCSVSeismes = CSVReader.StringArrayToSeismeArrayList(testCSV);
+
+        for (String labelAttributs : Seisme.getInitialListLabelsAttributs()){
+            System.out.println(labelAttributs);
+        }
+        System.out.println("Nombre de label au total : " + Seisme.getInitialListLabelsAttributs().size());
+        System.out.println();
+
+        if (testCSVSeismes != null) {
+            for (int indexSeisme = 0; indexSeisme < testCSVSeismes.size(); ++indexSeisme) {
+                System.out.println(testCSVSeismes.get(indexSeisme).toString());
+            }
+        }
+        else{
+            System.out.println("Erreur: le array de devrait pas etre vide pour ce test.");
         }
 
     }

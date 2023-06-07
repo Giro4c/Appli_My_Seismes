@@ -31,17 +31,17 @@ public class Seisme {
     private CalendarWithNulls calendar;
     private String nom;
     private String region;
-    private Integer choc;
+    private String choc;
     private Double xRGF93;
     private Double yRGF93;
     private Double latitude;
     private Double longitude;
-    private Integer intensite;
+    private Double intensite;
     private String qualiteIntensiteEpicentre;
 
     public Seisme(Integer id, String date, String heure, String nom, String region,
-                  Integer choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
-                  Integer intensite, String qualiteIntensiteEpicentre) {
+                  String choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
+                  Double intensite, String qualiteIntensiteEpicentre) {
         super();
         this.id = id;
         this.calendar = new CalendarWithNulls(date, heure);
@@ -68,6 +68,23 @@ public class Seisme {
                 this.intensite == seisme.intensite && this.qualiteIntensiteEpicentre.equals(qualiteIntensiteEpicentre));
     }
 
+    @Override
+    public String toString(){
+        return "Seisme [id=" + id +
+                ", date=" + calendar.getDateString() +
+                ", heure=" + calendar.getTimeString() +
+                ", nom=" + nom +
+                ", region=" + region +
+                ", choc=" + choc +
+                ", xRGF93=" + xRGF93 +
+                ", yRGF93=" + yRGF93 +
+                ", latitude=" + latitude +
+                ", logitude=" + longitude +
+                ", intensite=" + intensite +
+                ", qualiteIntensiteEpicentre=" + qualiteIntensiteEpicentre + "]";
+
+    }
+
     public static ArrayList<String> getInitialListLabelsAttributs() {
         return initialListLabelsAttributs;
     }
@@ -80,7 +97,7 @@ public class Seisme {
         this.qualiteIntensiteEpicentre = qualiteIntensiteEpicentre;
     }*/
 
-    public Integer getIntensite() {
+    public Double getIntensite() {
         return intensite;
     }
 
@@ -120,7 +137,7 @@ public class Seisme {
         this.xRGF93 = xRGF93;
     }*/
 
-    public Integer getChoc() {
+    public String getChoc() {
         return choc;
     }
 
