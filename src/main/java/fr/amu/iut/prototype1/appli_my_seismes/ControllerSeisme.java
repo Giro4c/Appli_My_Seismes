@@ -1,54 +1,22 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ControllerSeisme {
     @FXML
-    private TableView<DonneesColonnes> tableView;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column1;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column2;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column3;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column4;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column5;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column6;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column7;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column8;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column9;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column10;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column11;
-
-    @FXML
-    private TableColumn<DonneesColonnes, String> column12;
+    private TableView<Seisme> tableView;
 
     @FXML
     private Button btnPrecedent;
@@ -63,130 +31,116 @@ public class ControllerSeisme {
     private Button btnFin;
 
     @FXML
-    private Label PagePrecedent;
+    private Button btnNumPPred;
 
     @FXML
-    private Label Pageactuel;
+    private Button btnNumPActu;
 
     @FXML
-    private Label TotalPages;
+    private Button btnNumPSuiv;
 
-    @FXML
-    private Label PageSuivante;
-    private List<DonneesColonnes> data;
-    private List<Seisme> listeSeisme;
-    private int Pageactu;
-    private int Nbligne = 15;
-
+    private ObservableList<Seisme> listSeismesPage = FXCollections.observableArrayList();
+    // Lecture Du CSV choisi et conversion des lignes en objet Seisme
+    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
+            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+    private IntegerProperty numPageActuelle = new SimpleIntegerProperty(1);
+    private final int COUNT_LINES = 15;
+    private IntegerProperty totalPages;
 
     public void initialize() {
-        column1.setCellValueFactory(new PropertyValueFactory<>("attribute1"));
-        column2.setCellValueFactory(new PropertyValueFactory<>("attribute2"));
-        column3.setCellValueFactory(new PropertyValueFactory<>("attribute3"));
-        column4.setCellValueFactory(new PropertyValueFactory<>("attribute4"));
-        column5.setCellValueFactory(new PropertyValueFactory<>("attribute5"));
-        column6.setCellValueFactory(new PropertyValueFactory<>("attribute6"));
-        column7.setCellValueFactory(new PropertyValueFactory<>("attribute7"));
-        column8.setCellValueFactory(new PropertyValueFactory<>("attribute8"));
-        column9.setCellValueFactory(new PropertyValueFactory<>("attribute9"));
-        column10.setCellValueFactory(new PropertyValueFactory<>("attribute10"));
-        column11.setCellValueFactory(new PropertyValueFactory<>("attribute11"));
-        column12.setCellValueFactory(new PropertyValueFactory<>("attribute12"));
 
+        // Determination valeur du total de pages possible
+        if (listeSeisme != null) {
+            totalPages = new SimpleIntegerProperty(listeSeisme.size() / COUNT_LINES + 1);
+        }
+        else{
+            totalPages = new SimpleIntegerProperty(1);
+        }
 
-        // Lecture Du CSV choisi et conversion des lignes en objet Seisme
-        ArrayList<String> CSVString = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv");
-        listeSeisme = CSVReader.StringArrayToSeismeArrayList(CSVString);
+        // Création des bindings
+        createBindings();
 
+        // Association des attributs de Seisme à des colonnes du tableau
+        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
+        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("heure"));
+        tableView.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("nom"));
+        tableView.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("region"));
+        tableView.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("choc"));
+        tableView.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("xRGF93"));
+        tableView.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("yRGF93"));
+        tableView.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        tableView.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("longitude"));
+        tableView.getColumns().get(10).setCellValueFactory(new PropertyValueFactory<>("intensite"));
+        tableView.getColumns().get(11).setCellValueFactory(new PropertyValueFactory<>("qualiteIntensiteEpicentre"));
 
         // Remplissage du TableView avec la liste des Seismes
-        data = new ArrayList<>();
-        for (Seisme seisme : listeSeisme) {
-            // Convertissage en string des attributs
-            String attribut1 = seisme.getId() != null ? Integer.toString(seisme.getId()) : "";
-            String attribut2 = seisme.getCalendar().getDateString();
-            String attribut3 = seisme.getCalendar().getTimeString();
-            String attribut4 = seisme.getNom();
-            String attribut5 = seisme.getRegion();
-            String attribut6 = seisme.getChoc();
-            String attribut7 = seisme.getxRGF93() != null ? Double.toString(seisme.getxRGF93()) : "";
-            String attribut8 = seisme.getyRGF93() != null ? Double.toString(seisme.getyRGF93()) : "";
-            String attribut9 = seisme.getLatitude() != null ? Double.toString(seisme.getLatitude()) : "";
-            String attribut10 = seisme.getLongitude() != null ? Double.toString(seisme.getLongitude()) : "";
-            String attribut11 = seisme.getIntensite() != null ? Double.toString(seisme.getIntensite()) : "";
-            String attribut12 = seisme.getQualiteIntensiteEpicentre();
+        reloadData();
 
-            // Créez une instance de DonneesColonnes avec les attributs convertis
-            DonneesColonnes donnees = new DonneesColonnes(attribut1, attribut2, attribut3, attribut4, attribut5, attribut6, attribut7, attribut8, attribut9, attribut10, attribut11, attribut12);
-
-            // Ajout des données a la liste data
-            data.add(donnees);
-        }
-        // Affiche la première page
-        int totalPages = (int) Math.ceil((double) listeSeisme.size() / Nbligne);
-        showPage(1, totalPages);
-
-        // evenement bouton suivant,precedent,debut,fin
-        btnSuivant.setOnAction(event -> {
-            if (Pageactu < totalPages) {
-                showPage(Pageactu + 1, totalPages);
+        // Déclaration de l'event handler
+        EventHandler<ActionEvent> switchPage = actionEvent -> {
+            Button btn = (Button) actionEvent.getSource();
+            if (btn.getText().equals("Début")){
+                numPageActuelle.setValue(1);
             }
-        });
-
-        btnPrecedent.setOnAction(event -> {
-            if (Pageactu > 1) {
-                showPage(Pageactu - 1, totalPages);
+            else if (btn.getText().equals("Précédent")){
+                numPageActuelle.setValue(numPageActuelle.getValue() - 1);
             }
-        });
+            else if (btn.getText().equals("Suivant")){
+                numPageActuelle.setValue(numPageActuelle.getValue() + 1);
+            }
+            else if (btn.getText().equals("Fin")){
+                numPageActuelle.setValue(totalPages.getValue());
+            }
+            else {
+                // On considère que le label est forcément un nombre car toutes les valeurs
+                // de texte que peuvent avoir un bouton spécifique au changement de page ont déjà
+                // été vérifiées. C'est donc un numéro de page.
 
-        btnDebut.setOnAction(event -> {
-            showPage(1, totalPages);
-        });
+                numPageActuelle.setValue(Integer.valueOf(btn.getText()));
+            }
 
-        btnFin.setOnAction(event -> {
-            showPage(totalPages, totalPages);
-        });
+            // Mise à jour des données du tableau
+            reloadData();
+
+        };
+
+        // Evenements boutons de changement de page
+        btnSuivant.setOnAction(switchPage);
+        btnPrecedent.setOnAction(switchPage);
+        btnDebut.setOnAction(switchPage);
+        btnFin.setOnAction(switchPage);
+        btnNumPActu.setOnAction(switchPage);
+        btnNumPPred.setOnAction(switchPage);
+        btnNumPSuiv.setOnAction(switchPage);
+
     }
 
-    private void showPage(int page, int totalPages) {
-        // Met à jour la page actuelle
-        Pageactu = page;
-        PagePrecedent.setText(String.valueOf(page - 1));
-        Pageactuel.setText(String.valueOf(page));
-        TotalPages.setText(String.valueOf(totalPages));
-        PageSuivante.setText(String.valueOf(page + 1));
+    private void createBindings(){
+        // Binding pour les boutons vers Précédent
+        btnNumPPred.textProperty().bind(Bindings.concat("", Bindings.subtract(numPageActuelle, 1)));
+        btnNumPPred.visibleProperty().bind(Bindings.when(Bindings.lessThan(numPageActuelle, 2)).then(false).otherwise(true));
+        btnPrecedent.visibleProperty().bind(Bindings.when(Bindings.lessThan(numPageActuelle, 2)).then(false).otherwise(true));
+        // Binding pour les boutons vers Suivant
+        btnNumPSuiv.textProperty().bind(Bindings.concat("", Bindings.add(numPageActuelle, 1)));
+        btnNumPSuiv.visibleProperty().bind(Bindings.when(Bindings.equal(totalPages, numPageActuelle)).then(false).otherwise(true));
+        btnSuivant.visibleProperty().bind(Bindings.when(Bindings.equal(totalPages, numPageActuelle)).then(false).otherwise(true));
+        // Binding pour les boutons vers Actuel
+        btnNumPActu.textProperty().bind(Bindings.concat("", numPageActuelle));
 
-        int debut = (page - 1) * Nbligne;
-        int fin = Math.min(debut + Nbligne, listeSeisme.size());
+    }
 
-        // Efface le contenu de la liste pageData
-        List<DonneesColonnes> pageData = new ArrayList<>();
-
-        // Ajoute les nouvelles données à la liste pageData
-        for (int i = debut; i < fin; i++) {
-            Seisme seisme = listeSeisme.get(i);
-            String attribut1 = seisme.getId() != null ? Integer.toString(seisme.getId()) : "";
-            String attribut2 = seisme.getCalendar().getDateString();
-            String attribut3 = seisme.getCalendar().getTimeString();
-            String attribut4 = seisme.getNom();
-            String attribut5 = seisme.getRegion();
-            String attribut6 = seisme.getChoc();
-            String attribut7 = seisme.getxRGF93() != null ? Double.toString(seisme.getxRGF93()) : "";
-            String attribut8 = seisme.getyRGF93() != null ? Double.toString(seisme.getyRGF93()) : "";
-            String attribut9 = seisme.getLatitude() != null ? Double.toString(seisme.getLatitude()) : "";
-            String attribut10 = seisme.getLongitude() != null ? Double.toString(seisme.getLongitude()) : "";
-            String attribut11 = seisme.getIntensite() != null ? Double.toString(seisme.getIntensite()) : "";
-            String attribut12 = seisme.getQualiteIntensiteEpicentre();
-
-            DonneesColonnes donnees = new DonneesColonnes(attribut1, attribut2, attribut3, attribut4, attribut5, attribut6, attribut7, attribut8, attribut9, attribut10, attribut11, attribut12);
-            pageData.add(donnees);
+    private void reloadData(){
+        // On vide la liste des séismes de la page
+        listSeismesPage.clear();
+        int startIndex = (numPageActuelle.getValue() - 1) * COUNT_LINES;
+        // De l'index du séisme de début de page au l'index inférieur au plus petit entre : l'index du premier seisme de la page suivante ou la taille de listeSeismes
+        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, listeSeisme.size()); ++indexSeisme){
+            listSeismesPage.add(listeSeisme.get(indexSeisme));
         }
+        // Mise à jour dans tableView
+        tableView.getItems().setAll(listSeismesPage);
 
-        // Met à jour le TableView avec les données de la page
-        tableView.getItems().setAll(pageData);
-
-        // Gére l'état du bouton "Suivant"
-        btnSuivant.setDisable(page >= totalPages);
     }
 
 
