@@ -1,14 +1,18 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerSeisme {
+
     @FXML
     private TableView<DonneesColonnes> tableView;
 
@@ -48,6 +52,18 @@ public class ControllerSeisme {
     @FXML
     private TableColumn<DonneesColonnes, String> column12;
 
+    static boolean VerifBoxID;
+    static boolean VerifBoxDate;
+    static boolean VerifBoxHeure;
+    static boolean VerifBoxNom;
+    static boolean VerifBoxRegion;
+    static boolean VerifBoxChoc;
+    static boolean VerifBoxX;
+    static boolean VerifBoxY;
+    static boolean VerifBoxLatitude;
+    static boolean VerifBoxLongitude;
+    static boolean VerifBoxIntensite;
+    static boolean VerifBoxQualite;
 
 
     public void initialize() {
@@ -100,7 +116,56 @@ public class ControllerSeisme {
 
 
         tableView.getItems().addAll(data);
+
+
+
+//        TableColumn<DonneesColonnes, String> colonneASupprimer = (TableColumn<DonneesColonnes, String>) tableView.getColumns().get(1);
+//        tableView.getColumns().remove(colonneASupprimer);
+
     }
+
+
+    public void OuvreFiltrage() throws IOException {
+        Filtrage filtrage = new Filtrage();
+        filtrage.start(new Stage());
+
+    }
+
+
+    public static void filtrageAttribut(boolean idbox, boolean datebox, boolean heurebox, boolean nombox, boolean regionbox, boolean chocbox,
+                                        boolean xbox, boolean ybox, boolean latitudebox, boolean longitudebox, boolean intensitebox, boolean qualitebox) {
+  //        tableView.getColumns().get(0).setVisible(idbox);
+//        tableView.getColumns().get(1).setVisible(datebox);
+//        tableView.getColumns().get(2).setVisible(heurebox);
+//        tableView.getColumns().get(3).setVisible(nombox);
+//        tableView.getColumns().get(4).setVisible(regionbox);
+//        tableView.getColumns().get(5).setVisible(chocbox);
+//        tableView.getColumns().get(6).setVisible(xbox);
+//        tableView.getColumns().get(7).setVisible(ybox);
+//        tableView.getColumns().get(8).setVisible(latitudebox);
+//        tableView.getColumns().get(9).setVisible(longitudebox);
+//        tableView.getColumns().get(10).setVisible(intensitebox);
+//        tableView.getColumns().get(11).setVisible(qualitebox);
+
+        VerifBoxID = idbox;
+        VerifBoxDate = datebox;
+        VerifBoxHeure = heurebox;
+        VerifBoxNom = nombox;
+        VerifBoxRegion = regionbox;
+        VerifBoxChoc = chocbox;
+        VerifBoxX = xbox;
+        VerifBoxY = ybox;
+        VerifBoxLatitude = latitudebox;
+        VerifBoxLongitude = longitudebox;
+        VerifBoxIntensite = intensitebox;
+        VerifBoxQualite = qualitebox;
+
+
+    }
+
+
+
+
 
 
 }
