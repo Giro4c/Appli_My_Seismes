@@ -22,14 +22,39 @@ public class CustomSeismeMarkerLayer extends MapLayer {
      */
     public CustomSeismeMarkerLayer(ArrayList<Seisme> listeSeismes) {
 
-        for (int indexSeisme = 0; indexSeisme < listeSeismes.size(); ++indexSeisme){
-            // Declaration des points de map et marqueurs associé à un séisme
-            mapPoints.add(new MapPoint(listeSeismes.get(indexSeisme).getLatitude(), listeSeismes.get(indexSeisme).getLongitude()));
-            markersRectangle.add(new Rectangle(20, 20, Color.TRANSPARENT));
-            markersRectangle.get(indexSeisme).setStroke(Utilitaire.richterColor(listeSeismes.get(indexSeisme).getIntensite().doubleValue()));
-            markersRectangle.get(indexSeisme).setStrokeWidth(4);
-            // Ajout des marqueurs à la couche
-            this.getChildren().add(markersRectangle.get(indexSeisme));
+        double markerSize;
+        double strokeWidth;
+        if (listeSeismes.size() > 3000){
+            markerSize = 5;
+            strokeWidth = 1;
+        }
+        else if (listeSeismes.size() > 1500){
+            markerSize = 10;
+            strokeWidth = 2.5;
+        }
+        else{
+            markerSize = 20;
+            strokeWidth = 4;
+        }
+
+
+        for (Seisme seisme : listeSeismes){
+
+            if (seisme.getLatitude() != null && seisme.getLongitude() != null) {
+                // Declaration des points de map et marqueurs associés à un séisme
+                mapPoints.add(new MapPoint(seisme.getLatitude(), seisme.getLongitude()));
+                markersRectangle.add(new Rectangle(markerSize, markerSize, Color.TRANSPARENT));
+                markersRectangle.get(markersRectangle.size()-1).setStrokeWidth(strokeWidth);
+                if (seisme.getIntensite() != null) {
+                    markersRectangle.get(markersRectangle.size()-1).setStroke(Utilitaire.richterColor(seisme.getIntensite().doubleValue()));
+                }
+                else {
+                    markersRectangle.get(markersRectangle.size()).setStroke(Color.BLACK);
+                }
+
+                // Ajout des marqueurs à la couche
+                this.getChildren().add(markersRectangle.get(markersRectangle.size()-1));
+            }
         }
 
 //        this.mapPoint = mapPoint;

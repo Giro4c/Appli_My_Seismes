@@ -229,17 +229,21 @@ public class CalendarWithNulls {
             boolean hourSet = false;
             boolean minuteSet = false;
             boolean secondSet = false;
-            for (int indexValue = 0; indexValue < split.length - 1; indexValue = indexValue + 2) {
-                if (split[indexValue + 1].equals("h")) {
-                    setHeure(Integer.valueOf(split[indexValue]));
-                    hourSet = true;
-                } else if (split[indexValue + 1].equals("min")) {
-                    setMinute(Integer.valueOf(split[indexValue]));
-                    minuteSet = true;
-                } else if (split[indexValue + 1].equals("sec")) {
-                    setSeconde(Integer.valueOf(split[indexValue]));
-                    secondSet = true;
+            try {
+                for (int indexValue = 0; indexValue < split.length - 1; indexValue = indexValue + 2) {
+                    if (split[indexValue + 1].equals("h")) {
+                        setHeure(Integer.valueOf(split[indexValue]));
+                        hourSet = true;
+                    } else if (split[indexValue + 1].equals("min")) {
+                        setMinute(Integer.valueOf(split[indexValue]));
+                        minuteSet = true;
+                    } else if (split[indexValue + 1].equals("sec")) {
+                        setSeconde(Integer.valueOf(split[indexValue]));
+                        secondSet = true;
+                    }
                 }
+            } catch (Exception e){
+                System.out.println("Erreur sur la String time : " + time);
             }
             if (!hourSet) {
                 setHeure(null);

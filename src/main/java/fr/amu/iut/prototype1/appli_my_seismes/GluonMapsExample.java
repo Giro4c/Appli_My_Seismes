@@ -43,7 +43,7 @@ public class GluonMapsExample extends Application {
 
         // MapLayer mapLayer = new CustomPinLayer(mapPoint);
         //MapLayer mapLayer = new CustomSquareMarkerLayer(mapCenterPoint);
-        ArrayList<Seisme> listSeisme = CSVReader.StringArrayToSeismeArrayList(CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv"));
+        ArrayList<Seisme> listSeisme = CSVReader.StringArrayToSeismeArrayList(CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
         MapLayer mapLayer = new CustomSeismeMarkerLayer(listSeisme);
         mapView.addLayer(mapLayer);
 
