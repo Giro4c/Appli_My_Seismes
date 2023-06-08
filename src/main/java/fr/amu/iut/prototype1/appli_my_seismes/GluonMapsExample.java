@@ -1,5 +1,6 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import com.gluonhq.maps.MapLayer;
 import com.gluonhq.maps.MapPoint;
 import com.gluonhq.maps.MapView;
 
@@ -32,19 +33,21 @@ public class GluonMapsExample extends Application {
         MapView mapView = new MapView();
 
         /* Création du point avec latitude et longitude */
-        MapPoint mapPoint = new MapPoint(46.227638, 2.213749);
+        //MapPoint mapPoint = new MapPoint(46.227638, 2.213749);
+        MapPoint mapCenterPoint = new MapPoint(46.823600, 2.098766);
+        //46.446417, 2.801891
 
         /* Création et ajoute une couche à la carte */
 
         // MapLayer mapLayer = new CustomPinLayer(mapPoint);
-        // MapLayer mapLayer = new CustomCircleMarkerLayer(mapPoint);
-        // mapView.addLayer(mapLayer);
+        MapLayer mapLayer = new CustomSquareMarkerLayer(mapCenterPoint);
+        mapView.addLayer(mapLayer);
 
         /* Zoom de 5 */
-        mapView.setZoom(5);
+        mapView.setZoom(6);
 
         /* Centre la carte sur le point */
-        mapView.flyTo(0, mapPoint, 0.1);
+        mapView.flyTo(0, mapCenterPoint, 0.1);
 
         root.getChildren().add(mapView);
 
@@ -52,7 +55,7 @@ public class GluonMapsExample extends Application {
          * IMPORTANT mettre la taille de la fenêtre pour éviter l'erreur
          * java.lang.OutOfMemoryError
          */
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 640, 600);
 
         primaryStage.setScene(scene);
         primaryStage.show();
