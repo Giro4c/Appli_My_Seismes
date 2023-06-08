@@ -29,8 +29,8 @@ public class CustomSquareMarkerLayer extends MapLayer {
 
 
         /* Rectangle rouge de taille 30x30 */
-        this.rectangle = new Rectangle(30, 30);
-        this.rectangle.setStyle("-fx-fill: red; -fx-stroke: black; -fx-stroke-width: 5;");
+        this.rectangle = new Rectangle(30, 30, Color.TRANSPARENT);
+        this.rectangle.setStyle("-fx-stroke: black; -fx-stroke-width: 5;");
         /* Rectangle rouge de taille 30x30 */
         this.rectangle2 = new Rectangle(30, 30);
         this.rectangle2.setStyle("-fx-fill: green; -fx-stroke: black; -fx-stroke-width: 5;");
