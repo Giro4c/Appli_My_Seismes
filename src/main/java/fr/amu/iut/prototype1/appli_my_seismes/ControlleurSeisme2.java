@@ -1,5 +1,6 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -32,32 +33,34 @@ public class ControlleurSeisme2 {
     private Button btnFin;
 
     @FXML
-    private Label PagePrecedent;
+    private Button btnNumPPred;
 
     @FXML
-    private Label Pageactuel;
+    private Button btnNumPActu;
 
     @FXML
-    private Label TotalPages;
+    private Button btnNumPSuiv;
 
-    @FXML
-    private Label PageSuivante;
     private ObservableList<Seisme> listSeismesPage = FXCollections.observableArrayList();
-    private List<Seisme> listeSeisme;
+    // Lecture Du CSV choisi et conversion des lignes en objet Seisme
+    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
+            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
     private IntegerProperty numPageActuelle = new SimpleIntegerProperty(1);
     private final int COUNT_LINES = 15;
     private IntegerProperty totalPages;
 
-
-    private void testReorg(){
-
-
-    }
-
     public void initialize() {
 
-        System.out.println(tableView.getColumns().size());
-        System.out.println();
+        // Determination valeur du total de pages possible
+        if (listeSeisme != null) {
+            totalPages = new SimpleIntegerProperty(listeSeisme.size() / COUNT_LINES + 1);
+        }
+        else{
+            totalPages = new SimpleIntegerProperty(1);
+        }
+
+        // Création des bindings
+        createBindings();
 
         // Association des attributs de Seisme à des colonnes du tableau
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -73,22 +76,10 @@ public class ControlleurSeisme2 {
         tableView.getColumns().get(10).setCellValueFactory(new PropertyValueFactory<>("intensite"));
         tableView.getColumns().get(11).setCellValueFactory(new PropertyValueFactory<>("qualiteIntensiteEpicentre"));
 
-
-        // Lecture Du CSV choisi et conversion des lignes en objet Seisme
-        ArrayList<String> CSVString = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv");
-        listeSeisme = CSVReader.StringArrayToSeismeArrayList(CSVString);
-
-        // Determination valeur du total de pages
-        if (listeSeisme != null) {
-            totalPages = new SimpleIntegerProperty(listeSeisme.size() / COUNT_LINES + 1);
-        }
-        else{
-            totalPages = new SimpleIntegerProperty(1);
-        }
-
         // Remplissage du TableView avec la liste des Seismes
         reloadData();
 
+        // Déclaration de l'event handler
         EventHandler<ActionEvent> switchPage = actionEvent -> {
             Button btn = (Button) actionEvent.getSource();
             if (btn.getText().equals("Début")){
@@ -116,11 +107,28 @@ public class ControlleurSeisme2 {
 
         };
 
-        // evenement bouton suivant,precedent,debut,fin
+        // Evenements boutons de changement de page
         btnSuivant.setOnAction(switchPage);
         btnPrecedent.setOnAction(switchPage);
         btnDebut.setOnAction(switchPage);
         btnFin.setOnAction(switchPage);
+        btnNumPActu.setOnAction(switchPage);
+        btnNumPPred.setOnAction(switchPage);
+        btnNumPSuiv.setOnAction(switchPage);
+
+    }
+
+    private void createBindings(){
+        // Binding pour les boutons vers Précédent
+        btnNumPPred.textProperty().bind(Bindings.concat("", Bindings.subtract(numPageActuelle, 1)));
+        btnNumPPred.visibleProperty().bind(Bindings.when(Bindings.lessThan(numPageActuelle, 2)).then(false).otherwise(true));
+        btnPrecedent.visibleProperty().bind(Bindings.when(Bindings.lessThan(numPageActuelle, 2)).then(false).otherwise(true));
+        // Binding pour les boutons vers Suivant
+        btnNumPSuiv.textProperty().bind(Bindings.concat("", Bindings.add(numPageActuelle, 1)));
+        btnNumPSuiv.visibleProperty().bind(Bindings.when(Bindings.equal(totalPages, numPageActuelle)).then(false).otherwise(true));
+        btnSuivant.visibleProperty().bind(Bindings.when(Bindings.equal(totalPages, numPageActuelle)).then(false).otherwise(true));
+        // Binding pour les boutons vers Actuel
+        btnNumPActu.textProperty().bind(Bindings.concat("", numPageActuelle));
 
     }
 
