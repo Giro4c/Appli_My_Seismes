@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -12,6 +13,7 @@
             <Button alignment="CENTER_RIGHT" text="O" HBox.hgrow="NEVER" />
         </HBox>
 
+
     </top>
 
     <center>
@@ -19,9 +21,9 @@
             <TableView fx:id="tableView" BorderPane.alignment="CENTER">
                 <columns>
                     <TableColumn fx:id="column1" maxWidth="200" minWidth="200" prefWidth="200" text="ID" />
-                    <TableColumn fx:id="column2" maxWidth="200" minWidth="200" prefWidth="200" text="Date" />
-                    <TableColumn fx:id="column3" maxWidth="200" minWidth="200" prefWidth="200" text="Heure" />
-                    <TableColumn fx:id="column4" maxWidth="200" minWidth="200" prefWidth="200" text="Nom" />
+                    <TableColumn fx:id="column2" maxWidth="200" minWidth="80.00001525878906" prefWidth="131.00001525878906" text="Date" />
+                    <TableColumn fx:id="column3" maxWidth="319.9999084472656" minWidth="107.60000610351562" prefWidth="109.60000610351562" text="Heure" />
+                    <TableColumn fx:id="column4" maxWidth="293.99993896484375" minWidth="200" prefWidth="291.99993896484375" text="Nom" />
                     <TableColumn fx:id="column5" maxWidth="200" minWidth="200" prefWidth="200" text="Région épicentrale" />
                     <TableColumn fx:id="column6" maxWidth="200" minWidth="200" prefWidth="200" text="Choc" />
                     <TableColumn fx:id="column7" maxWidth="200" minWidth="200" prefWidth="200" text="X" />
@@ -41,8 +43,21 @@
         </VBox>
     </center>
     <bottom>
-        <HBox prefHeight="34.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+        <HBox prefHeight="45.0" prefWidth="300.0" BorderPane.alignment="CENTER" spacing="50" style="-fx-padding: 30px;" >
+            <Button fx:id="btnDebut" prefHeight="25" prefWidth="100" text="Début" />
+            <Button fx:id="btnPrecedent" prefHeight="25" prefWidth="100" text="Précédent">
+            </Button>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="PagePrecedent" />
+            <Label fx:id="Pageactuel" />
+            <Label fx:id="PageSuivante" />
+            <Label fx:id="TotalPages" />
+            <Region HBox.hgrow="ALWAYS"   />
+            <Button fx:id="btnSuivant" prefHeight="25" prefWidth="100" text="Suivant" HBox.hgrow="NEVER" />
+            <Button fx:id="btnFin" prefHeight="25" prefWidth="100" text="Fin" />
+        </HBox>
     </bottom>
+
 
 
 </BorderPane>
