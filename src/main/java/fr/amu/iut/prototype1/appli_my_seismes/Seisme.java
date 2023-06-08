@@ -26,10 +26,10 @@ public class Seisme {
 
     public static final int COUNT_ATTRIBUTE_LABELS = 12;
     public static final int DEFAULT_INVALID_ID = -1;
-    public static final double DEFAULT_INVALID_XRGF93 = -1;
-    public static final double DEFAULT_INVALID_YRGF93 = -1;
-    public static final double DEFAULT_INVALID_LATITUDE = -1;
-    public static final double DEFAULT_INVALID_LONGITUDE = -1;
+    public static final double DEFAULT_INVALID_XRGF93 = 1300001;
+    public static final double DEFAULT_INVALID_YRGF93 = 7200001;
+    public static final double DEFAULT_INVALID_LATITUDE = 361;
+    public static final double DEFAULT_INVALID_LONGITUDE = 361;
     public static final double DEFAULT_INVALID_INTENSITE = -1;
     private static ArrayList<String> initialListLabelsAttributs = new ArrayList<>();
 
