@@ -26,8 +26,8 @@ public class CustomSeismeMarkerLayer extends MapLayer {
             // Declaration des points de map et marqueurs associé à un séisme
             mapPoints.add(new MapPoint(listeSeismes.get(indexSeisme).getLatitude(), listeSeismes.get(indexSeisme).getLongitude()));
             markersRectangle.add(new Rectangle(20, 20, Color.TRANSPARENT));
-            markersRectangle.get(indexSeisme).setStroke(Color.RED);
-            markersRectangle.get(indexSeisme).setStrokeWidth(3);
+            markersRectangle.get(indexSeisme).setStroke(Utilitaire.richterColor(listeSeismes.get(indexSeisme).getIntensite().doubleValue()));
+            markersRectangle.get(indexSeisme).setStrokeWidth(4);
             // Ajout des marqueurs à la couche
             this.getChildren().add(markersRectangle.get(indexSeisme));
         }
