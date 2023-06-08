@@ -1,7 +1,11 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.spi.CalendarDataProvider;
 
 public class Test {
@@ -11,9 +15,13 @@ public class Test {
         //testEqualsInteger();
         //testStringSplitForTime();
         //testStringSplitForDate();
-        testCSVReader();
+        //testCSVReader();
         //testRemoveGuillemetsString();
+        testProperties();
+    }
 
+    private static void testProperties(){
+        IntegerProperty testIntProp;
     }
 
     private static void testRemoveGuillemetsString(){

@@ -78,9 +78,16 @@ public class ControlleurSeisme2 {
         ArrayList<String> CSVString = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv");
         listeSeisme = CSVReader.StringArrayToSeismeArrayList(CSVString);
 
+        // Determination valeur du total de pages
+        if (listeSeisme != null) {
+            totalPages = new SimpleIntegerProperty(listeSeisme.size() / COUNT_LINES + 1);
+        }
+        else{
+            totalPages = new SimpleIntegerProperty(1);
+        }
+
         // Remplissage du TableView avec la liste des Seismes
         reloadData();
-        tableView.getItems().setAll(listSeismesPage);
 
         EventHandler<ActionEvent> switchPage = actionEvent -> {
             Button btn = (Button) actionEvent.getSource();
@@ -93,7 +100,7 @@ public class ControlleurSeisme2 {
             else if (btn.getText().equals("Suivant")){
                 numPageActuelle.setValue(numPageActuelle.getValue() + 1);
             }
-            if (btn.getText().equals("Fin")){
+            else if (btn.getText().equals("Fin")){
                 numPageActuelle.setValue(totalPages.getValue());
             }
             else {
@@ -125,6 +132,8 @@ public class ControlleurSeisme2 {
         for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, listeSeisme.size()); ++indexSeisme){
             listSeismesPage.add(listeSeisme.get(indexSeisme));
         }
+        // Mise à jour dans tableView
+        tableView.getItems().setAll(listSeismesPage);
 
     }
 

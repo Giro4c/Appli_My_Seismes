@@ -25,6 +25,12 @@ import java.util.ArrayList;
 public class Seisme {
 
     public static final int COUNT_ATTRIBUTE_LABELS = 12;
+    public static final int DEFAULT_INVALID_ID = -1;
+    public static final double DEFAULT_INVALID_XRGF93 = -1;
+    public static final double DEFAULT_INVALID_YRGF93 = -1;
+    public static final double DEFAULT_INVALID_LATITUDE = -1;
+    public static final double DEFAULT_INVALID_LONGITUDE = -1;
+    public static final double DEFAULT_INVALID_INTENSITE = -1;
     private static ArrayList<String> initialListLabelsAttributs = new ArrayList<>();
 
 
@@ -49,18 +55,50 @@ public class Seisme {
         super();
         this.calendar = new CalendarWithNulls(date, heure);
         // Ces valeurs sont toutes observables mais constantes
-        this.id = new SimpleIntegerProperty(id);
         this.nom = new SimpleStringProperty(nom);
         this.region = new SimpleStringProperty(region);
         this.choc = new SimpleStringProperty(choc);
-        this.xRGF93 = new SimpleDoubleProperty(xRGF93);
-        this.yRGF93 = new SimpleDoubleProperty(yRGF93);
-        this.latitude = new SimpleDoubleProperty(latitude);
-        this.longitude = new SimpleDoubleProperty(longitude);
-        this.intensite = new SimpleDoubleProperty(intensite);
         this.qualiteIntensiteEpicentre = new SimpleStringProperty(qualiteIntensiteEpicentre);
         this.date = new SimpleStringProperty(calendar.getDateString());
         this.heure = new SimpleStringProperty(calendar.getTimeString());
+
+        // Pour éviter NullPointerExeption :
+        if (id == null){
+            this.id = new SimpleIntegerProperty(DEFAULT_INVALID_ID);
+        }
+        else {
+            this.id = new SimpleIntegerProperty(id);
+        }
+        if (xRGF93 == null){
+            this.xRGF93 = new SimpleDoubleProperty(DEFAULT_INVALID_XRGF93);
+        }
+        else {
+            this.xRGF93 = new SimpleDoubleProperty(xRGF93);
+        }
+        if (yRGF93 == null){
+            this.yRGF93 = new SimpleDoubleProperty(DEFAULT_INVALID_YRGF93);
+        }
+        else {
+            this.yRGF93 = new SimpleDoubleProperty(yRGF93);
+        }
+        if (latitude == null){
+            this.latitude = new SimpleDoubleProperty(DEFAULT_INVALID_LATITUDE);
+        }
+        else {
+            this.latitude = new SimpleDoubleProperty(latitude);
+        }
+        if (longitude == null){
+            this.longitude = new SimpleDoubleProperty(DEFAULT_INVALID_LONGITUDE);
+        }
+        else {
+            this.longitude = new SimpleDoubleProperty(longitude);
+        }
+        if (intensite == null){
+            this.intensite = new SimpleDoubleProperty(DEFAULT_INVALID_INTENSITE);
+        }
+        else {
+            this.intensite = new SimpleDoubleProperty(intensite);
+        }
 
     }
 

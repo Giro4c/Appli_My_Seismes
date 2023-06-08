@@ -14,7 +14,7 @@ public class AfficheurDonnees2 extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AfficheurDonnees.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AfficheurDonnees2.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Données Sismique");
