@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class GluonMapsExample extends Application {
 
     public static void main(String[] args) {
@@ -40,7 +42,9 @@ public class GluonMapsExample extends Application {
         /* Création et ajoute une couche à la carte */
 
         // MapLayer mapLayer = new CustomPinLayer(mapPoint);
-        MapLayer mapLayer = new CustomSquareMarkerLayer(mapCenterPoint);
+        //MapLayer mapLayer = new CustomSquareMarkerLayer(mapCenterPoint);
+        ArrayList<Seisme> listSeisme = CSVReader.StringArrayToSeismeArrayList(CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv"));
+        MapLayer mapLayer = new CustomSeismeMarkerLayer(listSeisme);
         mapView.addLayer(mapLayer);
 
         /* Zoom de 5 */
