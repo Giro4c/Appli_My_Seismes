@@ -1,11 +1,7 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Properties;
 import java.util.spi.CalendarDataProvider;
 
 public class Test {
@@ -16,31 +12,11 @@ public class Test {
         //testStringSplitForTime();
         //testStringSplitForDate();
         //testCSVReader();
-        //testRemoveGuillemetsString();
-        testProperties();
-    }
 
-    private static void testProperties(){
-        IntegerProperty testIntProp;
-    }
-
-    private static void testRemoveGuillemetsString(){
-        System.out.println("Test d'enlever les guillements dans une String");
-        String strTest = "\"6 h\"";
-        System.out.println("String initiale : " + strTest);
-        strTest = strTest.replaceAll("\"", "");
-        System.out.println("String après : " + strTest);
-        //System.out.println("Premier caractere après : " + strTest.charAt(0));
-
-        // Remplace modif dans CalendarWithNulls par modif dans CSVReader
-        /* CalendarWithNulls calendarWithNulls = new CalendarWithNulls(2,2,2,2,2,2);
-        System.out.println("Avant setTime : " + calendarWithNulls.getTimeString());
-        calendarWithNulls.setTime("\"6 h\"");
-        System.out.println("Après setTime : " + calendarWithNulls.getTimeString());*/
     }
 
     private static void testCSVReader(){
-        ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv");
+        ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv");
 
 //        for (String str : testCSV){
 //            System.out.println(str);

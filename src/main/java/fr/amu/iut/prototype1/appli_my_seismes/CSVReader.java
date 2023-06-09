@@ -16,7 +16,7 @@ public class CSVReader {
             BufferedReader csvReader = new BufferedReader(new FileReader(csvFileName));
             String line = csvReader.readLine();
             while (line != null){
-                listDonnees.add(line);
+                listDonnees.add(line.replaceAll("\"", ""));
                 line = csvReader.readLine();
             }
             csvReader.close();

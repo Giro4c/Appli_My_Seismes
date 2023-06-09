@@ -54,7 +54,27 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>              </dependencies>
+    </dependency>
+    <dependency>
+      <groupId>com.gluonhq.attach</groupId>
+      <artifactId>storage</artifactId>
+      <version>4.0.11</version>
+      <scope>runtime</scope>
+      <classifier>desktop</classifier>
+    </dependency>
+    <dependency>
+      <groupId>com.gluonhq</groupId>
+      <artifactId>maps</artifactId>
+      <version>2.0.0-ea+1</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>gluon-nexus-repository</id>
+      <url>http://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+    </repository>
+  </repositories>
 
   <build>
         <plugins>
