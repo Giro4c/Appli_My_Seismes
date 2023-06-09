@@ -1,5 +1,7 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
-public class Widget {
+import javafx.scene.layout.Pane;
+
+public class Widget extends Pane {
 
 }
