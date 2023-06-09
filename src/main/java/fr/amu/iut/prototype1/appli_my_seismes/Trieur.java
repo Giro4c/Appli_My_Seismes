@@ -16,7 +16,7 @@ public class Trieur extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AfficheurDonnees.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Trieur.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Paramètres de filtrage");
