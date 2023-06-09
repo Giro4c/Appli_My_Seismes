@@ -1,15 +1,27 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javafx.application.Application.launch;
 
 public class ControllerSeisme {
 
@@ -52,18 +64,16 @@ public class ControllerSeisme {
     @FXML
     private TableColumn<DonneesColonnes, String> column12;
 
-    static boolean VerifBoxID;
-    static boolean VerifBoxDate;
-    static boolean VerifBoxHeure;
-    static boolean VerifBoxNom;
-    static boolean VerifBoxRegion;
-    static boolean VerifBoxChoc;
-    static boolean VerifBoxX;
-    static boolean VerifBoxY;
-    static boolean VerifBoxLatitude;
-    static boolean VerifBoxLongitude;
-    static boolean VerifBoxIntensite;
-    static boolean VerifBoxQualite;
+    @FXML
+    private Button boutonfiltre;
+
+    private ControllerFiltrage controllerFiltrage;
+
+
+    public void setControllerFiltrage(ControllerFiltrage controller) {
+        this.controllerFiltrage = controller;
+    }
+
 
 
     public void initialize() {
@@ -119,47 +129,89 @@ public class ControllerSeisme {
 
 
 
+
+//        tableView.getColumns().get(5).setVisible(false);
+
 //        TableColumn<DonneesColonnes, String> colonneASupprimer = (TableColumn<DonneesColonnes, String>) tableView.getColumns().get(1);
 //        tableView.getColumns().remove(colonneASupprimer);
 
     }
 
 
-    public void OuvreFiltrage() throws IOException {
-        Filtrage filtrage = new Filtrage();
-        filtrage.start(new Stage());
+//    public void OuvreFiltrage() throws IOException {
+//        Filtrage filtrage = new Filtrage();
+//        filtrage.start(new Stage());
+//
+//    }
 
+    @FXML
+    private void OuvreFiltrage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Filtrage.fxml"));
+        Parent root = loader.load();
+
+        ControllerFiltrage controllerFiltrage = loader.getController();
+        controllerFiltrage.setControllerSeisme(this);
+        controllerFiltrage.initCheckBox(tableView.getColumns().get(0).isVisible(), tableView.getColumns().get(1).isVisible(), tableView.getColumns().get(2).isVisible(),
+                tableView.getColumns().get(3).isVisible(), tableView.getColumns().get(4).isVisible(), tableView.getColumns().get(5).isVisible(), tableView.getColumns().get(6).isVisible(),
+                tableView.getColumns().get(7).isVisible(), tableView.getColumns().get(8).isVisible(), tableView.getColumns().get(9).isVisible(), tableView.getColumns().get(10).isVisible(),
+                tableView.getColumns().get(11).isVisible());
+
+
+        Stage stage = new Stage();
+        stage.setTitle("Filtrage");
+        stage.setScene(new Scene(root));
+
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+        stage.show();
     }
 
-
-    public static void filtrageAttribut(boolean idbox, boolean datebox, boolean heurebox, boolean nombox, boolean regionbox, boolean chocbox,
+    public void AppliquerFiltrage(boolean idbox, boolean datebox, boolean heurebox, boolean nombox, boolean regionbox, boolean chocbox,
                                         boolean xbox, boolean ybox, boolean latitudebox, boolean longitudebox, boolean intensitebox, boolean qualitebox) {
-  //        tableView.getColumns().get(0).setVisible(idbox);
-//        tableView.getColumns().get(1).setVisible(datebox);
-//        tableView.getColumns().get(2).setVisible(heurebox);
-//        tableView.getColumns().get(3).setVisible(nombox);
-//        tableView.getColumns().get(4).setVisible(regionbox);
-//        tableView.getColumns().get(5).setVisible(chocbox);
-//        tableView.getColumns().get(6).setVisible(xbox);
-//        tableView.getColumns().get(7).setVisible(ybox);
-//        tableView.getColumns().get(8).setVisible(latitudebox);
-//        tableView.getColumns().get(9).setVisible(longitudebox);
-//        tableView.getColumns().get(10).setVisible(intensitebox);
-//        tableView.getColumns().get(11).setVisible(qualitebox);
 
-        VerifBoxID = idbox;
-        VerifBoxDate = datebox;
-        VerifBoxHeure = heurebox;
-        VerifBoxNom = nombox;
-        VerifBoxRegion = regionbox;
-        VerifBoxChoc = chocbox;
-        VerifBoxX = xbox;
-        VerifBoxY = ybox;
-        VerifBoxLatitude = latitudebox;
-        VerifBoxLongitude = longitudebox;
-        VerifBoxIntensite = intensitebox;
-        VerifBoxQualite = qualitebox;
+        tableView.getColumns().get(0).setVisible(idbox);
+        tableView.getColumns().get(1).setVisible(datebox);
+        tableView.getColumns().get(2).setVisible(heurebox);
+        tableView.getColumns().get(3).setVisible(nombox);
+        tableView.getColumns().get(4).setVisible(regionbox);
+        tableView.getColumns().get(5).setVisible(chocbox);
+        tableView.getColumns().get(6).setVisible(xbox);
+        tableView.getColumns().get(7).setVisible(ybox);
+        tableView.getColumns().get(8).setVisible(latitudebox);
+        tableView.getColumns().get(9).setVisible(longitudebox);
+        tableView.getColumns().get(10).setVisible(intensitebox);
+        tableView.getColumns().get(11).setVisible(qualitebox);
 
+
+
+//        VerifBoxID = idbox;
+//        VerifBoxDate = datebox;
+//        VerifBoxHeure = heurebox;
+//        VerifBoxNom = nombox;
+//        VerifBoxRegion = regionbox;
+//        VerifBoxChoc = chocbox;
+//        VerifBoxX = xbox;
+//        VerifBoxY = ybox;
+//        VerifBoxLatitude = latitudebox;
+//        VerifBoxLongitude = longitudebox;
+//        VerifBoxIntensite = intensitebox;
+//        VerifBoxQualite = qualitebox;
+
+
+    }
+    public void updateCheckBox(boolean[] etats) {
+        tableView.getColumns().get(0).setVisible(etats[0]);
+        tableView.getColumns().get(1).setVisible(etats[1]);
+        tableView.getColumns().get(2).setVisible(etats[2]);
+        tableView.getColumns().get(3).setVisible(etats[3]);
+        tableView.getColumns().get(4).setVisible(etats[4]);
+        tableView.getColumns().get(5).setVisible(etats[5]);
+        tableView.getColumns().get(6).setVisible(etats[6]);
+        tableView.getColumns().get(7).setVisible(etats[7]);
+        tableView.getColumns().get(8).setVisible(etats[8]);
+        tableView.getColumns().get(9).setVisible(etats[9]);
+        tableView.getColumns().get(10).setVisible(etats[10]);
+        tableView.getColumns().get(11).setVisible(etats[11]);
 
     }
 

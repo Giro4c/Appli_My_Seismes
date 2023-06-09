@@ -59,7 +59,7 @@
 
                 <HBox alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="340.0">
 
-                    <Button fx:id="appliquer" text="Appliquer"  />
+                    <Button fx:id="appliquer" text="Appliquer" onAction="#AppliqueFiltrage" />
 
                 </HBox>
 
