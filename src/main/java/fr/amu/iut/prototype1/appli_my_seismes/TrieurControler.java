@@ -155,7 +155,7 @@ public class TrieurControler extends VBox {
         // Attribution de l'event de mise à jour de la liste de séismes triée par application de filtres
         btnAppliqueFiltres.setOnAction(actionEvent -> {
             ArrayList<Seisme> newSeismeList = new ArrayList<>();
-            for (Seisme seisme : ControllerSeisme.getInitialListeSeismes()){
+            for (Seisme seisme : MainControler.getInitialListeSeismes()){
                 if (checkID.isSelected() && !idFilter.matchFilter(seisme.getId())) continue;
                 if (checkDate.isSelected() && !calendarFilter.matchDateFilter(seisme.getCalendar().getDateString())) continue;
                 if (checkHeure.isSelected() && !calendarFilter.matchTimeFilter(seisme.getCalendar().getTimeString())) continue;
@@ -168,7 +168,7 @@ public class TrieurControler extends VBox {
                 if (checkQualiIntenEpi.isSelected() && !qualiInteEpiFilter.matchFilter(seisme.getQualiteIntensiteEpicentre())) continue;
                 newSeismeList.add(seisme);
             }
-            ControllerSeisme.getListeSeismesTries().setAll(newSeismeList);
+            MainControler.getListeSeismesTries().setAll(newSeismeList);
         });
 
     }

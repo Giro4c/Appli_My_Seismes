@@ -39,7 +39,7 @@ public class Carte extends Application {
 
         /* Création et ajoute une couche à la carte */
         ArrayList<Seisme> listSeisme = CSVReader.StringArrayToSeismeArrayList(CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
-        MapLayer mapLayer = new CustomSeismeMarkerLayer(listSeisme);
+        MapLayer mapLayer = new CustomSeismeMarkerLayer(MainControler.getListeSeismesTries());
         mapView.addLayer(mapLayer);
 
         /* Zoom de 5 */

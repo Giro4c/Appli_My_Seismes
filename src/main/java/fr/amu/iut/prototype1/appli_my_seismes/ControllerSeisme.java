@@ -59,26 +59,15 @@ public class ControllerSeisme {
 
     // Attributs pouvant être affectés par d'autres fenetres
     private static ArrayList<BooleanProperty> showColumn = new ArrayList<>();
-    // Lecture Du CSV choisi et conversion des lignes en objet Seisme
-    private final static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
-            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
-    private static ObservableList<Seisme> listeSeismesTries;
+
 
     public static ArrayList<BooleanProperty> getShowColumn() {
         return showColumn;
     }
-    public static ArrayList<Seisme> getInitialListeSeismes() {
-        return initialListeSeismes;
-    }
-    public static ObservableList<Seisme> getListeSeismesTries() {
-        return listeSeismesTries;
-    }
+
 
     @FXML
     public void initialize() {
-
-        // Initialisation liste variable de séismes
-        listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
 
         // Determination valeur du total de pages possible
         refreshPagesNumber();
@@ -131,7 +120,7 @@ public class ControllerSeisme {
             change.next();
             refreshAllDatas();
         };
-        listeSeismesTries.addListener(listeTriesChangeListener);
+        MainControler.getListeSeismesTries().addListener(listeTriesChangeListener);
 
     }
 
@@ -192,8 +181,8 @@ public class ControllerSeisme {
         listSeismesPage.clear();
         int startIndex = (numPageActuelle.getValue() - 1) * COUNT_LINES;
         // De l'index du séisme de début de page au l'index inférieur au plus petit entre : l'index du premier seisme de la page suivante ou la taille de listeSeismes
-        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, listeSeismesTries.size()); ++indexSeisme){
-            listSeismesPage.add(listeSeismesTries.get(indexSeisme));
+        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, MainControler.getListeSeismesTries().size()); ++indexSeisme){
+            listSeismesPage.add(MainControler.getListeSeismesTries().get(indexSeisme));
         }
         // Mise à jour dans tableView
         tableView.getItems().setAll(listSeismesPage);
@@ -262,8 +251,8 @@ public class ControllerSeisme {
      */
     private void refreshPagesNumber(){
         numPageActuelle.setValue(1);
-        if (listeSeismesTries != null) {
-            totalPages.setValue(listeSeismesTries.size() / COUNT_LINES + 1);
+        if (MainControler.getListeSeismesTries() != null) {
+            totalPages.setValue(MainControler.getListeSeismesTries().size() / COUNT_LINES + 1);
         }
         else{
             totalPages.setValue(1);
