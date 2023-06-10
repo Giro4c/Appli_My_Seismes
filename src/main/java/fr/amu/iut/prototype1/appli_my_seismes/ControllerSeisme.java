@@ -1,7 +1,7 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,10 +11,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ControllerSeisme {
@@ -44,18 +48,25 @@ public class ControllerSeisme {
 
     private ObservableList<Seisme> listSeismesPage = FXCollections.observableArrayList();
     // Lecture Du CSV choisi et conversion des lignes en objet Seisme
-    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
+    private static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
             CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
     private IntegerProperty numPageActuelle = new SimpleIntegerProperty(1);
     private final int COUNT_LINES = 15;
     private IntegerProperty totalPages;
-    private ArrayList<ObservableValue<Boolean>> showColumn = new ArrayList<>();
+    // Attributs pouvant être affectés par d'autres fenetres
+    private static ArrayList<BooleanProperty> showColumn = new ArrayList<>();
 
+    public static ArrayList<BooleanProperty> getShowColumn() {
+        return showColumn;
+    }
+
+
+    @FXML
     public void initialize() {
 
         // Determination valeur du total de pages possible
-        if (listeSeisme != null) {
-            totalPages = new SimpleIntegerProperty(listeSeisme.size() / COUNT_LINES + 1);
+        if (initialListeSeismes != null) {
+            totalPages = new SimpleIntegerProperty(initialListeSeismes.size() / COUNT_LINES + 1);
         }
         else{
             totalPages = new SimpleIntegerProperty(1);
@@ -153,8 +164,8 @@ public class ControllerSeisme {
         listSeismesPage.clear();
         int startIndex = (numPageActuelle.getValue() - 1) * COUNT_LINES;
         // De l'index du séisme de début de page au l'index inférieur au plus petit entre : l'index du premier seisme de la page suivante ou la taille de listeSeismes
-        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, listeSeisme.size()); ++indexSeisme){
-            listSeismesPage.add(listeSeisme.get(indexSeisme));
+        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, initialListeSeismes.size()); ++indexSeisme){
+            listSeismesPage.add(initialListeSeismes.get(indexSeisme));
         }
         // Mise à jour dans tableView
         tableView.getItems().setAll(listSeismesPage);
@@ -185,6 +196,15 @@ public class ControllerSeisme {
         showColumn.add(new SimpleBooleanProperty(true));
         // Qualité intensité épicentre
         showColumn.add(new SimpleBooleanProperty(true));
+    }
+
+    @FXML
+    public void openParamsAffichage() throws IOException {
+        FXMLLoader fxmlloaderFiltreAffich = new FXMLLoader(Filtrage.class.getResource("Filtrage.fxml"));
+        Stage stageFiltreAffiche = new Stage();
+        stageFiltreAffiche.setTitle("Paramètres d'affichage");
+        stageFiltreAffiche.setScene(new Scene(fxmlloaderFiltreAffich.load()));
+        stageFiltreAffiche.show();
     }
 
 

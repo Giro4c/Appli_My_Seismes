@@ -20,7 +20,7 @@
             </font>
          </Button>
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnWindowAffichage" alignment="CENTER" prefHeight="58.0" prefWidth="196.0" text="Affichage" HBox.hgrow="NEVER">
+            <Button fx:id="btnWindowAffichage" alignment="CENTER" onAction="#openParamsAffichage" prefHeight="58.0" prefWidth="196.0" text="Affichage" HBox.hgrow="NEVER">
             <font>
                <Font name="Arial Bold" size="31.0" />
             </font></Button>

@@ -15,31 +15,31 @@ public class ControllerFiltrage {
 
 
     @FXML
-    private CheckBox id;
+    private CheckBox checkID;
     @FXML
-    private CheckBox date;
+    private CheckBox checkDate;
     @FXML
-    private CheckBox heure;
+    private CheckBox checkHeure;
     @FXML
-    private CheckBox nom;
+    private CheckBox checkNom;
     @FXML
-    private CheckBox region;
+    private CheckBox checkRegion;
     @FXML
-    private CheckBox choc;
+    private CheckBox checkChoc;
     @FXML
-    private CheckBox X;
+    private CheckBox checkX;
     @FXML
-    private CheckBox Y;
+    private CheckBox checkY;
     @FXML
-    private CheckBox Latitude;
+    private CheckBox checkLatitude;
     @FXML
-    private CheckBox Longitude;
+    private CheckBox checkLongitude;
     @FXML
-    private CheckBox Intensité;
+    private CheckBox checkIntensite;
     @FXML
-    private CheckBox qualite;
+    private CheckBox checkQuali;
     @FXML
-    private Button appliquer;
+    private Button btnAppliqueFiltre;
 
 
     @FXML
@@ -48,26 +48,30 @@ public class ControllerFiltrage {
     }
 
 
+    @FXML
     public void EnvoiFiltre () {
-
+        boolean[] newShowColumn = FiltreTab();
+        for (int indexColumn = 0; indexColumn < newShowColumn.length; ++indexColumn){
+            ControllerSeisme.getShowColumn().get(indexColumn).setValue(newShowColumn[indexColumn]);
+        }
     }
 
     public boolean[] FiltreTab() {
         // Récupérer l'état de chaque case à cocher
         // et Stocker les booléens dans un tableau
         boolean[] listFiltreBool = {
-                id.isSelected(),            // 0
-                date.isSelected(),          // 1
-                heure.isSelected(),         // 2
-                nom.isSelected(),           // 3
-                region.isSelected(),        // 4
-                choc.isSelected(),          // 5
-                X.isSelected(),             // 6
-                Y.isSelected(),             // 7
-                Latitude.isSelected(),      // 8
-                Longitude.isSelected(),     // 9
-                Intensité.isSelected(),     // 10
-                qualite.isSelected()        // 11
+                checkID.isSelected(),            // 0
+                checkDate.isSelected(),          // 1
+                checkHeure.isSelected(),         // 2
+                checkNom.isSelected(),           // 3
+                checkRegion.isSelected(),        // 4
+                checkChoc.isSelected(),          // 5
+                checkX.isSelected(),             // 6
+                checkY.isSelected(),             // 7
+                checkLatitude.isSelected(),      // 8
+                checkLongitude.isSelected(),     // 9
+                checkIntensite.isSelected(),     // 10
+                checkQuali.isSelected()        // 11
         };
 
         return listFiltreBool;
