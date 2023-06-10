@@ -5,8 +5,10 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +23,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Le controleur de la fenetre d'affichage des informations brutes sur une liste de séismes.
+ */
 public class ControllerSeisme {
     @FXML
     private TableView<Seisme> tableView;
@@ -47,36 +52,42 @@ public class ControllerSeisme {
     private Button btnNumPSuiv;
 
     private ObservableList<Seisme> listSeismesPage = FXCollections.observableArrayList();
-    // Lecture Du CSV choisi et conversion des lignes en objet Seisme
-    private static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
-            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
     private IntegerProperty numPageActuelle = new SimpleIntegerProperty(1);
     private final int COUNT_LINES = 15;
-    private IntegerProperty totalPages;
+    private IntegerProperty totalPages = new SimpleIntegerProperty();
+
+
     // Attributs pouvant être affectés par d'autres fenetres
     private static ArrayList<BooleanProperty> showColumn = new ArrayList<>();
+    // Lecture Du CSV choisi et conversion des lignes en objet Seisme
+    private final static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
+            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+    private static ObservableList<Seisme> listeSeismesTries;
 
     public static ArrayList<BooleanProperty> getShowColumn() {
         return showColumn;
     }
-
+    public static ArrayList<Seisme> getInitialListeSeismes() {
+        return initialListeSeismes;
+    }
+    public static ObservableList<Seisme> getListeSeismesTries() {
+        return listeSeismesTries;
+    }
 
     @FXML
     public void initialize() {
 
+        // Initialisation liste variable de séismes
+        listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
+
         // Determination valeur du total de pages possible
-        if (initialListeSeismes != null) {
-            totalPages = new SimpleIntegerProperty(initialListeSeismes.size() / COUNT_LINES + 1);
-        }
-        else{
-            totalPages = new SimpleIntegerProperty(1);
-        }
+        refreshPagesNumber();
+
+        // Paramétrage de Table View
+        setUpTable();
 
         // Création des bindings
         createBindings();
-
-        // Paramètrage de Table View
-        setUpTable();
 
         // Déclaration de l'event handler
         EventHandler<ActionEvent> switchPage = actionEvent -> {
@@ -115,8 +126,18 @@ public class ControllerSeisme {
         btnNumPPred.setOnAction(switchPage);
         btnNumPSuiv.setOnAction(switchPage);
 
+        // Ajout change listener sur listeSeismesTries pour mettre à jour le tableau lors d'un changement
+        ListChangeListener<Seisme> listeTriesChangeListener = change -> {
+            change.next();
+            refreshAllDatas();
+        };
+        listeSeismesTries.addListener(listeTriesChangeListener);
+
     }
 
+    /**
+     * Crée tous les bindings avec les éléments graphiques et autres qui ne sont pas créés dans d'autres méthodes.
+     */
     private void createBindings(){
         // Binding pour les boutons vers Précédent
         btnNumPPred.textProperty().bind(Bindings.concat("", Bindings.subtract(numPageActuelle, 1)));
@@ -131,6 +152,10 @@ public class ControllerSeisme {
 
     }
 
+    /**
+     * Initialise les paramètres de TableView. Cela inclue l'association des attributs de Seisme aux colonnes du tableau,
+     * le remplissage de TableView, l'initialisation de showColumn et le binding sur les propriétés Visible des colonnes.
+     */
     private void setUpTable(){
         // Association des attributs de Seisme à des colonnes du tableau
         tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("stringID"));
@@ -159,18 +184,25 @@ public class ControllerSeisme {
 
     }
 
+    /**
+     * Recharge les données du tableau en fonction de la page actuelle.
+     */
     private void reloadData(){
         // On vide la liste des séismes de la page
         listSeismesPage.clear();
         int startIndex = (numPageActuelle.getValue() - 1) * COUNT_LINES;
         // De l'index du séisme de début de page au l'index inférieur au plus petit entre : l'index du premier seisme de la page suivante ou la taille de listeSeismes
-        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, initialListeSeismes.size()); ++indexSeisme){
-            listSeismesPage.add(initialListeSeismes.get(indexSeisme));
+        for (int indexSeisme = startIndex; indexSeisme < Math.min(startIndex + COUNT_LINES, listeSeismesTries.size()); ++indexSeisme){
+            listSeismesPage.add(listeSeismesTries.get(indexSeisme));
         }
         // Mise à jour dans tableView
         tableView.getItems().setAll(listSeismesPage);
     }
 
+    /**
+     * Initialise la liste des booléens correspondant aux valeurs Visible des colonnes de TableView.
+     * Le filtre d'affichage de départ contient : ID, Date, Heure, Région, Intensité et Qualité de l'intensité à l'épicentre
+     */
     private void setUpShowColumn(){
         // ID
         showColumn.add(new SimpleBooleanProperty(true));
@@ -198,6 +230,10 @@ public class ControllerSeisme {
         showColumn.add(new SimpleBooleanProperty(true));
     }
 
+    /**
+     * Ouvre la fenetre des filtres d'affichage.
+     * @throws IOException
+     */
     @FXML
     public void openParamsAffichage() throws IOException {
         FXMLLoader fxmlloaderFiltreAffich = new FXMLLoader(Filtrage.class.getResource("Filtrage.fxml"));
@@ -207,5 +243,39 @@ public class ControllerSeisme {
         stageFiltreAffiche.show();
     }
 
+    /**
+     * Ouvre la fenetre des filtres de tri.
+     * @throws IOException
+     */
+    @FXML
+    public void openParamsTri() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Trieur.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage statgeFiltreTri = new Stage();
+        statgeFiltreTri.setTitle("Paramètres de filtrage");
+        statgeFiltreTri.setScene(scene);
+        statgeFiltreTri.show();
+    }
+
+    /**
+     * Recalcule le nombre total de page et reset la page actuelle à 1.
+     */
+    private void refreshPagesNumber(){
+        numPageActuelle.setValue(1);
+        if (listeSeismesTries != null) {
+            totalPages.setValue(listeSeismesTries.size() / COUNT_LINES + 1);
+        }
+        else{
+            totalPages.setValue(1);
+        }
+    }
+
+    /**
+     * Recalcule le nombre de page totale et actualise les données contenues dans TableView.
+     */
+    private void refreshAllDatas(){
+        refreshPagesNumber();
+        reloadData();
+    }
 
 }

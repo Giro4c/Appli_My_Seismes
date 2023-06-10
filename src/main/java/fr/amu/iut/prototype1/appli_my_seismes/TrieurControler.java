@@ -11,6 +11,9 @@ import javafx.scene.layout.VBox;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Le controleur de la fenetre de paramétrage des filtres de tri d'une liste de séisme.
+ */
 public class TrieurControler extends VBox {
 
     private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
@@ -131,6 +134,7 @@ public class TrieurControler extends VBox {
     private Button btnAppliqueFiltres;
 
 
+    @FXML
     public void initialize(){
         // Réglage paramètres des spinners
         setUpSpinners();
@@ -150,8 +154,8 @@ public class TrieurControler extends VBox {
 
         // Attribution de l'event de mise à jour de la liste de séismes triée par application de filtres
         btnAppliqueFiltres.setOnAction(actionEvent -> {
-            listeSeismesTrie.clear();
-            for (Seisme seisme : listeSeismesTrie){
+            ArrayList<Seisme> newSeismeList = new ArrayList<>();
+            for (Seisme seisme : ControllerSeisme.getInitialListeSeismes()){
                 if (checkID.isSelected() && !idFilter.matchFilter(seisme.getId())) continue;
                 if (checkDate.isSelected() && !calendarFilter.matchDateFilter(seisme.getCalendar().getDateString())) continue;
                 if (checkHeure.isSelected() && !calendarFilter.matchTimeFilter(seisme.getCalendar().getTimeString())) continue;
@@ -162,8 +166,9 @@ public class TrieurControler extends VBox {
                 if (checkIntensite.isSelected() && !intensiteFilter.matchFilter(seisme.getIntensite())) continue;
                 if (checkChoc.isSelected() && !chocFilter.matchFilter(seisme.getChoc())) continue;
                 if (checkQualiIntenEpi.isSelected() && !qualiInteEpiFilter.matchFilter(seisme.getQualiteIntensiteEpicentre())) continue;
-                listeSeismesTrie.add(seisme);
+                newSeismeList.add(seisme);
             }
+            ControllerSeisme.getListeSeismesTries().setAll(newSeismeList);
         });
 
     }

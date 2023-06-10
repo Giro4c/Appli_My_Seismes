@@ -14,7 +14,7 @@
 
     <top>
         <HBox alignment="CENTER">
-         <Button fx:id="btnWindowTri" mnemonicParsing="false" prefHeight="62.0" prefWidth="162.0" text="Filtrer">
+         <Button fx:id="btnWindowTri" mnemonicParsing="false" onAction="#openParamsTri" prefHeight="62.0" prefWidth="162.0" text="Filtrer">
             <font>
                <Font name="Arial Bold" size="31.0" />
             </font>

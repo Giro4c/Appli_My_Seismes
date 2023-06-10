@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Application représentant la fenetre des filtres de tri d'une liste de Séismes.
+ */
 public class Trieur extends Application {
 
     public static void main(String[] args) {
