@@ -1,5 +1,9 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -121,7 +125,61 @@ public class TrieurControler extends VBox {
 
 
     public void initialize(){
+        // Réglage paramètres des spinners
+        setUpSpinners();
 
+        // Création des filtres
+        IntegerFilter idFilter = new IntegerFilter(minID.textProperty(), maxID.textProperty());
+        CalendarFilter calendarFilter = setUpCalendarFilter();
+
+    }
+
+    private void setUpSpinners(){
+        ObservableList<Integer> compteurHeures = FXCollections.observableArrayList();
+        for (int compteur = 0; compteur < 24; ++compteur){
+            compteurHeures.add(compteur);
+        }
+        spinnerMinHeure.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<Integer>(compteurHeures));
+        spinnerMinHeure.getValueFactory().setValue(0);
+        spinnerMaxHeure.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<Integer>(compteurHeures));
+        spinnerMaxHeure.getValueFactory().setValue(23);
+
+        ObservableList<Integer> compteurMinEtSec = FXCollections.observableArrayList();
+        for (int compteur = 0; compteur < 60; ++compteur){
+            compteurMinEtSec.add(compteur);
+        }
+        spinnerMinMinute.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<Integer>(compteurMinEtSec));
+        spinnerMinMinute.getValueFactory().setValue(0);
+        spinnerMinSeconde.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<Integer>(compteurMinEtSec));
+        spinnerMinSeconde.getValueFactory().setValue(0);
+        spinnerMaxMinute.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<Integer>(compteurMinEtSec));
+        spinnerMaxMinute.getValueFactory().setValue(59);
+        spinnerMaxSeconde.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<Integer>(compteurMinEtSec));
+        spinnerMaxSeconde.getValueFactory().setValue(59);
+    }
+
+    private CalendarFilter setUpCalendarFilter(){
+        // Property pour les time min et max car observable values non valables quand utilisées dans contructeur
+        IntegerProperty propMinHeure = new SimpleIntegerProperty();
+        propMinHeure.bind(spinnerMinHeure.valueProperty());
+        IntegerProperty propMinMinute = new SimpleIntegerProperty();
+        propMinMinute.bind(spinnerMinMinute.valueProperty());
+        IntegerProperty propMinSeconde = new SimpleIntegerProperty();
+        propMinSeconde.bind(spinnerMinSeconde.valueProperty());
+        IntegerProperty propMaxHeure = new SimpleIntegerProperty();
+        propMaxHeure.bind(spinnerMaxHeure.valueProperty());
+        IntegerProperty propMaxMinute = new SimpleIntegerProperty();
+        propMaxMinute.bind(spinnerMaxMinute.valueProperty());
+        IntegerProperty propMaxSeconde = new SimpleIntegerProperty();
+        propMaxSeconde.bind(spinnerMaxSeconde.valueProperty());
+
+        // Instanciation calendarFilter
+        CalendarFilter calendarFilter = new CalendarFilter(minDateAnnee.textProperty(), maxDateAnnee.textProperty(), minDateMois.textProperty(),
+                maxDateMois.textProperty(), minDateJour.textProperty(), maxDateJour.textProperty(), propMinHeure,
+                propMaxHeure, propMinMinute, propMaxMinute, propMinSeconde,
+                propMaxSeconde);
+
+        return calendarFilter;
     }
 
 
