@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 
 /**
  * Une classe représentant un filtre d'appartenance à un intervalle [min, max] sur des Integers.
- * Contient des bind avec les propriétés utilisés lors de son instanciation qui rend l'objet dynamique sans avoir
+ * Contient des bind avec les propriétés utilisés lors de son instanciation qui rendent l'objet dynamique sans avoir
  * besoin d'event handlers ou de change listeners.
  */
 public class IntegerFilter {
@@ -49,13 +49,13 @@ public class IntegerFilter {
             try {
                 matchMin = integer >= Integer.parseInt(min.getValue());
             } catch (Exception e) {
-                System.err.println("Erreur: Valeur de filtrage non valable");
+                System.err.println("Erreur: Valeur de filtrage Min non valable");
                 matchMin = true;
             }
             try {
                 matchMax = integer <= Integer.parseInt(max.getValue());
             } catch (Exception e) {
-                System.err.println("Erreur: Valeur de filtrage non valable");
+                System.err.println("Erreur: Valeur de filtrage Max non valable");
                 matchMax = true;
             }
             return matchMin && matchMax;
