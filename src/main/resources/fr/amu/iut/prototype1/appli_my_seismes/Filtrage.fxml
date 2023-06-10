@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="420.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.ControllerFiltrage">
+
+
+        <VBox alignment="TOP_CENTER" prefHeight="217.0" prefWidth="360.0">
+            <VBox>
+                <Label alignment="CENTER" prefHeight="30.0" prefWidth="360.0" text="Attributs affichés : ">
+            <font>
+               <Font size="15.0" />
+            </font></Label>
+            </VBox>
+            <HBox>
+                <VBox spacing="15">
+                    <CheckBox fx:id="idbox" text="ID" />
+                    <CheckBox fx:id="datebox" text="Date" />
+                    <CheckBox fx:id="heurebox" text="Heure" />
+                    <CheckBox fx:id="nombox" text="Nom" />
+                    <CheckBox fx:id="regionbox" text="Région épicentrale" />
+                    <CheckBox fx:id="chocbox" text="Choc" />
+            <HBox.margin>
+               <Insets left="30.0" />
+            </HBox.margin>
+                </VBox>
+                <VBox spacing="15">
+                    <CheckBox fx:id="Xbox" text="X" />
+                    <CheckBox fx:id="Ybox" text="Y" />
+                    <CheckBox fx:id="Latitudebox" text="Latitude" />
+                    <CheckBox fx:id="Longitudebox" text="Longitude" />
+                    <CheckBox fx:id="Intensitebox" text="Intensité épicentrale" />
+                    <CheckBox fx:id="qualitebox" text="Qualité intensité épicentrale" />
+            <HBox.margin>
+               <Insets left="10.0" />
+            </HBox.margin>
+                </VBox>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+            </HBox>
+
+
+        </VBox>
+
+        <VBox>
+            <VBox prefHeight="100.0" prefWidth="360.0">
+
+
+
+            </VBox>
+
+
+
+            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="360.0">
+
+                <HBox alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="340.0">
+
+                    <Button fx:id="appliquer" text="Appliquer"  />
+
+                </HBox>
+
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+
+            </VBox>
+            
+        </VBox>
+
+
+
+
+
+
+
+
+
+</VBox>

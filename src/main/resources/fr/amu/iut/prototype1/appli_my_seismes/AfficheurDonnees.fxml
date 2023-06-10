@@ -10,7 +10,7 @@
         <HBox alignment="CENTER" style="-fx-padding: 30px;">
             <TextField prefHeight="20" prefWidth="350" HBox.hgrow="NEVER" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button alignment="CENTER_RIGHT" text="O" HBox.hgrow="NEVER" />
+            <Button alignment="CENTER_RIGHT" text="O" HBox.hgrow="NEVER" onAction="#OuvreFiltrage"/>
         </HBox>
 
 
