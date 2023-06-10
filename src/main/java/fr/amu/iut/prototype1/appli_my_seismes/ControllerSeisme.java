@@ -1,8 +1,11 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +49,7 @@ public class ControllerSeisme {
     private IntegerProperty numPageActuelle = new SimpleIntegerProperty(1);
     private final int COUNT_LINES = 15;
     private IntegerProperty totalPages;
+    private ArrayList<ObservableValue<Boolean>> showColumn = new ArrayList<>();
 
     public void initialize() {
 
@@ -60,22 +64,8 @@ public class ControllerSeisme {
         // Création des bindings
         createBindings();
 
-        // Association des attributs de Seisme à des colonnes du tableau
-        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
-        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("heure"));
-        tableView.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("nom"));
-        tableView.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("region"));
-        tableView.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("choc"));
-        tableView.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("xRGF93"));
-        tableView.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("yRGF93"));
-        tableView.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("latitude"));
-        tableView.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("longitude"));
-        tableView.getColumns().get(10).setCellValueFactory(new PropertyValueFactory<>("intensite"));
-        tableView.getColumns().get(11).setCellValueFactory(new PropertyValueFactory<>("qualiteIntensiteEpicentre"));
-
-        // Remplissage du TableView avec la liste des Seismes
-        reloadData();
+        // Paramètrage de Table View
+        setUpTable();
 
         // Déclaration de l'event handler
         EventHandler<ActionEvent> switchPage = actionEvent -> {
@@ -130,6 +120,34 @@ public class ControllerSeisme {
 
     }
 
+    private void setUpTable(){
+        // Association des attributs de Seisme à des colonnes du tableau
+        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
+        tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("heure"));
+        tableView.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("nom"));
+        tableView.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("region"));
+        tableView.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("choc"));
+        tableView.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("xRGF93"));
+        tableView.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("yRGF93"));
+        tableView.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("latitude"));
+        tableView.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("longitude"));
+        tableView.getColumns().get(10).setCellValueFactory(new PropertyValueFactory<>("intensite"));
+        tableView.getColumns().get(11).setCellValueFactory(new PropertyValueFactory<>("qualiteIntensiteEpicentre"));
+
+        // Remplissage du TableView avec la liste des Seismes
+        reloadData();
+
+        // Initialisation liste des visibilités de colonnes
+        setUpShowColumn();
+
+        // Liaison de la visibilité des colonnes à la liste de booléens showColumn
+        for (int indexColumn = 0; indexColumn < showColumn.size(); ++indexColumn){
+            tableView.getColumns().get(indexColumn).visibleProperty().bind(showColumn.get(indexColumn));
+        }
+
+    }
+
     private void reloadData(){
         // On vide la liste des séismes de la page
         listSeismesPage.clear();
@@ -140,7 +158,33 @@ public class ControllerSeisme {
         }
         // Mise à jour dans tableView
         tableView.getItems().setAll(listSeismesPage);
+    }
 
+    private void setUpShowColumn(){
+        // ID
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Date
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Heure
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Nom
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Region
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Choc
+        showColumn.add(new SimpleBooleanProperty(false));
+        // x RGF93
+        showColumn.add(new SimpleBooleanProperty(false));
+        // y RGF93
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Latitude
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Longitude
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Intensité
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Qualité intensité épicentre
+        showColumn.add(new SimpleBooleanProperty(true));
     }
 
 

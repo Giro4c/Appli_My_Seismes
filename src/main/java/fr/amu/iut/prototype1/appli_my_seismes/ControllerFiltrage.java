@@ -16,40 +16,28 @@ public class ControllerFiltrage {
 
     @FXML
     private CheckBox id;
-
     @FXML
     private CheckBox date;
-
     @FXML
     private CheckBox heure;
-
     @FXML
     private CheckBox nom;
-
     @FXML
     private CheckBox region;
-
     @FXML
     private CheckBox choc;
-
     @FXML
     private CheckBox X;
-
     @FXML
     private CheckBox Y;
-
     @FXML
     private CheckBox Latitude;
-
     @FXML
     private CheckBox Longitude;
-
     @FXML
     private CheckBox Intensité;
-
     @FXML
     private CheckBox qualite;
-
     @FXML
     private Button appliquer;
 
@@ -66,23 +54,20 @@ public class ControllerFiltrage {
 
     public boolean[] FiltreTab() {
         // Récupérer l'état de chaque case à cocher
-        boolean VerifBoxID = id.isSelected();
-        boolean VerifBoxDate = date.isSelected();
-        boolean VerifBoxHeure = heure.isSelected();
-        boolean VerifBoxNom = nom.isSelected();
-        boolean VerifBoxRegion = region.isSelected();
-        boolean VerifBoxChoc = choc.isSelected();
-        boolean VerifBoxX = X.isSelected();
-        boolean VerifBoxY = Y.isSelected();
-        boolean VerifBoxLatitude = Latitude.isSelected();
-        boolean VerifBoxLongitude = Longitude.isSelected();
-        boolean VerifBoxIntensite = Intensité.isSelected();
-        boolean VerifBoxQualite = qualite.isSelected();
-
-        // Stocker les booléens dans un tableau
+        // et Stocker les booléens dans un tableau
         boolean[] listFiltreBool = {
-                VerifBoxID, VerifBoxDate, VerifBoxHeure, VerifBoxNom, VerifBoxRegion, VerifBoxChoc,
-                VerifBoxX, VerifBoxY, VerifBoxLatitude, VerifBoxLongitude, VerifBoxIntensite, VerifBoxQualite
+                id.isSelected(),            // 0
+                date.isSelected(),          // 1
+                heure.isSelected(),         // 2
+                nom.isSelected(),           // 3
+                region.isSelected(),        // 4
+                choc.isSelected(),          // 5
+                X.isSelected(),             // 6
+                Y.isSelected(),             // 7
+                Latitude.isSelected(),      // 8
+                Longitude.isSelected(),     // 9
+                Intensité.isSelected(),     // 10
+                qualite.isSelected()        // 11
         };
 
         return listFiltreBool;
