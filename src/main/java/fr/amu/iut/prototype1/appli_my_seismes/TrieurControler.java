@@ -8,7 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 public class TrieurControler extends VBox {
+
+    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
+            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+    private ObservableList<Seisme> listeSeismesTrie = FXCollections.observableArrayList();
 
     // Tous les checkBox des attributs ----------------------------
     @FXML
@@ -131,6 +138,15 @@ public class TrieurControler extends VBox {
         // Création des filtres
         IntegerFilter idFilter = new IntegerFilter(minID.textProperty(), maxID.textProperty());
         CalendarFilter calendarFilter = setUpCalendarFilter();
+        StringFilter nomFilter = new StringFilter(debNom.textProperty(), finNom.textProperty(), conNom.textProperty());
+        StringFilter regionFilter = new StringFilter(debRegion.textProperty(), finRegion.textProperty(), conRegion.textProperty());
+        DoubleFilter xRGFFilter = new DoubleFilter(minX.textProperty(), maxX.textProperty());
+        DoubleFilter yRGFFilter = new DoubleFilter(minY.textProperty(), maxY.textProperty());
+        DoubleFilter latitudeFilter = new DoubleFilter(minLatitude.textProperty(), maxLatitude.textProperty());
+        DoubleFilter longitudeFilter = new DoubleFilter(minLongitude.textProperty(), maxLongitude.textProperty());
+        DoubleFilter intensiteFilter = new DoubleFilter(minIntensite.textProperty(), maxIntensite.textProperty());
+        StringFilter chocFilter = new StringFilter(debChoc.textProperty(), finChoc.textProperty(), conChoc.textProperty());
+        StringFilter qualiInteEpiFilter = new StringFilter(debQuali.textProperty(), finQuali.textProperty(), conQuali.textProperty());
 
     }
 
@@ -173,15 +189,11 @@ public class TrieurControler extends VBox {
         IntegerProperty propMaxSeconde = new SimpleIntegerProperty();
         propMaxSeconde.bind(spinnerMaxSeconde.valueProperty());
 
-        // Instanciation calendarFilter
-        CalendarFilter calendarFilter = new CalendarFilter(minDateAnnee.textProperty(), maxDateAnnee.textProperty(), minDateMois.textProperty(),
-                maxDateMois.textProperty(), minDateJour.textProperty(), maxDateJour.textProperty(), propMinHeure,
-                propMaxHeure, propMinMinute, propMaxMinute, propMinSeconde,
-                propMaxSeconde);
+        // Retour de instanciation calendarFilter
 
-        return calendarFilter;
+        return new CalendarFilter(minDateAnnee.textProperty(), maxDateAnnee.textProperty(),
+                minDateMois.textProperty(), maxDateMois.textProperty(), minDateJour.textProperty(), maxDateJour.textProperty(),
+                propMinHeure, propMaxHeure, propMinMinute, propMaxMinute, propMinSeconde, propMaxSeconde);
     }
-
-
 
 }

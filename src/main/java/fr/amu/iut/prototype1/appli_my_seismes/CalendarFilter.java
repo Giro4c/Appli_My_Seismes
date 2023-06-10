@@ -1,9 +1,8 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+
+import java.time.LocalDate;
 
 /**
  * Une classe représentant un filtre de correspondance à des critères sur des CalendarWithNulls :
@@ -31,10 +30,12 @@ public class CalendarFilter {
     private IntegerProperty maxMinute = new SimpleIntegerProperty();
     private IntegerProperty minSeconde = new SimpleIntegerProperty();
     private IntegerProperty maxSeconde = new SimpleIntegerProperty();
+    private ObjectProperty<LocalDate> exactDate;
 
     public CalendarFilter(StringProperty minAnnee, StringProperty maxAnnee, StringProperty minMois, StringProperty maxMois,
                           StringProperty minJour, StringProperty maxJour, IntegerProperty minHeure, IntegerProperty maxHeure,
-                          IntegerProperty minMinute, IntegerProperty maxMinute, IntegerProperty minSeconde, IntegerProperty maxSeconde){
+                          IntegerProperty minMinute, IntegerProperty maxMinute, IntegerProperty minSeconde,
+                          IntegerProperty maxSeconde){
 
         bindingsMinCalendar();
         bindingsMaxCalendar();
