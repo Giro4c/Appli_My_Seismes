@@ -148,6 +148,24 @@ public class TrieurControler extends VBox {
         StringFilter chocFilter = new StringFilter(debChoc.textProperty(), finChoc.textProperty(), conChoc.textProperty());
         StringFilter qualiInteEpiFilter = new StringFilter(debQuali.textProperty(), finQuali.textProperty(), conQuali.textProperty());
 
+        // Attribution de l'event de mise à jour de la liste de séismes triée par application de filtres
+        btnAppliqueFiltres.setOnAction(actionEvent -> {
+            listeSeismesTrie.clear();
+            for (Seisme seisme : listeSeismesTrie){
+                if (checkID.isSelected() && !idFilter.matchFilter(seisme.getId())) continue;
+                if (checkDate.isSelected() && !calendarFilter.matchDateFilter(seisme.getCalendar().getDateString())) continue;
+                if (checkHeure.isSelected() && !calendarFilter.matchTimeFilter(seisme.getCalendar().getTimeString())) continue;
+                if (checkNom.isSelected() && !nomFilter.matchFilter(seisme.getNom())) continue;
+                if (checkRegion.isSelected() && !regionFilter.matchFilter(seisme.getRegion())) continue;
+                if (checkRGF.isSelected() && !xRGFFilter.matchFilter(seisme.getxRGF93()) && !yRGFFilter.matchFilter(seisme.getyRGF93())) continue;
+                if (checkGPS.isSelected() && !latitudeFilter.matchFilter(seisme.getLatitude()) && !longitudeFilter.matchFilter(seisme.getLongitude())) continue;
+                if (checkIntensite.isSelected() && !intensiteFilter.matchFilter(seisme.getIntensite())) continue;
+                if (checkChoc.isSelected() && !chocFilter.matchFilter(seisme.getChoc())) continue;
+                if (checkQualiIntenEpi.isSelected() && !qualiInteEpiFilter.matchFilter(seisme.getQualiteIntensiteEpicentre())) continue;
+                listeSeismesTrie.add(seisme);
+            }
+        });
+
     }
 
     private void setUpSpinners(){
