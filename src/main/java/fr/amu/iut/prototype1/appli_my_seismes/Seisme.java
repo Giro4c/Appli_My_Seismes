@@ -102,6 +102,10 @@ public class Seisme {
 
     }
 
+    /**
+     * Fonction qui compare deux objets de la classe Seisme en vérifiant si les valeurs de tous leur attributs sont identiques,
+     * dans ce cas, renvoie true sinon, elle renvoie false.
+     */
     @Override
     public boolean equals(Object o){
         if (this == o) return true;

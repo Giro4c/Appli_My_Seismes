@@ -96,6 +96,13 @@ public class CalendarFilter {
 
     }
 
+    /**
+     * Fonction qui établit des liens de synchronisation entre les propriétés de la date minimale (minAnnee, minMois, minJour, minHeure, minMinute, minSeconde)
+     * et l'objet "minCalendar" représentant la date minimale.
+     * Lorsque les propriétés changent, les écouteurs correspondants mettent à jour les valeurs appropriées de "minCalendar".
+     * Les valeurs sont converties et affectées aux champs correspondants de "minCalendar".
+     * En cas d'erreur lors de la conversion ou de l'affectation, les champs correspondants de "minCalendar" sont définis sur "null".
+     */
     private void bindingsMinCalendar(){
         minAnnee.addListener((observableValue, s, t1) -> {
             try{
@@ -141,6 +148,14 @@ public class CalendarFilter {
         });
     }
 
+
+    /**
+     * Fonction qui établit des liens de synchronisation entre les propriétés de la date maximale (maxAnnee, maxMois, maxJour, maxHeure, maxMinute, maxSeconde)
+     * et l'objet "maxCalendar" représentant la date maximale.
+     * Lorsque les propriétés changent, les écouteurs correspondants mettent à jour les valeurs appropriées de "maxCalendar".
+     * Les valeurs sont converties et affectées aux champs correspondants de "maxCalendar".
+     * En cas d'erreur lors de la conversion ou de l'affectation, les champs correspondants de "maxCalendar" sont définis sur "null".
+     */
     private void bindingsMaxCalendar(){
         maxAnnee.addListener((observableValue, s, t1) -> {
             try{

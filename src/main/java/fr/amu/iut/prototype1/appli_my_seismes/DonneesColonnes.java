@@ -4,11 +4,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class DonneesColonnes {
+
     private final StringProperty attribute1;
+
     private final StringProperty attribute2;
+
     private final StringProperty attribute3;
+
     private final StringProperty attribute4;
+
     private final StringProperty attribute5;
+
     private final StringProperty attribute6;
 
     private final StringProperty attribute7;
@@ -22,6 +28,7 @@ public class DonneesColonnes {
     private final StringProperty attribute11;
 
     private final StringProperty attribute12;
+
 
     public DonneesColonnes(String attribute1, String attribute2, String attribute3, String attribute4, String attribute5, String attribute6, String attribute7, String attribute8, String attribute9, String attribute10, String attribute11, String attribute12) {
         this.attribute1 = new SimpleStringProperty(attribute1);
@@ -86,8 +93,6 @@ public class DonneesColonnes {
     public void setAttribute4(String attribute4) { this.attribute4.set(attribute4);
     }
 
-
-
     public String getAttribute5() {
         return attribute5.get();
     }
@@ -100,8 +105,6 @@ public class DonneesColonnes {
         this.attribute5.set(attribute3);
     }
 
-
-
     public String getAttribute6() {
         return attribute6.get();
     }
@@ -113,8 +116,6 @@ public class DonneesColonnes {
     public void setAttribute6(String attribute6) {
         this.attribute6.set(attribute6);
     }
-
-
 
     public String getAttribute7() {
         return attribute7.get();
@@ -152,7 +153,6 @@ public class DonneesColonnes {
         this.attribute9.set(attribute9);
     }
 
-
     public String getAttribute10() {
         return attribute10.get();
     }
@@ -163,8 +163,6 @@ public class DonneesColonnes {
 
     public void setAttribute10(String attribute10) { this.attribute10.set(attribute10);
     }
-
-
 
     public String getAttribute11() {
         return attribute11.get();
@@ -177,8 +175,6 @@ public class DonneesColonnes {
     public void setAttribute11(String attribute11) {
         this.attribute11.set(attribute11);
     }
-
-
 
     public String getAttribute12() {
         return attribute12.get();
