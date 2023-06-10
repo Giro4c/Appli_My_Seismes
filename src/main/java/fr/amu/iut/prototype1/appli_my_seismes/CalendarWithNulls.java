@@ -330,155 +330,151 @@ public class CalendarWithNulls {
     }
 
     /**
-     * Permet de déterminer si la date d'un CalendarWithNulls est strictement inférieure à celle d'un autre CalendarWithNulls calendar.
+     * Permet de déterminer si la date de ce CalendarWithNulls est inférieure ou égale à celle d'un autre CalendarWithNulls calendar.
      * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
-     * @return Renvoie true si la date est strictement inférieure. Renvoie false si elle est supérieure ou égale.
+     * @return Renvoie true si la date est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
-    public boolean isDateInferior(CalendarWithNulls calendar){
-        boolean yearInferior = true;
-        boolean monthInferior = true;
-        boolean dayInferior = true;
-
+    public boolean isDateInferiorOrEquals(CalendarWithNulls calendar){
         // Année
         if (this.getAnnee() != null && calendar.getAnnee() != null){
-            yearInferior = this.getAnnee() < calendar.getAnnee();
+            if (this.getAnnee() > calendar.getAnnee()) return false;
+            if (this.getAnnee() < calendar.getAnnee()) return true;
         }
         // Mois
         if (this.getMois() != null && calendar.getMois() != null){
-            monthInferior = this.getMois() < calendar.getMois();
+            if (this.getMois() > calendar.getMois()) return false;
+            if (this.getMois() < calendar.getMois()) return true;
         }
         // Jour
         if (this.getJour() != null && calendar.getJour() != null){
-            dayInferior = this.getJour() < calendar.getJour();
+            if (this.getJour() > calendar.getJour()) return false;
+            if (this.getJour() < calendar.getJour()) return true;
         }
 
-        return yearInferior && monthInferior && dayInferior;
+        return true;
     }
 
     /**
-     * Permet de déterminer si la date d'un CalendarWithNulls est strictement inférieure à celle contenue dans une String format AAAA/MM/JJ.
+     * Permet de déterminer si la date de ce CalendarWithNulls est inférieure ou égale à celle contenue dans une String format AAAA/MM/JJ.
      * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
-     * @return Renvoie true si la date est strictement inférieure. Renvoie false si elle est supérieure ou égale.
+     * @return Renvoie true si la date est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
-    public boolean isDateInferior(String dateRef){
+    public boolean isDateInferiorOrEquals(String dateRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls(dateRef, "");
-        return isDateInferior(calendarRef);
+        return isDateInferiorOrEquals(calendarRef);
     }
 
     /**
-     * Permet de déterminer si la date d'un CalendarWithNulls est strictement supérieure à celle d'un autre CalendarWithNulls calendar.
+     * Permet de déterminer si la date de ce CalendarWithNulls est supérieure ou égale à celle d'un autre CalendarWithNulls calendar.
      * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
-     * @return Renvoie true si la date est strictement supérieure. Renvoie false si elle est inférieure ou égale.
+     * @return Renvoie true si la date est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
-    public boolean isDateSuperior(CalendarWithNulls calendar){
-        boolean yearSuperior = true;
-        boolean monthSuperior = true;
-        boolean daySuperior = true;
-
+    public boolean isDateSuperiorOrEquals(CalendarWithNulls calendar){
         // Année
         if (this.getAnnee() != null && calendar.getAnnee() != null){
-            yearSuperior = this.getAnnee() > calendar.getAnnee();
+            if (this.getAnnee() > calendar.getAnnee()) return true;
+            if (this.getAnnee() < calendar.getAnnee()) return false;
         }
         // Mois
         if (this.getMois() != null && calendar.getMois() != null){
-            monthSuperior = this.getMois() > calendar.getMois();
+            if (this.getMois() > calendar.getMois()) return true;
+            if (this.getMois() < calendar.getMois()) return false;
         }
         // Jour
         if (this.getJour() != null && calendar.getJour() != null){
-            daySuperior = this.getJour() > calendar.getJour();
+            if (this.getJour() > calendar.getJour()) return true;
+            if (this.getJour() < calendar.getJour()) return false;
         }
 
-        return yearSuperior && monthSuperior && daySuperior;
+        return true;
     }
 
     /**
-     * Permet de déterminer si la date d'un CalendarWithNulls est strictement supérieure à celle contenue dans une String format AAAA/MM/JJ.
+     * Permet de déterminer si la date de ce CalendarWithNulls est supérieure ou égale à celle contenue dans une String format AAAA/MM/JJ.
      * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
-     * @return Renvoie true si la date est strictement supérieure. Renvoie false si elle est inférieure ou égale.
+     * @return Renvoie true si la date est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
-    public boolean isDateSuperior(String dateRef){
+    public boolean isDateSuperiorOrEquals(String dateRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls(dateRef, "");
-        return isDateSuperior(calendarRef);
+        return isDateSuperiorOrEquals(calendarRef);
     }
 
     /**
-     * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement inférieure à celle d'un autre CalendarWithNulls calendar.
+     * Permet de déterminer si l'heure de ce CalendarWithNulls est inférieure ou égale à celle d'un autre CalendarWithNulls calendar.
      * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
-     * @return Renvoie true si l'heure est strictement inférieure. Renvoie false si elle est supérieure ou égale.
+     * @return Renvoie true si l'heure est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
-    public boolean isTimeInferior(CalendarWithNulls calendar){
-        boolean hourInferior = true;
-        boolean minuteInferior = true;
-        boolean secondInferior = true;
-
+    public boolean isTimeInferiorOrEquals(CalendarWithNulls calendar){
         // Heure
         if (this.getHeure() != null && calendar.getHeure() != null){
-            hourInferior = this.getHeure() < calendar.getHeure();
+            if (this.getHeure() > calendar.getHeure()) return false;
+            if (this.getHeure() < calendar.getHeure()) return true;
         }
         // Minute
         if (this.getMinute() != null && calendar.getMinute() != null){
-            minuteInferior = this.getMinute() < calendar.getMinute();
+            if (this.getMinute() > calendar.getMinute()) return false;
+            if (this.getMinute() < calendar.getMinute()) return true;
         }
         // Seconde
         if (this.getSeconde() != null && calendar.getSeconde() != null){
-            secondInferior = this.getSeconde() < calendar.getSeconde();
+            if (this.getSeconde() > calendar.getSeconde()) return false;
+            if (this.getSeconde() < calendar.getSeconde()) return true;
         }
 
-        return hourInferior && minuteInferior && secondInferior;
+        return true;
     }
 
     /**
-     * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement inférieure à celle contenue dans une String format "-h - min - sec".
+     * Permet de déterminer si l'heure de ce CalendarWithNulls est inférieure ou égale à celle contenue dans une String format "-h - min - sec".
      * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
-     * @return Renvoie true si l'heure est strictement inférieure. Renvoie false si elle est supérieure ou égale.
+     * @return Renvoie true si l'heure est inférieure ou égale. Renvoie false si elle est ou égale supérieure.
      */
-    public boolean isTimeInferior(String timeRef){
+    public boolean isTimeInferiorOrEquals(String timeRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls("", timeRef);
-        return isTimeInferior(calendarRef);
+        return isTimeInferiorOrEquals(calendarRef);
     }
 
     /**
-     * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement supérieure à celle d'un autre CalendarWithNulls calendar.
+     * Permet de déterminer si l'heure de ce CalendarWithNulls est supérieure ou égale à celle d'un autre CalendarWithNulls calendar.
      * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
-     * @return Renvoie true si l'heure est strictement supérieure. Renvoie false si elle est inférieure ou égale.
+     * @return Renvoie true si l'heure est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
-    public boolean isTimeSuperior(CalendarWithNulls calendar){
-        boolean hourSuperior = true;
-        boolean minuteSuperior = true;
-        boolean secondSuperior = true;
-
+    public boolean isTimeSuperiorOrEquals(CalendarWithNulls calendar){
         // Heure
         if (this.getHeure() != null && calendar.getHeure() != null){
-            hourSuperior = this.getHeure() > calendar.getHeure();
+            if (this.getHeure() > calendar.getHeure()) return true;
+            if (this.getHeure() < calendar.getHeure()) return false;
         }
         // Minute
         if (this.getMinute() != null && calendar.getMinute() != null){
-            minuteSuperior = this.getMinute() > calendar.getMinute();
+            if (this.getMinute() > calendar.getMinute()) return true;
+            if (this.getMinute() < calendar.getMinute()) return false;
         }
         // Seconde
         if (this.getSeconde() != null && calendar.getSeconde() != null){
-            secondSuperior = this.getSeconde() > calendar.getSeconde();
+            if (this.getSeconde() > calendar.getSeconde()) return true;
+            if (this.getSeconde() < calendar.getSeconde()) return false;
         }
 
-        return hourSuperior && minuteSuperior && secondSuperior;
+        return true;
     }
 
     /**
-     * Permet de déterminer si l'heure d'un CalendarWithNulls est strictement supérieure à celle contenue dans une String format "-h - min - sec".
+     * Permet de déterminer si l'heure de ce CalendarWithNulls est supérieure ou égale à celle contenue dans une String format "-h - min - sec".
      * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
      * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
-     * @return Renvoie true si l'heure est strictement supérieure. Renvoie false si elle est inférieure ou égale.
+     * @return Renvoie true si l'heure est supérieure ou égale. Renvoie false si elle est inférieure.
      */
-    public boolean isTimeSuperior(String timeRef){
+    public boolean isTimeSuperiorOrEquals(String timeRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls("", timeRef);
-        return isTimeSuperior(calendarRef);
+        return isTimeSuperiorOrEquals(calendarRef);
     }
 
     /**
