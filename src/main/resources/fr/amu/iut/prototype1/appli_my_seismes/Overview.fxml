@@ -11,13 +11,11 @@
             <content>
                 <VBox>
                     <VBox prefHeight="110.0" prefWidth="550.0">
-                        <Label text="Contenu de l'onglet 1" />
+                        <Label text="Datas" />
                     </VBox>
                     <VBox prefHeight="392.0" prefWidth="571.0">
 
-                        <PieChart fx:id="Pie">
-
-                        </PieChart>
+                        <PieChart fx:id="Pie" prefHeight="800" prefWidth="800" />
 
                     </VBox>
 
@@ -29,21 +27,37 @@
             <content>
                 <VBox>
                     <VBox>
-                        <Label text="Contenu de l'onglet 2" />
+                        <Label text="Data (plus tard)" />
                     </VBox>
+
+                    <HBox>
                     <VBox>
-                        <BarChart fx:id="barChart" prefHeight="396.0" prefWidth="571.0">
+                        <BarChart fx:id="leastAffectedChart">
                             <xAxis>
-                                <CategoryAxis fx:id="xAxis" side="BOTTOM" />
+                                <CategoryAxis side="BOTTOM" fx:id="xAxisLeastAffected" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="yAxis" side="LEFT" />
+                                <NumberAxis fx:id="yAxisLeastAffected" side="LEFT" />
                             </yAxis>
                             <VBox.margin>
                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </VBox.margin>
                         </BarChart>
                     </VBox>
+                    <VBox>
+                        <BarChart fx:id="mostAffectedChart">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" fx:id="xAxisMostAffected" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxisMostAffected" side="LEFT" />
+                            </yAxis>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                        </BarChart>
+                    </VBox>
+                    </HBox>
                 </VBox>
             </content>
         </Tab>
@@ -51,9 +65,10 @@
             <content>
                 <VBox>
                     <VBox>
-                        <Label text="Contenu de l'onglet 3" />
+                        <Label text="Data (plus tard)" />
                     </VBox>
                     <VBox>
+
 
                     </VBox>
                 </VBox>
@@ -63,7 +78,7 @@
             <content>
                 <VBox>
                     <VBox>
-                        <Label text="Contenu de l'onglet 2" />
+                        <Label text="Data (plus tard)" />
                     </VBox>
                     <VBox>
 
