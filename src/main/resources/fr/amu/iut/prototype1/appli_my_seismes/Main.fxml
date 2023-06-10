@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox alignment="CENTER" prefHeight="460.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.MainControler">
+   <children>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="186.0" prefWidth="460.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label text="Accueil :">
+               <font>
+                  <Font name="Arial Bold" size="55.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" style="-fx-text-alignment: center;" text="Vous pouvez choisir ici à quelle fenêtre &#10;vous voulez accéder.">
+               <font>
+                  <Font name="Arial Italic" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="TOP_CENTER" prefHeight="261.0" prefWidth="460.0" spacing="20.0">
+         <children>
+            <VBox alignment="CENTER" spacing="5.0">
+               <children>
+                  <Button fx:id="btnTable" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
+                     <graphic>
+                        <ImageView fitHeight="87.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" rotate="-7.4">
+                           <image>
+                              <Image url="@imgTable.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="Tableau">
+                     <font>
+                        <Font name="Arial Italic" size="23.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="177.0" layoutY="10.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
+                     <graphic>
+                        <ImageView fx:id="btnMap" fitHeight="118.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgFrance.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="Carte">
+                     <font>
+                        <Font name="Arial Italic" size="23.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="104.0" layoutY="10.0" spacing="5.0">
+               <children>
+                  <Button fx:id="btnOverview" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
+                     <graphic>
+                        <ImageView fitHeight="121.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgGraph.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label text="Overview">
+                     <font>
+                        <Font name="Arial Italic" size="23.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
