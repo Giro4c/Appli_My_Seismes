@@ -35,25 +35,39 @@ public class Seisme {
 
 
 
-    private final IntegerProperty id;
+    private final Integer id;
     private final CalendarWithNulls calendar;
     private final StringProperty nom;
     private final StringProperty region;
     private final StringProperty choc;
-    private final DoubleProperty xRGF93;
-    private final DoubleProperty yRGF93;
-    private final DoubleProperty latitude;
-    private final DoubleProperty longitude;
-    private final DoubleProperty intensite;
+    private final Double xRGF93;
+    private final Double yRGF93;
+    private final Double latitude;
+    private final Double longitude;
+    private final Double intensite;
     private final StringProperty qualiteIntensiteEpicentre;
     private final StringProperty date;
-    private StringProperty heure;
+    private final StringProperty heure;
+
+    // Attributs StringProperty pour tous les integers et doubles
+    private final StringProperty stringID;
+    private final StringProperty stringXRGF93;
+    private final StringProperty stringYRGF93;
+    private final StringProperty stringLatitude;
+    private final StringProperty stringLongitude;
+    private final StringProperty stringIntensite;
 
     public Seisme(Integer id, String date, String heure, String nom, String region,
                   String choc, Double xRGF93, Double yRGF93, Double latitude, Double longitude,
                   Double intensite, String qualiteIntensiteEpicentre) {
         super();
         this.calendar = new CalendarWithNulls(date, heure);
+        this.id = id;
+        this.xRGF93 = xRGF93;
+        this.yRGF93 = yRGF93;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.intensite = intensite;
         // Ces valeurs sont toutes observables mais constantes
         this.nom = new SimpleStringProperty(nom);
         this.region = new SimpleStringProperty(region);
@@ -62,42 +76,43 @@ public class Seisme {
         this.date = new SimpleStringProperty(calendar.getDateString());
         this.heure = new SimpleStringProperty(calendar.getTimeString());
 
-        // Pour éviter NullPointerExeption :
+        // Pour les valeurs string des attributs nombres :
         if (id == null){
-            this.id = new SimpleIntegerProperty(DEFAULT_INVALID_ID);
+            this.stringID = new SimpleStringProperty("");
         }
-        else {
-            this.id = new SimpleIntegerProperty(id);
+        else{
+            this.stringID = new SimpleStringProperty(String.valueOf(id));
         }
+
         if (xRGF93 == null){
-            this.xRGF93 = new SimpleDoubleProperty(DEFAULT_INVALID_XRGF93);
+            this.stringXRGF93 = new SimpleStringProperty("");
         }
         else {
-            this.xRGF93 = new SimpleDoubleProperty(xRGF93);
+            this.stringXRGF93 = new SimpleStringProperty(String.valueOf(xRGF93));
         }
         if (yRGF93 == null){
-            this.yRGF93 = new SimpleDoubleProperty(DEFAULT_INVALID_YRGF93);
+            this.stringYRGF93 = new SimpleStringProperty("DEFAULT_INVALID_YRGF93");
         }
         else {
-            this.yRGF93 = new SimpleDoubleProperty(yRGF93);
+            this.stringYRGF93 = new SimpleStringProperty(String.valueOf(yRGF93));
         }
         if (latitude == null){
-            this.latitude = new SimpleDoubleProperty(DEFAULT_INVALID_LATITUDE);
+            this.stringLatitude = new SimpleStringProperty("");
         }
         else {
-            this.latitude = new SimpleDoubleProperty(latitude);
+            this.stringLatitude = new SimpleStringProperty(String.valueOf(latitude));
         }
         if (longitude == null){
-            this.longitude = new SimpleDoubleProperty(DEFAULT_INVALID_LONGITUDE);
+            this.stringLongitude = new SimpleStringProperty("");
         }
         else {
-            this.longitude = new SimpleDoubleProperty(longitude);
+            this.stringLongitude = new SimpleStringProperty(String.valueOf(longitude));
         }
         if (intensite == null){
-            this.intensite = new SimpleDoubleProperty(DEFAULT_INVALID_INTENSITE);
+            this.stringIntensite = new SimpleStringProperty("");
         }
         else {
-            this.intensite = new SimpleDoubleProperty(intensite);
+            this.stringIntensite = new SimpleStringProperty(String.valueOf(intensite));
         }
 
     }
@@ -111,9 +126,9 @@ public class Seisme {
         if (o == null || getClass() != o.getClass()) return false;
         Seisme seisme = (Seisme) o;
         return (this.id == seisme.id && this.calendar.equals(seisme.calendar) && this.nom.equals(seisme.nom) &&
-                this.region.equals(seisme.region) && this.choc == seisme.choc && this.xRGF93 == seisme.xRGF93 &&
-                this.yRGF93 == seisme.yRGF93 && this.latitude == seisme.latitude && this.longitude == seisme.longitude &&
-                this.intensite == seisme.intensite && this.qualiteIntensiteEpicentre.equals(qualiteIntensiteEpicentre));
+                this.region.equals(seisme.region) && this.choc == seisme.choc && this.stringXRGF93 == seisme.stringXRGF93 &&
+                this.stringYRGF93 == seisme.stringYRGF93 && this.stringLatitude == seisme.stringLatitude && this.stringLongitude == seisme.stringLongitude &&
+                this.stringIntensite == seisme.stringIntensite && this.qualiteIntensiteEpicentre.equals(qualiteIntensiteEpicentre));
     }
 
     @Override
@@ -124,17 +139,21 @@ public class Seisme {
                 ", nom=" + nom +
                 ", region=" + region +
                 ", choc=" + choc +
-                ", xRGF93=" + xRGF93 +
-                ", yRGF93=" + yRGF93 +
-                ", latitude=" + latitude +
-                ", logitude=" + longitude +
-                ", intensite=" + intensite +
+                ", xRGF93=" + stringXRGF93 +
+                ", yRGF93=" + stringYRGF93 +
+                ", latitude=" + stringLatitude +
+                ", logitude=" + stringLongitude +
+                ", intensite=" + stringIntensite +
                 ", qualiteIntensiteEpicentre=" + qualiteIntensiteEpicentre + "]";
 
     }
 
     public static ArrayList<String> getInitialListLabelsAttributs() {
         return initialListLabelsAttributs;
+    }
+
+    public StringProperty stringIDProperty() {
+        return stringID;
     }
 
     public StringProperty dateProperty() {
@@ -154,43 +173,43 @@ public class Seisme {
     }
 
     public Double getIntensite() {
-        return intensite.getValue();
-    }
-
-    public DoubleProperty intensiteProperty() {
         return intensite;
     }
 
-    public Double getLongitude() {
-        return longitude.getValue();
+    public StringProperty stringIntensiteProperty() {
+        return stringIntensite;
     }
 
-    public DoubleProperty longitudeProperty() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public Double getLatitude() {
-        return latitude.getValue();
+    public StringProperty stringLongitudeProperty() {
+        return stringLongitude;
     }
 
-    public DoubleProperty latitudeProperty() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public Double getyRGF93() {
-        return yRGF93.getValue();
+    public StringProperty stringLatitudeProperty() {
+        return stringLatitude;
     }
 
-    public DoubleProperty yRGF93Property() {
+    public Double getyRGF93() {
         return yRGF93;
     }
 
-    public Double getxRGF93() {
-        return xRGF93.getValue();
+    public StringProperty stringYRGF93Property() {
+        return stringYRGF93;
     }
 
-    public DoubleProperty xRGF93Property() {
+    public Double getxRGF93() {
         return xRGF93;
+    }
+
+    public StringProperty stringXRGF93Property() {
+        return stringXRGF93;
     }
 
     public String getChoc() {
@@ -222,7 +241,7 @@ public class Seisme {
     }
 
     public Integer getId() {
-        return id.getValue();
+        return id;
     }
 
 }

@@ -1,7 +1,15 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.spi.CalendarDataProvider;
 
 public class Test {
@@ -13,6 +21,12 @@ public class Test {
         //testStringSplitForDate();
         //testCSVReader();
 
+    }
+
+    private void testObservables(){
+        ObservableValue<String> obsString = new SimpleStringProperty();
+        System.out.println(obsString.getValue());
+        ObservableValue<Boolean> obsBoolean = new SimpleBooleanProperty();
     }
 
     private static void testCSVReader(){

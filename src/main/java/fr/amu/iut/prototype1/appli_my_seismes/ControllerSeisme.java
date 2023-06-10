@@ -133,17 +133,17 @@ public class ControllerSeisme {
 
     private void setUpTable(){
         // Association des attributs de Seisme à des colonnes du tableau
-        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableView.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("stringID"));
         tableView.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("date"));
         tableView.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("heure"));
         tableView.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("nom"));
         tableView.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("region"));
         tableView.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("choc"));
-        tableView.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("xRGF93"));
-        tableView.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("yRGF93"));
-        tableView.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("latitude"));
-        tableView.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("longitude"));
-        tableView.getColumns().get(10).setCellValueFactory(new PropertyValueFactory<>("intensite"));
+        tableView.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("stringXRGF93"));
+        tableView.getColumns().get(7).setCellValueFactory(new PropertyValueFactory<>("stringYRGF93"));
+        tableView.getColumns().get(8).setCellValueFactory(new PropertyValueFactory<>("stringLatitude"));
+        tableView.getColumns().get(9).setCellValueFactory(new PropertyValueFactory<>("stringLongitude"));
+        tableView.getColumns().get(10).setCellValueFactory(new PropertyValueFactory<>("stringIntensite"));
         tableView.getColumns().get(11).setCellValueFactory(new PropertyValueFactory<>("qualiteIntensiteEpicentre"));
 
         // Remplissage du TableView avec la liste des Seismes
