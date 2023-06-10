@@ -13,6 +13,22 @@ public class IntegerFilter {
     private StringProperty min = new SimpleStringProperty();
     private StringProperty max = new SimpleStringProperty();
 
+    public String getMax() {
+        return max.getValue();
+    }
+
+//    public StringProperty maxProperty() {
+//        return max;
+//    }
+
+    public String getMin() {
+        return min.getValue();
+    }
+
+//    public StringProperty minProperty() {
+//        return min;
+//    }
+
     public IntegerFilter(StringProperty min, StringProperty max){
         this.min.bind(min);
         this.max.bind(max);
