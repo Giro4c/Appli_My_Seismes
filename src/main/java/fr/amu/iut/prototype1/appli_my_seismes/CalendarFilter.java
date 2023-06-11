@@ -30,7 +30,6 @@ public class CalendarFilter {
     private IntegerProperty maxMinute = new SimpleIntegerProperty();
     private IntegerProperty minSeconde = new SimpleIntegerProperty();
     private IntegerProperty maxSeconde = new SimpleIntegerProperty();
-    private ObjectProperty<LocalDate> exactDate;
 
     public CalendarFilter(StringProperty minAnnee, StringProperty maxAnnee, StringProperty minMois, StringProperty maxMois,
                           StringProperty minJour, StringProperty maxJour, IntegerProperty minHeure, IntegerProperty maxHeure,
@@ -65,7 +64,7 @@ public class CalendarFilter {
      * @return True si les Strings correspondent aux critères. False si elles ne correspondent pas ou qu'elles vallent null (sauf exception dates et times valent "").
      */
     public boolean matchFilter(String stringDate, String stringTime){
-        return matchDateFilter(stringDate) && matchTimeFilter(stringTime);
+        return  matchDateFilter(stringDate) && matchTimeFilter(stringTime);
     }
 
     /**
@@ -77,6 +76,7 @@ public class CalendarFilter {
      */
     public boolean matchDateFilter(String stringDate){
 
+        if (minCalendar.getDateString().equals("") && maxCalendar.getDateString().equals("")) return true;
         if (stringDate == null) return false;
         return minCalendar.isDateInferiorOrEquals(stringDate) && maxCalendar.isDateSuperiorOrEquals(stringDate);
 
@@ -91,6 +91,7 @@ public class CalendarFilter {
      */
     public boolean matchTimeFilter(String stringTime){
 
+        if (minCalendar.getTimeString().equals("") && maxCalendar.getTimeString().equals("")) return true;
         if (stringTime == null) return false;
         return minCalendar.isTimeInferiorOrEquals(stringTime) && maxCalendar.isTimeSuperiorOrEquals(stringTime);
 
