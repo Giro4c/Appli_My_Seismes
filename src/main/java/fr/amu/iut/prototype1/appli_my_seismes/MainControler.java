@@ -26,7 +26,7 @@ public class MainControler extends VBox {
 
     private final static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
             CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
-    private static ObservableList<Seisme> listeSeismesTries;
+    private static ObservableList<Seisme> listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
 
     // Lecture Du CSV choisi et conversion des lignes en objet Seisme
     public static ArrayList<Seisme> getInitialListeSeismes() {
@@ -40,7 +40,7 @@ public class MainControler extends VBox {
     public void initialize(){
 
         // Initialisation liste variable de séismes
-        listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
+//        listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
 
     }
 
