@@ -267,6 +267,11 @@ public class ControllerOverview {
         scatterChart.getData().setAll(/*series1,*/ series2);
     }
 
+    /**
+     * Détermine quels sont : l'année la plus grande et l'année la plus petite dans une liste de seismes
+     * @param listeSeisme La liste de séisme dont on détermine l'année la plus grande et l'année la plus petite.
+     * @return Renvoie un Integer[] de taille 2 avec l'année minimale (0) et l'année maximal (1) sauf si la liste de séismes est null. Renvoie null dans ce cas là.
+     */
     private Integer[] latestYearSeisme(ArrayList<Seisme> listeSeisme){
         if (listeSeisme != null && listeSeisme.size() > 1){
             int index = 0;
@@ -302,7 +307,11 @@ public class ControllerOverview {
     }
 
 
-    // Méthode pour calculer le total des séismes
+    /**
+     * Méthode pour calculer le total des séismes
+     * @param nombreSeismesParRegion
+     * @return long - Nombre total de séisme
+     */
     private long getTotalSeismes(List<Long> nombreSeismesParRegion) {
         return nombreSeismesParRegion.stream()
                 .mapToLong(Long::longValue)
