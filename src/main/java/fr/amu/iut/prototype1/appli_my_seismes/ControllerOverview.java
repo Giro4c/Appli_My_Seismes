@@ -5,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ControllerOverview {
@@ -15,22 +13,14 @@ public class ControllerOverview {
     private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
             CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
     @FXML
-    private BarChart<String, Number> mostAffectedChart;
+    private StackedBarChart<String, Number> mostAffectedChart;
 
-    @FXML
-    private BarChart<String, Number> leastAffectedChart;
 
     @FXML
     private CategoryAxis xAxisMostAffected;
 
     @FXML
     private NumberAxis yAxisMostAffected;
-
-    @FXML
-    private CategoryAxis xAxisLeastAffected;
-
-    @FXML
-    private NumberAxis yAxisLeastAffected;
 
 
     @FXML
@@ -45,54 +35,39 @@ public class ControllerOverview {
                 .collect(Collectors.toList());
 
 
-        //barchart
+        //stackedbarchart
 
 
         List<String> regionsByMostAffected = listeSeisme.stream()
-                .collect(Collectors.groupingBy(Seisme::getRegion, Collectors.averagingDouble(Seisme::getIntensite)))
+                .collect(Collectors.groupingBy(Seisme::getRegion,
+                        Collectors.mapping(Seisme::getIntensite, Collectors.toList())))
                 .entrySet().stream()
-                .sorted(Comparator.comparingDouble(entry -> -entry.getValue()))
-                .limit(5)
+                .sorted(Comparator.comparingLong(entry -> -entry.getValue().size()))
+                .limit(20)
                 .map(entry -> entry.getKey())
                 .collect(Collectors.toList());
 
-        // Trier les régions par intensité de séisme (du moins touché au plus touché)
-        List<String> regionsByLeastAffected = listeSeisme.stream()
-                .collect(Collectors.groupingBy(Seisme::getRegion, Collectors.averagingDouble(Seisme::getIntensite)))
-                .entrySet().stream()
-                .sorted(Comparator.comparingDouble(entry -> entry.getValue()))
-                .limit(5)
-                .map(entry -> entry.getKey())
-                .collect(Collectors.toList());
-
-
-        // Créer les séries de données pour les graphiques
         XYChart.Series<String, Number> mostAffectedSeries = new XYChart.Series<>();
-        XYChart.Series<String, Number> leastAffectedSeries = new XYChart.Series<>();
 
-        // Ajouter les données aux séries de données
         for (String region : regionsByMostAffected) {
-            mostAffectedSeries.getData().add(new XYChart.Data<>(region, getAverageIntensityByRegion(listeSeisme, region)));
+            List<Double> intensiteValues = listeSeisme.stream()
+                    .filter(seisme -> seisme.getRegion().equals(region))
+                    .map(Seisme::getIntensite)
+                    .collect(Collectors.toList());
+
+            DoubleSummaryStatistics statistics = intensiteValues.stream()
+                    .mapToDouble(Double::doubleValue)
+                    .summaryStatistics();
+
+            List<Number> values = Arrays.asList(statistics.getMin(), statistics.getAverage(), statistics.getMax());
+
+            mostAffectedSeries.getData().add(new XYChart.Data<>(region, values.get(0))); // Valeur minimale
+            mostAffectedSeries.getData().add(new XYChart.Data<>(region, values.get(1))); // Valeur moyenne
+            mostAffectedSeries.getData().add(new XYChart.Data<>(region, values.get(2))); // Valeur maximale
         }
 
-        for (String region : regionsByLeastAffected) {
-            leastAffectedSeries.getData().add(new XYChart.Data<>(region, getAverageIntensityByRegion(listeSeisme, region)));
-        }
-
-        // Ajouter les séries de données aux graphiques
         mostAffectedChart.getData().add(mostAffectedSeries);
-        leastAffectedChart.getData().add(leastAffectedSeries);
 
-        // Définir les axes des graphiques
-        mostAffectedChart.setCategoryGap(20);
-        mostAffectedChart.setBarGap(5);
-        mostAffectedChart.setLegendVisible(false);
-        mostAffectedChart.setTitle("Intensité moyenne des Régions les plus touchées");
-
-        leastAffectedChart.setCategoryGap(20);
-        leastAffectedChart.setBarGap(5);
-        leastAffectedChart.setLegendVisible(false);
-        leastAffectedChart.setTitle("Intensité moyenne des Régions les moins touchées");
 
 
 
@@ -185,24 +160,4 @@ public class ControllerOverview {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
