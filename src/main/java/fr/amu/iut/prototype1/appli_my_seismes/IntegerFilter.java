@@ -17,17 +17,10 @@ public class IntegerFilter {
         return max.getValue();
     }
 
-//    public StringProperty maxProperty() {
-//        return max;
-//    }
-
     public String getMin() {
         return min.getValue();
     }
 
-//    public StringProperty minProperty() {
-//        return min;
-//    }
 
     public IntegerFilter(StringProperty min, StringProperty max){
         this.min.bind(min);
@@ -49,13 +42,17 @@ public class IntegerFilter {
             try {
                 matchMin = integer >= Integer.parseInt(min.getValue());
             } catch (Exception e) {
-                System.err.println("Erreur: Valeur de filtrage Min non valable");
+                if (!min.getValue().equals("")) {
+                    System.err.println("Erreur: Valeur de filtrage Min non valable");
+                }
                 matchMin = true;
             }
             try {
                 matchMax = integer <= Integer.parseInt(max.getValue());
             } catch (Exception e) {
-                System.err.println("Erreur: Valeur de filtrage Max non valable");
+                if (!max.getValue().equals("")){
+                    System.err.println("Erreur: Valeur de filtrage Max non valable");
+                }
                 matchMax = true;
             }
             return matchMin && matchMax;

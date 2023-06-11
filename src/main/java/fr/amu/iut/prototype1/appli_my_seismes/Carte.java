@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * La VBox représentative de l'interface graphique de la carte sismique.
+ * @see MainControler#showMapSeismes()
+ */
 public class Carte extends VBox {
 
     public Carte() {

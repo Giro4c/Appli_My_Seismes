@@ -12,6 +12,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.spi.CalendarDataProvider;
 
+/**
+ * Un classe de tests pour expériementer avec divers notions sans endommager le code.
+ */
 public class Test {
 
     public static void main(String[] args){

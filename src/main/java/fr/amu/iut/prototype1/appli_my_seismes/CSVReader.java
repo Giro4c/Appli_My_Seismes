@@ -10,6 +10,12 @@ import java.util.Scanner;
 
 public class CSVReader {
 
+    /**
+     * Lit un fichier CSV ligne par ligne et stocke les lignes lues dans une ArrayList de Strings.
+     * Avant de stocker une ligne, la méthode lui retire d'abord tous les guillemets.
+     * @param csvFileName Le chemin d'accès au fichier CSV à lire.
+     * @return ArrayList de Strings sans guillemets représentant chaque ligne du fichier CSV lu.
+     */
     public static ArrayList<String> CSVFileReader(String csvFileName){
         ArrayList<String> listDonnees = new ArrayList<>();
         try {
@@ -30,6 +36,14 @@ public class CSVReader {
         }
         return listDonnees;
     }
+
+    /**
+     * Transforme un ArrayList de Strings en un ArrayList de Séismes.<br>
+     * Chaque String de l'array est considérée comme un séisme dont les valeurs des attributs sont séparées par des virgules.
+     * @param listDonnees ArrayList de Strings à lire et transformer en ArrayList de Séismes
+     * @return ArrayList de Séismes.
+     * @see Seisme
+     */
     public static ArrayList<Seisme> StringArrayToSeismeArrayList(ArrayList<String> listDonnees){
 
         if (listDonnees.size() == 0){
@@ -69,19 +83,19 @@ public class CSVReader {
                 id = Integer.valueOf(csvLine[0]);
             }
             // For the Date attribute
-            date = csvLine[1].replaceAll("\"", "");
+            date = csvLine[1];
 
             // For the Heure attribute
-            heure = csvLine[2].replaceAll("\"", "");
+            heure = csvLine[2];
 
             // For the Nom attribute
-            nom = csvLine[3].replaceAll("\"", "");
+            nom = csvLine[3];
 
             // For the Region attribute
-            region = csvLine[4].replaceAll("\"", "");
+            region = csvLine[4];
 
             // For the Choc attribute
-            choc = csvLine[5].replaceAll("\"", "");
+            choc = csvLine[5];
 
             // For the xRFG93 attribute
             if (csvLine[6].equals("")){
@@ -119,7 +133,7 @@ public class CSVReader {
                 intensite = Double.valueOf(csvLine[10]);
             }
             // For the QualiteIntensite attribute
-            qualiteIntensite = csvLine[11].replaceAll("\"", "");
+            qualiteIntensite = csvLine[11];
 
             listSeismes.add(new Seisme(id, date, heure, nom, region, choc,
                     xRGF93, yRGF93, latitude, longitude, intensite, qualiteIntensite));

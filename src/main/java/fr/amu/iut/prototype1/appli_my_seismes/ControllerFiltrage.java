@@ -7,11 +7,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import fr.amu.iut.prototype1.appli_my_seismes.ControllerSeisme;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-
-public class ControllerFiltrage {
+/**
+ * La classe controleur de la fenetre des filtres d'affichage.
+ */
+public class ControllerFiltrage extends VBox {
 
 
     @FXML
@@ -38,8 +41,8 @@ public class ControllerFiltrage {
     private CheckBox checkIntensite;
     @FXML
     private CheckBox checkQuali;
-    @FXML
-    private Button btnAppliqueFiltre;
+//    @FXML
+//    private Button btnAppliqueFiltre;
 
 
     @FXML
@@ -47,7 +50,11 @@ public class ControllerFiltrage {
 
     }
 
-
+    /**
+     * Envoie les données du filtre de la fenetre pour modifier la liste des visibilités des colonnes du tableau de données
+     * de ControllerSeisme.
+     * @see ControllerSeisme#getShowColumn()
+     */
     @FXML
     public void EnvoiFiltre () {
         boolean[] newShowColumn = FiltreTab();
@@ -56,6 +63,12 @@ public class ControllerFiltrage {
         }
     }
 
+    /**
+     * Crée un array de booléens représentant l'état de chaque CheckBox. Si une CheckBox est sélectionnée, on considère que
+     * l'attribut qui lui est associé est à afficher sur un tableau de données.
+     * @return Un array de booléens représentant l'état de sélection de chaque CheckBox.
+     * @see #EnvoiFiltre()
+     */
     public boolean[] FiltreTab() {
         // Récupérer l'état de chaque case à cocher
         // et Stocker les booléens dans un tableau
@@ -77,29 +90,5 @@ public class ControllerFiltrage {
         return listFiltreBool;
     }
 
-//    public void AppliqueFiltrage() {
-//        // Récupérer l'état de chaque case à cocher
-//        boolean VerifBoxID = id.isSelected();
-//        boolean VerifBoxDate = date.isSelected();
-//        boolean VerifBoxHeure = heure.isSelected();
-//        boolean VerifBoxNom = nom.isSelected();
-//        boolean VerifBoxRegion = region.isSelected();
-//        boolean VerifBoxChoc = choc.isSelected();
-//        boolean VerifBoxX = X.isSelected();
-//        boolean VerifBoxY = Y.isSelected();
-//        boolean VerifBoxLatitude = Latitude.isSelected();
-//        boolean VerifBoxLongitude = Longitude.isSelected();
-//        boolean VerifBoxIntensite = Intensité.isSelected();
-//        boolean VerifBoxQualite = qualite.isSelected();
-//
-//        ControllerSeisme.filtrageAttribut(VerifBoxID, VerifBoxDate, VerifBoxHeure, VerifBoxNom, VerifBoxRegion, VerifBoxChoc,
-//                VerifBoxX, VerifBoxY, VerifBoxLatitude, VerifBoxLongitude, VerifBoxIntensite, VerifBoxQualite);
-//
-//    }
-
-
-//        ControllerSeisme.filtrageAttribut(VerifBoxID, VerifBoxDate, VerifBoxHeure, VerifBoxNom, VerifBoxRegion, VerifBoxChoc,
-//                VerifBoxX, VerifBoxY, VerifBoxLatitude, VerifBoxLongitude, VerifBoxIntensite, VerifBoxQualite);
-
-    }
+}
 

@@ -3,6 +3,13 @@ package fr.amu.iut.prototype1.appli_my_seismes;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Classe utilisée dans l'affichage des données dans une TableView de 12 colonnes. Représente une ligne de tableau et la valeur StringProperty
+ * à chaque colonne.
+ * @deprecated Remplacée par des StringProperties dans Seismes qui permettent d'utiliser directement les attributs dans Séismes sans passer par
+ * une classe intermédiare.
+ * @see Seisme
+ */
 public class DonneesColonnes {
     private final StringProperty attribute1;
     private final StringProperty attribute2;

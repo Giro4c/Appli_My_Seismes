@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * L'application représentative de la fenetre des filtres d'affichage d'un tableau de données.
+ * @deprecated Remplacée par une fenetre accessible via
+ */
 public class Filtrage extends Application {
     @Override
     public void start(Stage stage) throws IOException {

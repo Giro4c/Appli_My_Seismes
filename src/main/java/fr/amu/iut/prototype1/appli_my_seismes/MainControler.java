@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Le controleur de la fenetre d'accueil princiaple de l'application du projet.
+ */
 public class MainControler extends VBox {
 
     @FXML
@@ -41,6 +44,11 @@ public class MainControler extends VBox {
 
     }
 
+    /**
+     * Affiche la fenêtre du tableau de données par lequel on peut aussi accéder aux fenêtres de filtre d'affichage et de filtre
+     * de tri sur la liste initiale de séismes.
+     * @throws IOException
+     */
     @FXML
     public void showTableDatas() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AfficheurDonnees.fxml"));
@@ -52,6 +60,9 @@ public class MainControler extends VBox {
         stageTable.show();
     }
 
+    /**
+     * Affiche la fenêtre de la carte de France des séismes.
+     */
     @FXML
     public void showMapSeismes(){
 
@@ -67,6 +78,9 @@ public class MainControler extends VBox {
 
     }
 
+    /**
+     * Affiche la fenêtre de l'overview sur les données statistiques de la liste de séisme actuelle.
+     */
     @FXML
     public void showOverview(){
 

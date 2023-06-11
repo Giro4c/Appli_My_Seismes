@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * L'application représentative de la fenetre Overview qui contient des données statistiques sur la liste de séismes traitée par l'application.
+ */
 public class Overview extends Application {
 
     private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(

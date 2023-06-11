@@ -2,8 +2,6 @@ package fr.amu.iut.prototype1.appli_my_seismes;
 
 import javafx.beans.property.*;
 
-import java.time.LocalDate;
-
 /**
  * Une classe représentant un filtre de correspondance à des critères sur des CalendarWithNulls :
  * Date comprise entre deux dates minDate et maxDate, Heure comprise entre deux heures minTime et maxTime
@@ -78,7 +76,7 @@ public class CalendarFilter {
 
         if (minCalendar.getDateString().equals("") && maxCalendar.getDateString().equals("")) return true;
         if (stringDate == null) return false;
-        return minCalendar.isDateInferiorOrEquals(stringDate) && maxCalendar.isDateSuperiorOrEquals(stringDate);
+        return minCalendar.isDateInferiorOrEqualsTo(stringDate) && maxCalendar.isDateSuperiorOrEqualsTo(stringDate);
 
     }
 
@@ -93,7 +91,7 @@ public class CalendarFilter {
 
         if (minCalendar.getTimeString().equals("") && maxCalendar.getTimeString().equals("")) return true;
         if (stringTime == null) return false;
-        return minCalendar.isTimeInferiorOrEquals(stringTime) && maxCalendar.isTimeSuperiorOrEquals(stringTime);
+        return minCalendar.isTimeInferiorOrEqualsTo(stringTime) && maxCalendar.isTimeSuperiorOrEqualsTo(stringTime);
 
     }
 

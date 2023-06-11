@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Le controleur de la fenetre de paramétrage des filtres de tri d'une liste de séisme.
+ * Le controleur de la fenêtre de paramétrage des filtres de tri d'une liste de séisme.
  */
 public class TrieurControler extends VBox {
 
@@ -173,6 +173,11 @@ public class TrieurControler extends VBox {
 
     }
 
+    /**
+     * Initialise les valeurs disponibles pour les spinners de l'onglet Heure via Listes Observables.
+     * Pour l'heure : de 0 à 23.
+     * Pour les minutes et secondes : de 0 à 59.
+     */
     private void setUpSpinners(){
         ObservableList<Integer> compteurHeures = FXCollections.observableArrayList();
         for (int compteur = 0; compteur < 24; ++compteur){
@@ -197,6 +202,11 @@ public class TrieurControler extends VBox {
         spinnerMaxSeconde.getValueFactory().setValue(59);
     }
 
+    /**
+     * L'initialisation du filtre nécessitant la création de propriétés temporaires uniquement utilisées par le filtre,
+     * elles est donc réalisée dans une méthode séparée du reste des filtres pour améliorer la lisibilité du code et sa compréhension.
+     * @return Le CalendarFIlter instancié de la fenêtre.
+     */
     private CalendarFilter setUpCalendarFilter(){
         // Property pour les time min et max car observable values non valables quand utilisées dans contructeur
         IntegerProperty propMinHeure = new SimpleIntegerProperty();

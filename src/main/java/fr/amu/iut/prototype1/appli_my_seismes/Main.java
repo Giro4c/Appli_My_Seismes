@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * L'application et fenêtre principale du projet qui donne aussi accès aux autres fenêtres du projet.
+ */
 public class Main extends Application {
 
     public static void main(String[] args) {

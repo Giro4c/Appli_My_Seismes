@@ -41,13 +41,17 @@ public class DoubleFilter {
             try {
                 matchMin = doubleVal >= Double.parseDouble(min.getValue().replaceAll(",", "."));
             } catch (Exception e) {
-                System.err.println("Erreur: Valeur de filtrage Min non valable");
+                if (!min.getValue().equals("")) {
+                    System.err.println("Erreur: Valeur de filtrage Min non valable");
+                }
                 matchMin = true;
             }
             try {
                 matchMax = doubleVal <= Double.parseDouble(max.getValue().replaceAll(",", "."));
             } catch (Exception e) {
-                System.err.println("Erreur: Valeur de filtrage Max non valable");
+                if (!max.getValue().equals("")) {
+                    System.err.println("Erreur: Valeur de filtrage Max non valable");
+                }
                 matchMax = true;
             }
             return matchMin && matchMax;

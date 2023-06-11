@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * L'application représentative de la fenêtre du tableau de données.
+ * @deprecated Remplacée par une fonction d'affichage de fenêtre sur MainControler
+ * @see MainControler#showTableDatas()
+ */
 public class AfficheurDonnees extends Application {
 
     @Override

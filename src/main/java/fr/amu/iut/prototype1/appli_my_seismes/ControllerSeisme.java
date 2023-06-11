@@ -58,9 +58,15 @@ public class ControllerSeisme {
 
 
     // Attributs pouvant être affectés par d'autres fenetres
+    /**
+     * Liste des visibilités des colonnes de tableView.
+     */
     private static ArrayList<BooleanProperty> showColumn = new ArrayList<>();
 
-
+    /**
+     * Getter qui permet d'accéder à la liste des visibilités des colonnes de tableView.
+     * @return Une liste de BooleanProperty liées (bind) aux visiblilités des colonnes de tableView.
+     */
     public static ArrayList<BooleanProperty> getShowColumn() {
         return showColumn;
     }

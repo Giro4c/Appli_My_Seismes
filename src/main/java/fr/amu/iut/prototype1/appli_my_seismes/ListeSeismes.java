@@ -2,8 +2,13 @@ package fr.amu.iut.prototype1.appli_my_seismes;
 
 import java.util.ArrayList;
 
+/**
+ * Classe contenant des fonctions statiques renvoyant des listes de Séismes pour les tests d'affichage et autres.
+ * @deprecated Nouvelles listes issues de CSVReader sont disponibles. Remplacent les listes test de cette classe.
+ * @see CSVReader
+ */
 public class ListeSeismes {
-    public ArrayList<Seisme> listeTestSeismes() {
+    public static ArrayList<Seisme> listeTestSeismes() {
         ArrayList<Seisme> listeSeisme = new ArrayList();
 
         //initialisation des tests seismes

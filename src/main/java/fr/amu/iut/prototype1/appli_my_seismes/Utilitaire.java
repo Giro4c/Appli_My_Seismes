@@ -2,6 +2,9 @@ package fr.amu.iut.prototype1.appli_my_seismes;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Classe contenant des méthodes statiques diverses pouvant être réutilisées par les autres classes du projet.
+ */
 public class Utilitaire {
 
     /**

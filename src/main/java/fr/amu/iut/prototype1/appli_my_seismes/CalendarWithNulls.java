@@ -335,7 +335,7 @@ public class CalendarWithNulls {
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
      * @return Renvoie true si la date est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
-    public boolean isDateInferiorOrEquals(CalendarWithNulls calendar){
+    public boolean isDateInferiorOrEqualsTo(CalendarWithNulls calendar){
         // Année
         if (this.getAnnee() != null && calendar.getAnnee() != null){
             if (this.getAnnee() > calendar.getAnnee()) return false;
@@ -361,9 +361,9 @@ public class CalendarWithNulls {
      * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
      * @return Renvoie true si la date est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
-    public boolean isDateInferiorOrEquals(String dateRef){
+    public boolean isDateInferiorOrEqualsTo(String dateRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls(dateRef, "");
-        return isDateInferiorOrEquals(calendarRef);
+        return isDateInferiorOrEqualsTo(calendarRef);
     }
 
     /**
@@ -372,7 +372,7 @@ public class CalendarWithNulls {
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
      * @return Renvoie true si la date est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
-    public boolean isDateSuperiorOrEquals(CalendarWithNulls calendar){
+    public boolean isDateSuperiorOrEqualsTo(CalendarWithNulls calendar){
         // Année
         if (this.getAnnee() != null && calendar.getAnnee() != null){
             if (this.getAnnee() > calendar.getAnnee()) return true;
@@ -398,9 +398,9 @@ public class CalendarWithNulls {
      * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
      * @return Renvoie true si la date est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
-    public boolean isDateSuperiorOrEquals(String dateRef){
+    public boolean isDateSuperiorOrEqualsTo(String dateRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls(dateRef, "");
-        return isDateSuperiorOrEquals(calendarRef);
+        return isDateSuperiorOrEqualsTo(calendarRef);
     }
 
     /**
@@ -409,7 +409,7 @@ public class CalendarWithNulls {
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
      * @return Renvoie true si l'heure est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
-    public boolean isTimeInferiorOrEquals(CalendarWithNulls calendar){
+    public boolean isTimeInferiorOrEqualsTo(CalendarWithNulls calendar){
         // Heure
         if (this.getHeure() != null && calendar.getHeure() != null){
             if (this.getHeure() > calendar.getHeure()) return false;
@@ -435,9 +435,9 @@ public class CalendarWithNulls {
      * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
      * @return Renvoie true si l'heure est inférieure ou égale. Renvoie false si elle est ou égale supérieure.
      */
-    public boolean isTimeInferiorOrEquals(String timeRef){
+    public boolean isTimeInferiorOrEqualsTo(String timeRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls("", timeRef);
-        return isTimeInferiorOrEquals(calendarRef);
+        return isTimeInferiorOrEqualsTo(calendarRef);
     }
 
     /**
@@ -446,7 +446,7 @@ public class CalendarWithNulls {
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
      * @return Renvoie true si l'heure est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
-    public boolean isTimeSuperiorOrEquals(CalendarWithNulls calendar){
+    public boolean isTimeSuperiorOrEqualsTo(CalendarWithNulls calendar){
         // Heure
         if (this.getHeure() != null && calendar.getHeure() != null){
             if (this.getHeure() > calendar.getHeure()) return true;
@@ -472,14 +472,15 @@ public class CalendarWithNulls {
      * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
      * @return Renvoie true si l'heure est supérieure ou égale. Renvoie false si elle est inférieure.
      */
-    public boolean isTimeSuperiorOrEquals(String timeRef){
+    public boolean isTimeSuperiorOrEqualsTo(String timeRef){
         CalendarWithNulls calendarRef = new CalendarWithNulls("", timeRef);
-        return isTimeSuperiorOrEquals(calendarRef);
+        return isTimeSuperiorOrEqualsTo(calendarRef);
     }
 
     /**
      * Une méthode void pour initialiser toutes les valeurs du boolean array isDetermined.
      * @param determined La valeur booléenne à laquelle vont être initialisées toutes les valeurs du array.
+     * @deprecated Valeurs déterminées automatiquement dans le contructeur via les setters particuliers.
      */
     private void initializeIsDetermined(boolean determined){
         for (int indexField = 0; indexField < isDetermined.length; ++indexField){
@@ -552,6 +553,16 @@ public class CalendarWithNulls {
      *   SETTERS
      */
 
+    /**
+     * Modifie la valeur de l'attribut Année du calendrier et du champs lié à l'Année dans isDetermined.
+     * <ul>
+     *     <li>Si la valeur donnée est null, alors la valeur de l'année est set à la valeur par défaut 1 et le champ de l'année dans
+     * isDetermined est changé à false pour signifier que la valeur est non déterminée.</li>
+     * <li>Dans le cas contraire où la valeur donnée n'est pas null, le champ Année du calendrier prend la valeur donnée et le
+     * champ associé dans isDetermined est changé à true pour signifier que la valeur est déterminée.</li>
+     * </ul>
+     * @param annee L'Integer représentant la nouvelle année du calendrier. Ce paramètre peut valoir null.
+     */
     public void setAnnee(Integer annee){
         if (annee == null){
             isDetermined[Calendar.YEAR] = false;
@@ -562,6 +573,17 @@ public class CalendarWithNulls {
             fullDate.set(Calendar.YEAR, annee);
         }
     }
+
+    /**
+     * Modifie la valeur de l'attribut Mois du calendrier et du champs lié au Mois dans isDetermined.
+     * <ul>
+     *     <li>Si la valeur donnée est null, alors la valeur du mois est set à la valeur par défaut 1 et le champ du mois dans
+     * isDetermined est changé à false pour signifier que la valeur est non déterminée.</li>
+     * <li>Dans le cas contraire où la valeur donnée n'est pas null, le champ Mois du calendrier prend la valeur donnée et le
+     * champ associé dans isDetermined est changé à true pour signifier que la valeur est déterminée.</li>
+     * </ul>
+     * @param mois L'Integer représentant le nouveaux mois du calendrier. Ce paramètre peut valoir null.
+     */
     public void setMois(Integer mois){
         if(mois == null){
             isDetermined[Calendar.MONTH] = false;
@@ -572,6 +594,17 @@ public class CalendarWithNulls {
             fullDate.set(Calendar.MONTH, mois);
         }
     }
+
+    /**
+     * Modifie la valeur de l'attribut Jour du mois du calendrier et du champs lié au Jour du mois dans isDetermined.
+     * <ul>
+     *     <li>Si la valeur donnée est null, alors la valeur du jour (du mois) est set à la valeur par défaut 1 et le champ du jour (du mois) dans
+     * isDetermined est changé à false pour signifier que la valeur est non déterminée.</li>
+     * <li>Dans le cas contraire où la valeur donnée n'est pas null, le champ Jour du mois du calendrier prend la valeur donnée et le
+     * champ associé dans isDetermined est changé à true pour signifier que la valeur est déterminée.</li>
+     * </ul>
+     * @param jour L'Integer représentant le nouveau jour du mois du calendrier. Ce paramètre peut valoir null.
+     */
     public void setJour(Integer jour){
         if(jour == null){
             isDetermined[Calendar.DAY_OF_MONTH] = false;
@@ -582,6 +615,17 @@ public class CalendarWithNulls {
             fullDate.set(Calendar.DAY_OF_MONTH, jour);
         }
     }
+
+    /**
+     * Modifie la valeur de l'attribut Heure du jour du calendrier et du champs lié à l'Heure du jour dans isDetermined.
+     * <ul>
+     *     <li>Si la valeur donnée est null, alors la valeur de l'heure est set à la valeur par défaut 1 et le champ de l'heure dans
+     * isDetermined est changé à false pour signifier que la valeur est non déterminée.</li>
+     * <li>Dans le cas contraire où la valeur donnée n'est pas null, le champ Heure du jour du calendrier prend la valeur donnée et le
+     * champ associé dans isDetermined est changé à true pour signifier que la valeur est déterminée.</li>
+     * </ul>
+     * @param heure L'Integer représentant la nouvelle heure du calendrier. Ce paramètre peut valoir null.
+     */
     public void setHeure(Integer heure){
         if(heure == null){
             isDetermined[Calendar.HOUR_OF_DAY] = false;
@@ -592,6 +636,17 @@ public class CalendarWithNulls {
             fullDate.set(Calendar.HOUR_OF_DAY, heure);
         }
     }
+
+    /**
+     * Modifie la valeur de l'attribut Minute du calendrier et du champs lié à la Minute dans isDetermined.
+     * <ul>
+     *     <li>Si la valeur donnée est null, alors la valeur de la minute est set à la valeur par défaut 1 et le champ de la minute dans
+     * isDetermined est changé à false pour signifier que la valeur est non déterminée.</li>
+     *     <li>Dans le cas contraire où la valeur donnée n'est pas null, le champ Minute du calendrier prend la valeur donnée et le
+     * champ associé dans isDetermined est changé à true pour signifier que la valeur est déterminée.</li>
+     * </ul>
+     * @param minute L'Integer représentant la nouvelle minute du calendrier. Ce paramètre peut valoir null.
+     */
     public void setMinute(Integer minute){
         if(minute == null){
             isDetermined[Calendar.MINUTE] = false;
@@ -602,6 +657,17 @@ public class CalendarWithNulls {
             fullDate.set(Calendar.MINUTE, minute);
         }
     }
+
+    /**
+     * Modifie la valeur de l'attribut Seconde du calendrier et du champs lié aux Secondes dans isDetermined.
+     * <ul>
+     *      <li>Si la valeur donnée est null, alors la valeur des secondes est set à la valeur par défaut 1 et le champ des secondes dans
+     * isDetermined est changé à false pour signifier que la valeur est non déterminée.</li>
+     * <li>Dans le cas contraire où la valeur donnée n'est pas null, le champ Seconde du calendrier prend la valeur donnée et le
+     * champ associé dans isDetermined est changé à true pour signifier que la valeur est déterminée.</li>
+     * </ul>
+     * @param seconde L'Integer représentant la nouvelle seconde du calendrier. Ce paramètre peut valoir null.
+     */
     public void setSeconde(Integer seconde){
         if(seconde == null){
             isDetermined[Calendar.SECOND] = false;
