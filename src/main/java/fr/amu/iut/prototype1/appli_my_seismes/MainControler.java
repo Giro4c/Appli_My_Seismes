@@ -82,7 +82,15 @@ public class MainControler extends VBox {
      * Affiche la fenêtre de l'overview sur les données statistiques de la liste de séisme actuelle.
      */
     @FXML
-    public void showOverview(){
+    public void showOverview() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Overview.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stageTable = new Stage();
+        stageTable.setTitle("Overview");
+        stageTable.setScene(scene);
+        stageTable.show();
 
     }
 
