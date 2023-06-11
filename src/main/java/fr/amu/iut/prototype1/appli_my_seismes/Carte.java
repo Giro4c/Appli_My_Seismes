@@ -11,14 +11,12 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class Carte extends Application {
+public class Carte extends VBox {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public Carte() {
 
-    @Override
-    public void start(Stage primaryStage) {
+        super();
+        this.setPrefSize(640, 600);
 
         /* Définit la plate-forme pour éviter "javafx.platform is not defined" */
         System.setProperty("javafx.platform", "desktop");
@@ -28,8 +26,6 @@ public class Carte extends Application {
          * "Server returned HTTP response code: 403"
          */
         System.setProperty("http.agent", "Gluon Mobile/1.0.3");
-
-        VBox root = new VBox();
 
         /* Création de la carte Gluon JavaFX */
         MapView mapView = new MapView();
@@ -42,23 +38,15 @@ public class Carte extends Application {
         MapLayer mapLayer = new CustomSeismeMarkerLayer(MainControler.getListeSeismesTries());
         mapView.addLayer(mapLayer);
 
+
         /* Zoom de 5 */
         mapView.setZoom(6);
 
         /* Centre la carte sur le point */
         mapView.flyTo(0, mapCenterPoint, 0.1);
 
-        root.getChildren().add(mapView);
+        this.getChildren().add(mapView);
 
-        /*
-         * IMPORTANT mettre la taille de la fenêtre pour éviter l'erreur
-         * java.lang.OutOfMemoryError
-         */
-        Scene scene = new Scene(root, 640, 600);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Carte sismique");
-        primaryStage.show();
 
     }
 

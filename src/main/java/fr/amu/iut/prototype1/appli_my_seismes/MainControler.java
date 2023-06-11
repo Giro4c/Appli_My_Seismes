@@ -55,6 +55,16 @@ public class MainControler extends VBox {
     @FXML
     public void showMapSeismes(){
 
+        /*
+         * IMPORTANT mettre la taille de la fenêtre pour éviter l'erreur
+         * java.lang.OutOfMemoryError
+         */
+        Scene scene = new Scene(new Carte(), 640, 600);
+        Stage stageMap = new Stage();
+        stageMap.setScene(scene);
+        stageMap.setTitle("Carte sismique");
+        stageMap.show();
+
     }
 
     @FXML

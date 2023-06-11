@@ -161,8 +161,8 @@ public class TrieurControler extends VBox {
                 if (checkHeure.isSelected() && !calendarFilter.matchTimeFilter(seisme.getCalendar().getTimeString())) continue;
                 if (checkNom.isSelected() && !nomFilter.matchFilter(seisme.getNom())) continue;
                 if (checkRegion.isSelected() && !regionFilter.matchFilter(seisme.getRegion())) continue;
-                if (checkRGF.isSelected() && !xRGFFilter.matchFilter(seisme.getxRGF93()) && !yRGFFilter.matchFilter(seisme.getyRGF93())) continue;
-                if (checkGPS.isSelected() && !latitudeFilter.matchFilter(seisme.getLatitude()) && !longitudeFilter.matchFilter(seisme.getLongitude())) continue;
+                if (checkRGF.isSelected() && (!xRGFFilter.matchFilter(seisme.getxRGF93()) || !yRGFFilter.matchFilter(seisme.getyRGF93()))) continue;
+                if (checkGPS.isSelected() && (!latitudeFilter.matchFilter(seisme.getLatitude()) || !longitudeFilter.matchFilter(seisme.getLongitude()))) continue;
                 if (checkIntensite.isSelected() && !intensiteFilter.matchFilter(seisme.getIntensite())) continue;
                 if (checkChoc.isSelected() && !chocFilter.matchFilter(seisme.getChoc())) continue;
                 if (checkQualiIntenEpi.isSelected() && !qualiInteEpiFilter.matchFilter(seisme.getQualiteIntensiteEpicentre())) continue;

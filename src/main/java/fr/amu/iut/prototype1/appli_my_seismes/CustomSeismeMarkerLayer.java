@@ -32,6 +32,7 @@ public class CustomSeismeMarkerLayer extends MapLayer {
         ListChangeListener<Seisme> updatelistener = change -> {
             change.next();
             reloadData();
+            layoutLayer();
         };
         listSeismes.addListener(updatelistener);
 
