@@ -25,7 +25,6 @@ public class AfficheurDonnees extends Application {
         primaryStage.setTitle("Données Sismique");
         primaryStage.setScene(scene);
         primaryStage.show();
-        //ListeSeismes.listeTestSeismes();
 
     }
     public static void main(String[] args) {
