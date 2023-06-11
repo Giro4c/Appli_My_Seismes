@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
+import javafx.scene.control.Label;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,18 +27,28 @@ public class ControllerOverview {
     @FXML
     private PieChart Pie;
 
+    @FXML
+    private PieChart PieQualite;
+
+    @FXML
+    private Label seismeTotaux;
+
+    @FXML
+    private Label regionPlusAffecte;
+
+    @FXML
+    private Label seismePlusIntense;
+
     public void initialize() {
 
-        // Créer une liste pour stocker les régions épicentrales
+        // liste pour stocker les régions
         List<String> regionsEpicentrales = listeSeisme.stream()
                 .map(Seisme::getRegion)
                 .distinct()
                 .collect(Collectors.toList());
 
 
-        //stackedbarchart
-
-
+        //regions les plus affecté dans l'ordre (list pour le stacked)
         List<String> regionsByMostAffected = listeSeisme.stream()
                 .collect(Collectors.groupingBy(Seisme::getRegion,
                         Collectors.mapping(Seisme::getIntensite, Collectors.toList())))
@@ -46,6 +57,37 @@ public class ControllerOverview {
                 .limit(20)
                 .map(entry -> entry.getKey())
                 .collect(Collectors.toList());
+
+
+        //Donnees page 1
+
+        //seisme Totaux
+        seismeTotaux.setText(String.valueOf(listeSeisme.size()));
+
+
+        //region la plus affecté
+        regionPlusAffecte.setText(regionsByMostAffected.get(0));
+
+        //date et region du seisme le plus intense
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //stackedbarchart
+
+
+
 
         XYChart.Series<String, Number> mostAffectedSeries = new XYChart.Series<>();
 
@@ -84,7 +126,7 @@ public class ControllerOverview {
         // Définir un seuil pour la catégorie "autres" des régions moins fréquentes
         long seuil = 80; // Seuil
 
-        // Créer une liste pour stocker les données du diagramme circulaire (camembert)
+        // Créer une liste pour stocker les données du pie
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
         // Parcourir les régions et le nombre de séismes correspondant
@@ -92,9 +134,9 @@ public class ControllerOverview {
             String region = regionsEpicentrales.get(i);
             long nombreSeismes = nombreSeismesParRegion.get(i);
 
-            // Vérifier si le nombre de séismes est inférieur au seuil
+            // verifie si en dessous du seuil
             if (nombreSeismes < seuil) {
-                // Ajouter le nombre de séismes à la catégorie "Autres"
+                // Ajout du nombre de seismes a autres
                 PieChart.Data autresData = pieChartData.stream()
                         .filter(data -> data.getName().equals("Autres"))
                         .findFirst()
@@ -111,7 +153,7 @@ public class ControllerOverview {
                 //pourcentage
                 double pourcentage = (nombreSeismes / (double) getTotalSeismes(nombreSeismesParRegion)) * 100;
 
-                // Ajouter la région et le pourcentage dans le texte de la légende
+                // Ajoute pourcentage ds legende
                 PieChart.Data data = new PieChart.Data(region + " (" + String.format("%.2f", pourcentage) + "%)", nombreSeismes);
                 pieChartData.add(data);
 
@@ -128,10 +170,43 @@ public class ControllerOverview {
 
 
 
+        //PIE 2 (qualité epicentrale)
+        //liste pour stocker la qualité épicentrale des séismes
+        List<String> qualitesEpicentrales = listeSeisme.stream()
+                .map(Seisme::getQualiteIntensiteEpicentre)
+                .distinct()
+                .collect(Collectors.toList());
 
+        // liste pour stocker le nombre de seisme par qualité
+        List<Long> nombreSeismesParQualite = qualitesEpicentrales.stream()
+                .map(qualite -> listeSeisme.stream()
+                        .filter(seisme -> seisme.getQualiteIntensiteEpicentre().equals(qualite))
+                        .count())
+                .collect(Collectors.toList());
 
+        // liste pour stocker les donnee du pie
+        ObservableList<PieChart.Data> pieChartData2 = FXCollections.observableArrayList();
 
+        // Parcourir les qualités épicentrales et le nombre de séismes correspondant
+        for (int i = 0; i < qualitesEpicentrales.size(); i++) {
+            String qualite = qualitesEpicentrales.get(i);
+            long nombreSeismes = nombreSeismesParQualite.get(i);
+
+            // Ajouter les données au pie chart
+            PieChart.Data data = new PieChart.Data(qualite, nombreSeismes);
+            pieChartData2.add(data);
+        }
+
+        // Définir les données du pie chart
+        PieQualite.setData(pieChartData2);
     }
+
+
+
+
+
+
+
 
 
 
@@ -143,18 +218,18 @@ public class ControllerOverview {
     }
 
 
-    private double getAverageIntensityByRegion(List<Seisme> listeSeisme, String region) {
-        // Calculer la moyenne d'intensité pour une région donnée
-        List<Seisme> seismesByRegion = listeSeisme.stream()
-                .filter(seisme -> seisme.getRegion().equals(region))
-                .collect(Collectors.toList());
-
-        double sumIntensity = seismesByRegion.stream()
-                .mapToDouble(Seisme::getIntensite)
-                .sum();
-
-        return sumIntensity / seismesByRegion.size();
-    }
+//    private double getAverageIntensityByRegion(List<Seisme> listeSeisme, String region) {
+//        // Calculer la moyenne d'intensité pour une région
+//        List<Seisme> seismesByRegion = listeSeisme.stream()
+//                .filter(seisme -> seisme.getRegion().equals(region))
+//                .collect(Collectors.toList());
+//
+//        double sumIntensity = seismesByRegion.stream()
+//                .mapToDouble(Seisme::getIntensite)
+//                .sum();
+//
+//        return sumIntensity / seismesByRegion.size();
+//    }
 
 
 

@@ -12,6 +12,21 @@
             <content>
                 <VBox>
 
+                    <HBox>
+                        <Label text="Nombre total de seisme : "></Label>
+                        <Label fx:id="seismeTotaux"></Label>
+                    </HBox>
+
+                    <HBox>
+                        <Label text="Région la plus affectée par les séismes : "></Label>
+                        <Label fx:id="regionPlusAffecte"></Label>
+                    </HBox>
+
+                    <HBox>
+                        <Label text="la region et date du seisme le plus intense : "></Label>
+                        <Label fx:id="seismePlusIntense"></Label>
+                    </HBox>
+
 
                 </VBox>
             </content>
@@ -48,10 +63,11 @@
                 </VBox>
             </content>
         </Tab>
-        <Tab closable="false" text="Autre">
+        <Tab closable="false" text="Pie2">
             <content>
                 <VBox>
 
+                    <PieChart fx:id="PieQualite"></PieChart>
 
                 </VBox>
             </content>
