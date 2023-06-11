@@ -205,6 +205,31 @@ public class ControllerOverview {
 
 
 
+    //Scatter chart y=intensité x=temps(années)
+    List<scatterChartData> scatterChartDataList = listeSeisme.stream()
+            .collect(Collectors.groupingBy(seisme -> seisme.getIntensite()))
+            .entrySet().stream()
+            .sorted(Comparator.comparingDouble(entry -> entry.getKey()))
+            .map(entry -> new scatterChartData(entry.getKey(), entry.getValue()))
+            .collect(Collectors.toList());
+
+    ObservableList<scatterChartData> scatterChartDataList = FXCollections.observableArrayList();
+
+    NumberAxis xAxis = new NumberAxis();
+    NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Durée (en années)");
+        yAxis.setLabel("Intensité");
+
+    ScatterChart<Number, Number> scatterChart = new ScatterChart<>(xAxis, yAxis);
+
+    XYChart.Series<Number, Number> chart = new XYChart.Series<>();
+        for (scatterChartData data : scatterChartDataList) {
+        chart.getData().add(new XYChart.Data<>(data.getDurationYears(), data.getIntensity()));
+    }
+        scatterChart.getData().add(chart);
+}
+
+
 
 
 
