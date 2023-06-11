@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.ScatterChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <TabPane prefHeight="600.0" prefWidth="1000" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.ControllerOverview">
     <tabs>
@@ -13,7 +21,7 @@
                 <VBox alignment="CENTER" spacing="50.0">
 
                     <HBox alignment="CENTER">
-                        <Label text="Nombre total de seisme : " />
+                        <Label text="Nombre total de seismes : " />
                         <Label fx:id="seismeTotaux" />
                     </HBox>
 
@@ -28,7 +36,7 @@
                     </HBox>
 
                     <HBox alignment="CENTER" style="-fx-spacing: 0;">
-                        <Label text="la ou les dates et régions des seisme les plus intense : " />
+                        <Label text="La ou les dates et régions des seismes les plus intenses : " />
                         <Label fx:id="seismePlusIntense" />
                         <opaqueInsets>
                             <Insets />
@@ -39,7 +47,7 @@
                     </HBox>
 
                     <HBox alignment="CENTER">
-                        <Label text="Nombre de seisme d'intensité supérieur à 5 : " />
+                        <Label text="Nombre de seismes d'intensité supérieure à 5 : " />
                         <Label fx:id="totalSeismeSuperieurA5" />
                     </HBox>
 
