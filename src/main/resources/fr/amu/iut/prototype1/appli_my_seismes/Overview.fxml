@@ -10,22 +10,57 @@
 
         <Tab closable="false" text="Données">
             <content>
-                <VBox>
+                <VBox alignment="CENTER" spacing="50.0">
 
-                    <HBox>
-                        <Label text="Nombre total de seisme : "></Label>
-                        <Label fx:id="seismeTotaux"></Label>
+                    <HBox alignment="CENTER">
+                        <Label text="Nombre total de seisme : " />
+                        <Label fx:id="seismeTotaux" />
                     </HBox>
 
-                    <HBox>
-                        <Label text="Région la plus affectée par les séismes : "></Label>
-                        <Label fx:id="regionPlusAffecte"></Label>
+                    <HBox alignment="CENTER">
+                        <Label text="Région la plus affectée par les séismes : " />
+                        <Label fx:id="regionPlusAffecte" />
                     </HBox>
 
-                    <HBox>
-                        <Label text="la region et date du seisme le plus intense : "></Label>
-                        <Label fx:id="seismePlusIntense"></Label>
+                    <HBox alignment="CENTER">
+                        <Label text="Région la moins affectée par les séismes : " />
+                        <Label fx:id="regionMoinsAffecte" />
                     </HBox>
+
+                    <HBox alignment="CENTER" style="-fx-spacing: 0;">
+                        <Label text="la ou les dates et régions des seisme les plus intense : " />
+                        <Label fx:id="seismePlusIntense" />
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+                    </HBox>
+
+
+                    <HBox alignment="CENTER">
+                        <Label text="Nombre de seisme d'intensité supérieur à 5 : " />
+                        <Label fx:id="totalSeismeSuperieurA5" />
+                    </HBox>
+
+
+
+                    <HBox alignment="CENTER">
+                        <Label text="Intensité : " />
+                        <Label fx:id="IntensiteMin" />
+                        <Label fx:id="IntensiteMoy" />
+                        <Label fx:id="IntensiteMax" />
+                        <Label fx:id="IntensiteEtendu" />
+                        <Label fx:id="IntensiteMediane" />
+                        <Label fx:id="IntensiteEcartype" />
+                    </HBox>
+
+                    <HBox alignment="CENTER">
+                        <Label text="Nombre de régions : " />
+                        <Label fx:id="regionTotaux" />
+                    </HBox>
+
 
 
                 </VBox>
@@ -36,19 +71,19 @@
                 <VBox>
 
 
-                        <PieChart fx:id="Pie" prefHeight="800" prefWidth="800" />
+                        <PieChart fx:id="Pie" prefHeight="600" prefWidth="600" />
 
 
                 </VBox>
             </content>
         </Tab>
-        <Tab closable="false" text="BarChart">
+        <Tab closable="false" text="StackedBarChart">
             <content>
                 <VBox>
 
 
                     <VBox>
-                        <StackedBarChart fx:id="mostAffectedChart">
+                        <StackedBarChart fx:id="mostAffectedChart" prefHeight="563.0" prefWidth="960.0">
                             <xAxis>
                                 <CategoryAxis side="BOTTOM" fx:id="xAxisMostAffected" />
                             </xAxis>
@@ -67,11 +102,30 @@
             <content>
                 <VBox>
 
-                    <PieChart fx:id="PieQualite"></PieChart>
+                    <PieChart fx:id="PieQualite" prefHeight="600" prefWidth="600" />
 
                 </VBox>
             </content>
         </Tab>
+
+        <Tab closable="false" text="BarChart">
+            <content>
+                <VBox>
+                        <BarChart fx:id="intensityChart" prefHeight="563.0" prefWidth="960.0">
+                            <xAxis>
+                                <CategoryAxis side="BOTTOM" fx:id="xAxisIntensity" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yAxisIntensity" side="LEFT" />
+                            </yAxis>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </VBox.margin>
+                        </BarChart>
+                </VBox>
+            </content>
+        </Tab>
+
 
     </tabs>
 </TabPane>
