@@ -25,13 +25,16 @@ public class CustomSeismeMarkerLayer extends MapLayer {
      */
     public CustomSeismeMarkerLayer(ObservableList<Seisme> listeSeismes) {
 
+        // Initialisation de la couche
         listSeismes = listeSeismes;
-
         reloadData();
 
+        // Ajout d'un change listener pour mise à jour automatique de la couche
         ListChangeListener<Seisme> updatelistener = change -> {
             change.next();
+            // Rechager la liste de séismes et les marqueurs
             reloadData();
+            // Rafraichier la map pour mettre à jour la position des marqueurs. Au sinon s'affichent dans le coin jusqu'à rafraichissement.
             layoutLayer();
         };
         listSeismes.addListener(updatelistener);
@@ -54,6 +57,10 @@ public class CustomSeismeMarkerLayer extends MapLayer {
 
     }
 
+    /**
+     * Charge ou recharge les marqueurs de la couche ainsi que tous les MapPoint.
+     * Cette méthode s'appelle soit lors de l'initialisation, soit lorsque la liste de séismes à afficher est mise à jour.
+     */
     public void reloadData(){
         // Réinitialisation des arrays conteneurs
         this.getChildren().clear();
