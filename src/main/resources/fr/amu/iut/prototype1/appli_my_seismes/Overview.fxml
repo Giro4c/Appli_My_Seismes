@@ -69,18 +69,18 @@
                 </VBox>
             </content>
         </Tab>
-        <Tab closable="false" text="Pie">
+        <Tab closable="false" text="Camembert Régions">
             <content>
                 <VBox>
 
 
-                        <PieChart fx:id="Pie" prefHeight="600" prefWidth="600" />
+                        <PieChart fx:id="PieRegion" prefHeight="600" prefWidth="600" />
 
 
                 </VBox>
             </content>
         </Tab>
-        <Tab closable="false" text="StackedBarChart">
+        <Tab closable="false" text="Intensités Régions">
             <content>
                 <VBox>
 
@@ -101,7 +101,7 @@
                 </VBox>
             </content>
         </Tab>
-        <Tab closable="false" text="Pie2">
+        <Tab closable="false" text="Camembert Qualité Intensité">
             <content>
                 <VBox>
 
@@ -110,7 +110,7 @@
                 </VBox>
             </content>
         </Tab>
-      <Tab text="ScatterChart">
+      <Tab text="Séismes et Temps">
         <content>
             <VBox alignment="CENTER">
                <children>
@@ -127,7 +127,7 @@
         </content>
       </Tab>
 
-        <Tab closable="false" text="BarChart">
+        <Tab closable="false" text="Intensités et Séismes">
             <content>
                 <VBox>
                         <BarChart fx:id="intensityChart" prefHeight="563.0" prefWidth="960.0">

@@ -1,6 +1,7 @@
 package fr.amu.iut.prototype1.appli_my_seismes;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
@@ -8,74 +9,60 @@ import javafx.scene.control.Label;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 public class ControllerOverview {
 
-    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
-            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+//    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
+//            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+
+    // Elements graphiques -----------------------------------------------------
+        // StackedBarChart mostAffectedChart
     @FXML
     private StackedBarChart<String, Number> mostAffectedChart;
-
-
     @FXML
     private CategoryAxis xAxisMostAffected;
-
     @FXML
     private NumberAxis yAxisMostAffected;
-
+        // BarChart intensityChart
     @FXML
     private BarChart<String, Integer> intensityChart;
-
     @FXML
     private CategoryAxis xAxisIntensity;
-
     @FXML
     private NumberAxis yAxisIntensity;
-
-
-
+        // Pie Regions
     @FXML
-    private PieChart Pie;
-
+    private PieChart PieRegion;
+        // Pie Qualité intensité épicentre
     @FXML
     private PieChart PieQualite;
-
+        // Data Onglet labels
     @FXML
     private Label seismeTotaux;
-
     @FXML
     private Label regionPlusAffecte;
-
     @FXML
     private Label regionMoinsAffecte;
-
     @FXML
     private Label seismePlusIntense;
-
     @FXML
     private Label regionTotaux;
-
     @FXML
     private Label totalSeismeSuperieurA5;
-
     @FXML
     private Label IntensiteMax;
-
     @FXML
     private Label IntensiteMoy;
-
     @FXML
     private Label IntensiteMin;
-
     @FXML
     private Label IntensiteMediane;
-
     @FXML
     private Label IntensiteEcartype;
-
     @FXML
     private Label IntensiteEtendu;
-
+        // ScatterChart
     @FXML
     private NumberAxis xScatterAxis;
     @FXML
@@ -83,22 +70,36 @@ public class ControllerOverview {
     @FXML
     private ScatterChart<Number, Number> scatterChart;
 
+    // Attributs listes
     private List<String> regionsByMostAffected;
     private List<String> regionsEpicentrales;
 
 
-
     public void initialize() {
+        initListeSeismeListener();
+        setUpAllGraphics();
+    }
 
+    /**
+     * Crée et lie le change listener sur l'attribut statique listeSeismesTrie de MainControler.
+     */
+    private void initListeSeismeListener(){
+        ListChangeListener seismeListener = change -> {
+            change.next();
+            setUpAllGraphics();
+        };
+        MainControler.getListeSeismesTries().addListener(seismeListener);
+    }
+
+    private void setUpAllGraphics(){
         // liste pour stocker les régions
-        regionsEpicentrales = listeSeisme.stream()
+        regionsEpicentrales = MainControler.getListeSeismesTries().stream()
                 .map(Seisme::getRegion)
                 .distinct()
                 .collect(Collectors.toList());
 
-
-        //regions les plus affecté dans l'ordre (list pour le stacked)
-        regionsByMostAffected = listeSeisme.stream()
+        //regions les plus affectées dans l'ordre (list pour le stacked)
+        regionsByMostAffected = MainControler.getListeSeismesTries().stream()
                 .collect(Collectors.groupingBy(Seisme::getRegion,
                         Collectors.mapping(Seisme::getIntensite, Collectors.toList())))
                 .entrySet().stream()
@@ -107,22 +108,16 @@ public class ControllerOverview {
                 .map(entry -> entry.getKey())
                 .collect(Collectors.toList());
 
-
         // Donnees page 1
         setUpDatasTab();
-
         // stackedbarchart
         setUpBarChart();
-
-        //PIE 1
+        //PIE 1 (régions)
         setUpFirstPie();
-
         //PIE 2 (qualité epicentrale)
         setUpSecondPie();
-
         // ScatterChart
         setUpScatterChart();
-
         // Graphique du nombre de séismes dans des intervalles d'intensité
         setUpBarChartIntervalles();
 
@@ -134,7 +129,7 @@ public class ControllerOverview {
     private void setUpDatasTab() {
 
         // Seisme Totaux
-        seismeTotaux.setText(String.valueOf(listeSeisme.size()));
+        seismeTotaux.setText(String.valueOf(MainControler.getListeSeismesTries().size()));
 
         // Region la plus affectée
         regionPlusAffecte.setText(regionsByMostAffected.get(0));
@@ -145,20 +140,22 @@ public class ControllerOverview {
         regionMoinsAffecte.setText(regionsByLeastAffected.get(0));
 
 
-        // Date et region ayant subi intensité max
-        double maxIntensite = listeSeisme.stream()
-                .mapToDouble(Seisme::getIntensite)
-                .max()
-                .orElse(Double.NaN);
+        // statistiques sur l'intensité
+        DoubleSummaryStatistics statsIntensite = MainControler.getListeSeismesTries().stream()
+                .mapToDouble(Seisme::getIntensite).summaryStatistics();
 
-        List<Seisme> seismesMaxIntensite = listeSeisme.stream()
+        double maxIntensite = statsIntensite.getMax();
+
+        // Date et region ayant subi intensité
+        List<Seisme> seismesMaxIntensite = MainControler.getListeSeismesTries().stream()
                 .filter(seisme -> seisme.getIntensite() == maxIntensite)
                 .collect(Collectors.toList());
 
         String result;
         if (seismesMaxIntensite.isEmpty()) {
             result = "Aucun séisme enregistré";
-        } else {
+        }
+        else {
             result = seismesMaxIntensite.stream()
                     .map(seisme -> "Date : " + seisme.dateProperty().get() + ", Région : " + seisme.getRegion())
                     .collect(Collectors.joining("\n"));
@@ -167,43 +164,28 @@ public class ControllerOverview {
 
 
         // Nombre de seisme a intensité supérieure a 5
-        long nombreSeismesSup5 = listeSeisme.stream()
+        long nombreSeismesSup5 = MainControler.getListeSeismesTries().stream()
                 .filter(seisme -> seisme.getIntensite() > 5)
                 .count();
         totalSeismeSuperieurA5.setText(Long.toString(nombreSeismesSup5));
 
         // Liste des intensités des séismes (pour le code)
-        List<Double> intensites = listeSeisme.stream()
+        List<Double> intensites = MainControler.getListeSeismesTries().stream()
                 .map(Seisme::getIntensite)
-                .filter(intensite -> intensite != Seisme.DEFAULT_INVALID_INTENSITE)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-
         // intensité min
-        double minIntensite = listeSeisme.stream()
-                .mapToDouble(Seisme::getIntensite)
-                .min()
-                .orElse(Double.NaN);
+        double minIntensite = statsIntensite.getMin();
         IntensiteMin.setText("Minimum : " + minIntensite);
-
 
         // Intensité moyenne
         // Calculer la moyenne de l'intensité totale
-        double moyenneIntensite = listeSeisme.stream()
-                .mapToDouble(Seisme::getIntensite)
-                .average()
-                .orElse(Double.NaN);
+        double moyenneIntensite = statsIntensite.getAverage();
         IntensiteMoy.setText(", Moyenne  : " + moyenneIntensite);
-
 
         //Intensité max
         IntensiteMax.setText(", Maximum : " + maxIntensite);
-
-
-        // statistiques sur l'intensité
-        DoubleSummaryStatistics statistiques = intensites.stream()
-                .mapToDouble(Double::doubleValue)
-                .summaryStatistics();
 
 
         // mediane de l'intensité
@@ -221,28 +203,21 @@ public class ControllerOverview {
 
         // ecart type de l'intensité
         double sommeCarres = intensites.stream()
-                .mapToDouble(i -> Math.pow(i - statistiques.getAverage(), 2))
+                .mapToDouble(i -> Math.pow(i - statsIntensite.getAverage(), 2))
                 .sum();
         double ecartType = Math.sqrt(sommeCarres / intensites.size());
         IntensiteEcartype.setText(", Ecart - type : " + ecartType);
 
 
         // étendue de l'intensité
-        double etendue = statistiques.getMax() - statistiques.getMin();
+        double etendue = statsIntensite.getMax() - statsIntensite.getMin();
         IntensiteEtendu.setText(", Etendue " + etendue);
 
 
         // Nombre de regions
         regionTotaux.setText(Integer.toString(regionsEpicentrales.size()));
 
-
-
     }
-
-
-
-
-
 
 
     /**
@@ -250,13 +225,15 @@ public class ControllerOverview {
      */
     private void setUpBarChart(){
 
-
         XYChart.Series<String, Number> mostAffectedSeries1 = new XYChart.Series<>();
+        mostAffectedSeries1.setName("Minimum");
         XYChart.Series<String, Number> mostAffectedSeries2 = new XYChart.Series<>();
+        mostAffectedSeries2.setName("Moyenne");
         XYChart.Series<String, Number> mostAffectedSeries3 = new XYChart.Series<>();
+        mostAffectedSeries3.setName("Maximum");
 
         for (String region : regionsByMostAffected) {
-            List<Double> intensiteValues = listeSeisme.stream()
+            List<Double> intensiteValues = MainControler.getListeSeismesTries().stream()
                     .filter(seisme -> seisme.getRegion().equals(region))
                     .map(Seisme::getIntensite)
                     .collect(Collectors.toList());
@@ -273,7 +250,7 @@ public class ControllerOverview {
             mostAffectedSeries3.getData().add(new XYChart.Data<>(region, values.get(2))); // Valeur maximale
         }
 
-        mostAffectedChart.getData().addAll(mostAffectedSeries1, mostAffectedSeries2, mostAffectedSeries3);
+        mostAffectedChart.getData().setAll(mostAffectedSeries1, mostAffectedSeries2, mostAffectedSeries3);
         mostAffectedChart.setTitle("Minimum, moyenne et maximum de l'intensité des régions les plus touchées");
 
 
@@ -287,7 +264,7 @@ public class ControllerOverview {
     private void setUpFirstPie(){
         // Créer une liste pour stocker le nombre de séismes par région
         List<Long> nombreSeismesParRegion = regionsEpicentrales.stream()
-                .map(region -> listeSeisme.stream()
+                .map(region -> MainControler.getListeSeismesTries().stream()
                         .filter(seisme -> seisme.getRegion().equals(region))
                         .count())
                 .collect(Collectors.toList());
@@ -330,8 +307,8 @@ public class ControllerOverview {
             }
 
             // Définir les données du Pie
-            Pie.setData(pieChartData);
-            Pie.setTitle("Répartiton des séismes en fonction des régions");
+            PieRegion.setData(pieChartData);
+            PieRegion.setTitle("Répartiton des séismes en fonction des régions");
 
         }
     }
@@ -341,14 +318,14 @@ public class ControllerOverview {
      */
     private void setUpSecondPie(){
         //liste pour stocker la qualité épicentrale des séismes
-        List<String> qualitesEpicentrales = listeSeisme.stream()
+        List<String> qualitesEpicentrales = MainControler.getListeSeismesTries().stream()
                 .map(Seisme::getQualiteIntensiteEpicentre)
                 .distinct()
                 .collect(Collectors.toList());
 
         // liste pour stocker le nombre de seisme par qualité
         List<Long> nombreSeismesParQualite = qualitesEpicentrales.stream()
-                .map(qualite -> listeSeisme.stream()
+                .map(qualite -> MainControler.getListeSeismesTries().stream()
                         .filter(seisme -> seisme.getQualiteIntensiteEpicentre().equals(qualite))
                         .count())
                 .collect(Collectors.toList());
@@ -369,8 +346,6 @@ public class ControllerOverview {
             PieChart.Data data = new PieChart.Data(qualite + " (" + String.format("%.1f", pourcentage) + "%)", nombreSeismes);
             pieChartData2.add(data);
 
-
-
         }
 
         // Définir les données du pie chart
@@ -387,7 +362,7 @@ public class ControllerOverview {
 
         List<Integer> seismesParIntensite = new ArrayList<>(Collections.nCopies(intensityIntervals.size(), 0));
 
-        for (Seisme seisme : listeSeisme) {
+        for (Seisme seisme : MainControler.getListeSeismesTries()) {
             double intensite = seisme.getIntensite();
             if (intensite != Seisme.DEFAULT_INVALID_INTENSITE) {
                 for (int i = 0; i < intensityIntervals.size() - 1; ++i) {
@@ -412,7 +387,7 @@ public class ControllerOverview {
             series.getData().add(new XYChart.Data<>(interval, count));
         }
 
-        intensityChart.getData().add(series);
+        intensityChart.getData().setAll(series);
 
         intensityChart.setTitle("Nombre de séismes par intervalle d'intensité");
         xAxisIntensity.setLabel("Intervalle d'intensité");
@@ -431,7 +406,7 @@ public class ControllerOverview {
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Nombre de séismes");
 
-        Integer[] bornesAnnee = latestYearSeisme(listeSeisme);
+        Integer[] bornesAnnee = latestYearSeisme(MainControler.getListeSeismesTries());
         int maxAnnee = bornesAnnee[1];
         int minAnnee = bornesAnnee[0];
 
@@ -446,7 +421,7 @@ public class ControllerOverview {
         // Stockeur des compteurs de séismes
         Integer[] countSeismesAnnee = new Integer[maxAnnee - minAnnee + 1];
 
-        for (Seisme seisme : listeSeisme) {
+        for (Seisme seisme : MainControler.getListeSeismesTries()) {
             if (seisme.getCalendar().getAnnee() == null || seisme.getIntensite() == null) continue;
             if (seisme.getCalendar().getAnnee() < minAnnee) continue;
 //            series1.getData().add(new XYChart.Data(seisme.getCalendar().getAnnee(), seisme.getIntensite()));
@@ -476,7 +451,7 @@ public class ControllerOverview {
      * @param listeSeisme La liste de séisme dont on détermine l'année la plus grande et l'année la plus petite.
      * @return Renvoie un Integer[] de taille 2 avec l'année minimale (0) et l'année maximal (1) sauf si la liste de séismes est null. Renvoie null dans ce cas là.
      */
-    private Integer[] latestYearSeisme(ArrayList<Seisme> listeSeisme){
+    private Integer[] latestYearSeisme(ObservableList<Seisme> listeSeisme){
         if (listeSeisme != null && listeSeisme.size() > 1){
             int index = 0;
             Integer maxYear = null;

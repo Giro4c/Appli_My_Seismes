@@ -64,7 +64,7 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="104.0" layoutY="10.0" spacing="5.0">
                <children>
-                  <Button fx:id="btnOverview" mnemonicParsing="false" prefHeight="125.0" prefWidth="125.0">
+                  <Button fx:id="btnOverview" mnemonicParsing="false" onAction="#showOverview" prefHeight="125.0" prefWidth="125.0">
                      <graphic>
                         <ImageView fitHeight="121.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                            <image>
