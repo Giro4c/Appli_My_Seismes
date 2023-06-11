@@ -83,12 +83,12 @@
         <content>
             <VBox alignment="CENTER">
                <children>
-                  <ScatterChart fx:id="scatterChart">
+                  <ScatterChart fx:id="scatterChart" title="Nombre de séismes en fonction de l'année sur un siècle au maximum">
                     <xAxis>
-                      <NumberAxis side="BOTTOM" fx:id="xScatterAxis" />
+                      <NumberAxis forceZeroInRange="false" label="Durée (en années)" minorTickCount="2000" side="BOTTOM" upperBound="1100.0" fx:id="xScatterAxis" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis fx:id="yScatterAxis" prefHeight="360.0" prefWidth="31.0" side="LEFT" />
+                      <NumberAxis fx:id="yScatterAxis" label="Nombre de séismes" prefHeight="360.0" prefWidth="31.0" side="LEFT" upperBound="15.0" />
                     </yAxis>
                   </ScatterChart>
                </children>

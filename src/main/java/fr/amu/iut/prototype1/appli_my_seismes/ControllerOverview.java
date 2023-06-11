@@ -39,17 +39,28 @@ public class ControllerOverview {
     @FXML
     private Label seismePlusIntense;
 
+    @FXML
+    private NumberAxis xScatterAxis;
+    @FXML
+    private NumberAxis yScatterAxis;
+    @FXML
+    private ScatterChart<Number, Number> scatterChart;
+
+    private List<String> regionsByMostAffected;
+    private List<String> regionsEpicentrales;
+
+    @FXML
     public void initialize() {
 
         // liste pour stocker les régions
-        List<String> regionsEpicentrales = listeSeisme.stream()
+        regionsEpicentrales = listeSeisme.stream()
                 .map(Seisme::getRegion)
                 .distinct()
                 .collect(Collectors.toList());
 
 
         //regions les plus affecté dans l'ordre (list pour le stacked)
-        List<String> regionsByMostAffected = listeSeisme.stream()
+        regionsByMostAffected = listeSeisme.stream()
                 .collect(Collectors.groupingBy(Seisme::getRegion,
                         Collectors.mapping(Seisme::getIntensite, Collectors.toList())))
                 .entrySet().stream()
@@ -59,7 +70,27 @@ public class ControllerOverview {
                 .collect(Collectors.toList());
 
 
-        //Donnees page 1
+        // Donnees page 1
+        setUpDatasTab();
+
+        // stackedbarchart
+        setUpBarChart();
+
+        //PIE 1
+        setUpFirstPie();
+
+        //PIE 2 (qualité epicentrale)
+        setUpSecondPie();
+
+        // ScatterChart
+        setUpScatterChart();
+
+    }
+
+    /**
+     * Configure tous les labels de l'onglet des données statistiques (Onglet 1 de l'Overview)
+     */
+    private void setUpDatasTab(){
 
         //seisme Totaux
         seismeTotaux.setText(String.valueOf(listeSeisme.size()));
@@ -67,27 +98,12 @@ public class ControllerOverview {
 
         //region la plus affecté
         regionPlusAffecte.setText(regionsByMostAffected.get(0));
+    }
 
-        //date et region du seisme le plus intense
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //stackedbarchart
-
-
-
+    /**
+     * Configure et remplit le graphique en barre de l'Overview.
+     */
+    private void setUpBarChart(){
 
         XYChart.Series<String, Number> mostAffectedSeries = new XYChart.Series<>();
 
@@ -110,12 +126,12 @@ public class ControllerOverview {
 
         mostAffectedChart.getData().add(mostAffectedSeries);
 
+    }
 
-
-
-        //PIE
-
-
+    /**
+     * Rempli le premier graphique en camenbert de l'Overview
+     */
+    private void setUpFirstPie(){
         // Créer une liste pour stocker le nombre de séismes par région
         List<Long> nombreSeismesParRegion = regionsEpicentrales.stream()
                 .map(region -> listeSeisme.stream()
@@ -145,32 +161,31 @@ public class ControllerOverview {
                 if (autresData == null) {
                     autresData = new PieChart.Data("Autres", nombreSeismes);
                     pieChartData.add(autresData);
-                } else {
+                }
+                else {
                     autresData.setPieValue(autresData.getPieValue() + nombreSeismes);
                 }
-            } else {
 
+            }
+            else {
                 //pourcentage
                 double pourcentage = (nombreSeismes / (double) getTotalSeismes(nombreSeismesParRegion)) * 100;
 
                 // Ajoute pourcentage ds legende
                 PieChart.Data data = new PieChart.Data(region + " (" + String.format("%.2f", pourcentage) + "%)", nombreSeismes);
                 pieChartData.add(data);
-
-
-
-
             }
-
 
             // Définir les données du Pie
             Pie.setData(pieChartData);
 
         }
+    }
 
-
-
-        //PIE 2 (qualité epicentrale)
+    /**
+     * Rempli le deuxième graphique en camenbert de l'Overview
+     */
+    private void setUpSecondPie(){
         //liste pour stocker la qualité épicentrale des séismes
         List<String> qualitesEpicentrales = listeSeisme.stream()
                 .map(Seisme::getQualiteIntensiteEpicentre)
@@ -200,44 +215,91 @@ public class ControllerOverview {
         // Définir les données du pie chart
         PieQualite.setData(pieChartData2);
 
-
-//    }
-
-
-
-
-
-        //Scatter chart y=intensité x=temps(années)
-
-//        List<ScatterChart.Data<Number, Number>> scatterChartDataList = listeSeisme.stream()
-//                .collect(Collectors.groupingBy(seisme -> seisme.getIntensite()))
-//                .entrySet().stream()
-//                .sorted(Comparator.comparingDouble(entry -> entry.getKey()))
-//                .map(entry -> new ArrayList<ScatterChart.Data<Number, Number>>(entry.getKey(), entry.getValue()))
-//                .collect(Collectors.toList());
-//
-//        ObservableList<scatterChartData> scatterChartDataList = FXCollections.observableArrayList();
-//
-//        XYChart.Series<Number, Number> chart = new XYChart.Series<>();
-//        for (scatterChartData data : scatterChartDataList) {
-//            chart.getData().add(new XYChart.Data<>(data.getDurationYears(), data.getIntensity()));
-//        }
-//            scatterChart.getData().add(chart);
-
-        XYChart.Series series1 = new XYChart.Series();
-
-
     }
 
-    @FXML
-    NumberAxis xScatterAxis;
-    @FXML
-    NumberAxis yScatterAxis;
-    @FXML
-    ScatterChart<Number, Number> scatterChart;
+    /**
+     * Rempli l'unique scatter chart de l'Overview : Nombre de séismes en fonction de l'année sur un siècle au maximum.
+     */
+    private void setUpScatterChart(){
 
+//        XYChart.Series series1 = new XYChart.Series();
+//        series1.setName("Intensitées");
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Nombre de séismes");
 
+        Integer[] bornesAnnee = latestYearSeisme(listeSeisme);
+        int maxAnnee = bornesAnnee[1];
+        int minAnnee = bornesAnnee[0];
 
+        int limiteIntervalle = 100;
+        if (bornesAnnee != null && (maxAnnee - minAnnee) > limiteIntervalle) {
+            minAnnee = maxAnnee - limiteIntervalle;
+        }
+
+        // Changement des limites d'intervalles du graphique
+        xScatterAxis.lowerBoundProperty().setValue(minAnnee);
+        xScatterAxis.upperBoundProperty().setValue(bornesAnnee[1]);
+        // Stockeur des compteurs de séismes
+        Integer[] countSeismesAnnee = new Integer[maxAnnee - minAnnee + 1];
+
+        for (Seisme seisme : listeSeisme) {
+            if (seisme.getCalendar().getAnnee() == null || seisme.getIntensite() == null) continue;
+            if (seisme.getCalendar().getAnnee() < minAnnee) continue;
+//            series1.getData().add(new XYChart.Data(seisme.getCalendar().getAnnee(), seisme.getIntensite()));
+            if (countSeismesAnnee[seisme.getCalendar().getAnnee() - minAnnee] == null) {
+                countSeismesAnnee[seisme.getCalendar().getAnnee() - minAnnee] = 1;
+            } else {
+                ++countSeismesAnnee[seisme.getCalendar().getAnnee() - minAnnee];
+            }
+        }
+
+        // Remplissage de la serie 2
+        for (int annee = 0; annee < countSeismesAnnee.length; ++annee){
+            if (countSeismesAnnee[annee] == null){
+                series2.getData().add(new XYChart.Data((bornesAnnee[0] + annee), 0));
+            }
+            else {
+                series2.getData().add(new XYChart.Data((bornesAnnee[0] + annee), countSeismesAnnee[annee]));
+            }
+        }
+
+        // Ajout des séries au graphique en scatter
+        scatterChart.getData().setAll(/*series1,*/ series2);
+    }
+
+    private Integer[] latestYearSeisme(ArrayList<Seisme> listeSeisme){
+        if (listeSeisme != null && listeSeisme.size() > 1){
+            int index = 0;
+            Integer maxYear = null;
+            Integer minYear = null;
+            // initialise min et max année
+            while((maxYear == null && minYear == null) && index < listeSeisme.size()){
+                if (listeSeisme.get(index).getCalendar().getAnnee() != null){
+                    maxYear = listeSeisme.get(index).getCalendar().getAnnee();
+                    minYear = listeSeisme.get(index).getCalendar().getAnnee();
+                }
+                ++index;
+            }
+            while(index < listeSeisme.size()){
+                if (listeSeisme.get(index).getCalendar().getAnnee() != null){
+                    if (listeSeisme.get(index).getCalendar().getAnnee() > maxYear) {
+                        maxYear = listeSeisme.get(index).getCalendar().getAnnee();
+                    }
+                    else if (listeSeisme.get(index).getCalendar().getAnnee() < minYear) {
+                        minYear = listeSeisme.get(index).getCalendar().getAnnee();
+                    }
+                }
+                ++index;
+            }
+            Integer[] bornesAnnee = {minYear, maxYear};
+            return bornesAnnee;
+        }
+        else if (listeSeisme.size() == 1){
+            Integer[] bornesAnnee = {listeSeisme.get(0).getCalendar().getAnnee(), listeSeisme.get(0).getCalendar().getAnnee()};
+            return bornesAnnee;
+        }
+        else return null;
+    }
 
 
     // Méthode pour calculer le total des séismes
