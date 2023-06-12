@@ -201,6 +201,10 @@ class CalendarWithNullsTest {
         calendar.setAnnee(2020);
         assertEquals(2020, calendar.getAnnee());
         assertTrue(calendar.getIsDetermined()[Calendar.YEAR]);
+        // Année minimal du calendrier : 1
+        calendar.setAnnee(0);
+        assertEquals(1, calendar.getAnnee());
+        assertTrue(calendar.getIsDetermined()[Calendar.YEAR]);
         // Test set avec valeur nulle
         calendar.setAnnee(null);
         assertNull(calendar.getAnnee());
@@ -344,5 +348,262 @@ class CalendarWithNullsTest {
         calendar.setTime("40 min");
         assertTrue((calendar.getHeure() == null && calendar.getMinute() == 40 && calendar.getSeconde() == null));
 
+    }
+
+
+    @Test
+    void isDateInferiorOrEqualsTo() {
+        CalendarWithNulls calendar1 = new CalendarWithNulls("2/2/2","");
+        CalendarWithNulls calendar2 = new CalendarWithNulls("2/2/2","");
+        // Tous les cas censés renvoyer true
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/2/2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/1/2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/2/1"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/1"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/1"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2//2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2//1"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("1//2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("/2"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("/1"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("/1/"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("/2/"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/"); //
+        assertTrue(calendar1.isDateInferiorOrEqualsTo(calendar2));
+
+        // Tous les cas censés renvoyer false
+
+        calendar1.setDate("");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/2/3");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/3/2");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("3/2/2");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/3");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("3/2");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("2//3");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("3//2");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("3/");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+        calendar1.setDate("/3/");
+        assertFalse(calendar1.isDateInferiorOrEqualsTo(calendar2));
+
+    }
+
+    @Test
+    void isDateSuperiorOrEqualsTo() {
+        CalendarWithNulls calendar1 = new CalendarWithNulls("2/2/2","");
+        CalendarWithNulls calendar2 = new CalendarWithNulls("2/2/2","");
+        // Tous les cas censés renvoyer true
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/2"); //
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2//2"); //
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("/2"); //
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("/2/"); //
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/"); //
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/2/3");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/3/2");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("3/2/2");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/3");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("3/2");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2//3");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("3//2");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("3/");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("/3/");
+        assertTrue(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+
+        // Tous les cas censés renvoyer false
+
+        calendar1.setDate("");
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/2/2"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/1/2"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/2/1"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2/1"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/1"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/2"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("2//1"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("1//2"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("/1"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("/1/"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+        calendar1.setDate("1/"); //
+        assertFalse(calendar1.isDateSuperiorOrEqualsTo(calendar2));
+
+    }
+
+    @Test
+    void isTimeInferiorOrEqualsTo() {
+        CalendarWithNulls calendar1 = new CalendarWithNulls("","2 h 2 min 2 sec");
+        CalendarWithNulls calendar2 = new CalendarWithNulls("","2 h 2 min 2 sec");
+        // Tous les cas censés renvoyer true
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 h 2 min 2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 1 min 2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 2 min 1 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min 1 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 min 1 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 min 2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min 2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 1 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 h 2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 sec"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 min"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 h"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h"); //
+        assertTrue(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+
+        // Tous les cas censés renvoyer false
+
+        calendar1.setTime("");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 2 min 3 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 3 min 2 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 h 2 min 2 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min 3 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 min 2 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 3 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 h 2 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 h");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 sec");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 min");
+        assertFalse(calendar1.isTimeInferiorOrEqualsTo(calendar2));
+
+    }
+
+    @Test
+    void isTimeSuperiorOrEqualsTo() {
+        CalendarWithNulls calendar1 = new CalendarWithNulls("","2 h 2 min 2 sec");
+        CalendarWithNulls calendar2 = new CalendarWithNulls("","2 h 2 min 2 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min 2 sec"); //
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 2 sec"); //
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 sec"); //
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min"); //
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h"); //
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 2 min 3 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 3 min 2 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 h 2 min 2 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min 3 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 min 2 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 3 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 h 2 sec");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 h");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("3 min");
+        assertTrue(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+
+        // Tous les cas censés renvoyer false
+
+        calendar1.setTime("");
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 h 2 min 2 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 1 min 2 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 2 min 1 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 min 1 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 min 1 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 min 2 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("2 h 1 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 h 2 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 sec"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 min"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
+        calendar1.setTime("1 h"); //
+        assertFalse(calendar1.isTimeSuperiorOrEqualsTo(calendar2));
     }
 }

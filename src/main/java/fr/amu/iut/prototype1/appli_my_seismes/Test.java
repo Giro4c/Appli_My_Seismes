@@ -18,7 +18,7 @@ import java.util.spi.CalendarDataProvider;
 public class Test {
 
     public static void main(String[] args){
-        //experimentationOnCalender();
+        experimentationOnCalender();
         //testEqualsInteger();
         //testStringSplitForTime();
         //testStringSplitForDate();
@@ -53,7 +53,7 @@ public class Test {
             }
         }
         else{
-            System.out.println("Erreur: le array de devrait pas etre vide pour ce test.");
+            System.out.println("Erreur: le array ne devrait pas etre vide pour ce test.");
         }
 
     }
@@ -130,6 +130,10 @@ public class Test {
     }
 
     private static void testEqualsInteger(){
+        System.out.println(Integer.valueOf(0));
+        Integer int0 = Integer.valueOf(0);
+        System.out.print(int0);
+
         Integer int1 = null;
         Integer int2 = Integer.valueOf(1);
         Integer int3 = Integer.valueOf(1);
@@ -183,8 +187,9 @@ public class Test {
         System.out.println(calendrier.get(Calendar.HOUR_OF_DAY));
         System.out.println(calendrier.get(Calendar.MINUTE));
         System.out.println(calendrier.get(Calendar.SECOND));
-
-
+        System.out.println();
+        calendrier.set(Calendar.YEAR, 1);
+        System.out.println(calendrier.get(Calendar.YEAR));
 
     }
 

@@ -28,7 +28,7 @@ public class CalendarWithNulls {
      * Le array qui permet de déterminer si un champ du calendrier (reconnu par son identifiant dans Calendar)
      * a été set avec une valeur nulle (false) ou une valeur non nulle (true).
      */
-    private boolean[] isDetermined = new boolean[Calendar.FIELD_COUNT];
+    private boolean[] isDetermined = initializeIsDetermined(false);
 
     /**
      * Constructeur par défaut de la classe CalendarWithNulls.<br>
@@ -331,11 +331,13 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si la date de ce CalendarWithNulls est inférieure ou égale à celle d'un autre CalendarWithNulls calendar.
-     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
      * @return Renvoie true si la date est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
     public boolean isDateInferiorOrEqualsTo(CalendarWithNulls calendar){
+        if (this == null || calendar == null) return false;
+        if (this.getDateString().equals("") || calendar.getDateString().equals("")) return false;
         // Année
         if (this.getAnnee() != null && calendar.getAnnee() != null){
             if (this.getAnnee() > calendar.getAnnee()) return false;
@@ -357,7 +359,7 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si la date de ce CalendarWithNulls est inférieure ou égale à celle contenue dans une String format AAAA/MM/JJ.
-     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
      * @return Renvoie true si la date est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
@@ -368,11 +370,13 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si la date de ce CalendarWithNulls est supérieure ou égale à celle d'un autre CalendarWithNulls calendar.
-     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive suaf si tous les champs sont null.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de la date.
      * @return Renvoie true si la date est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
     public boolean isDateSuperiorOrEqualsTo(CalendarWithNulls calendar){
+        if (this == null || calendar == null) return false;
+        if (this.getDateString().equals("") || calendar.getDateString().equals("")) return false;
         // Année
         if (this.getAnnee() != null && calendar.getAnnee() != null){
             if (this.getAnnee() > calendar.getAnnee()) return true;
@@ -394,7 +398,7 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si la date de ce CalendarWithNulls est supérieure ou égale à celle contenue dans une String format AAAA/MM/JJ.
-     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ de date est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param dateRef Une date sous forme de String au format AAAA/MM/JJ à laquelle est comparée la date.
      * @return Renvoie true si la date est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
@@ -405,11 +409,13 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si l'heure de ce CalendarWithNulls est inférieure ou égale à celle d'un autre CalendarWithNulls calendar.
-     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
      * @return Renvoie true si l'heure est inférieure ou égale. Renvoie false si elle est strictement supérieure.
      */
     public boolean isTimeInferiorOrEqualsTo(CalendarWithNulls calendar){
+        if (this == null || calendar == null) return false;
+        if (this.getTimeString().equals("") || calendar.getTimeString().equals("")) return false;
         // Heure
         if (this.getHeure() != null && calendar.getHeure() != null){
             if (this.getHeure() > calendar.getHeure()) return false;
@@ -431,7 +437,7 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si l'heure de ce CalendarWithNulls est inférieure ou égale à celle contenue dans une String format "-h - min - sec".
-     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
      * @return Renvoie true si l'heure est inférieure ou égale. Renvoie false si elle est ou égale supérieure.
      */
@@ -442,11 +448,13 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si l'heure de ce CalendarWithNulls est supérieure ou égale à celle d'un autre CalendarWithNulls calendar.
-     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param calendar Le CalendarWithNulls auquel on compare la valeur de l'heure.
      * @return Renvoie true si l'heure est supérieure ou égale. Renvoie false si elle est strictement inférieure.
      */
     public boolean isTimeSuperiorOrEqualsTo(CalendarWithNulls calendar){
+        if (this == null || calendar == null) return false;
+        if (this.getTimeString().equals("") || calendar.getTimeString().equals("")) return false;
         // Heure
         if (this.getHeure() != null && calendar.getHeure() != null){
             if (this.getHeure() > calendar.getHeure()) return true;
@@ -468,7 +476,7 @@ public class CalendarWithNulls {
 
     /**
      * Permet de déterminer si l'heure de ce CalendarWithNulls est supérieure ou égale à celle contenue dans une String format "-h - min - sec".
-     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive.
+     * Dans le cas où un champ d'heure est null, ce champ est considéré comme valide quoi qu'il arrive sauf si tous les champs sont null.
      * @param timeRef Une heure sous forme de String au format "-h - min - sec" à laquelle est comparée l'heure.
      * @return Renvoie true si l'heure est supérieure ou égale. Renvoie false si elle est inférieure.
      */
@@ -480,12 +488,14 @@ public class CalendarWithNulls {
     /**
      * Une méthode void pour initialiser toutes les valeurs du boolean array isDetermined.
      * @param determined La valeur booléenne à laquelle vont être initialisées toutes les valeurs du array.
-     * @deprecated Valeurs déterminées automatiquement dans le contructeur via les setters particuliers.
+     *
      */
-    private void initializeIsDetermined(boolean determined){
-        for (int indexField = 0; indexField < isDetermined.length; ++indexField){
-            isDetermined[indexField] = determined;
+    private boolean[] initializeIsDetermined(boolean determined){
+        boolean[] boolArray = new boolean[Calendar.FIELD_COUNT];
+        for (int indexField = 0; indexField < boolArray.length; ++indexField){
+            boolArray[indexField] = determined;
         }
+        return boolArray;
     }
 
     /*
@@ -570,7 +580,7 @@ public class CalendarWithNulls {
         }
         else {
             isDetermined[Calendar.YEAR] = true;
-            fullDate.set(Calendar.YEAR, annee);
+            fullDate.set(Calendar.YEAR, annee.intValue());
         }
     }
 
