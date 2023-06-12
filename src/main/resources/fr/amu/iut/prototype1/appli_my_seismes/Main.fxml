@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="460.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.MainControler">
+<VBox stylesheets="@Main.css" styleClass="mainVBox" alignment="CENTER" prefHeight="460.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.MainControler">
    <children>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="186.0" prefWidth="460.0" VBox.vgrow="ALWAYS">
+      <VBox alignment="BOTTOM_CENTER" prefHeight="186.0" prefWidth="460.0" VBox.vgrow="ALWAYS" styleClass="mainVBox">
          <children>
             <Label text="Accueil :">
                <font>
@@ -26,7 +26,7 @@
       </VBox>
       <HBox alignment="TOP_CENTER" prefHeight="261.0" prefWidth="460.0" spacing="20.0">
          <children>
-            <VBox alignment="CENTER" spacing="5.0">
+            <VBox alignment="CENTER" spacing="5.0" styleClass="mainVBox">
                <children>
                   <Button fx:id="btnTable" mnemonicParsing="false" onAction="#showTableDatas" prefHeight="125.0" prefWidth="125.0">
                      <graphic>
@@ -44,7 +44,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" layoutX="177.0" layoutY="10.0" spacing="5.0">
+            <VBox alignment="CENTER" layoutX="177.0" layoutY="10.0" spacing="5.0" styleClass="mainVBox">
                <children>
                   <Button fx:id="btnMap" mnemonicParsing="false" onAction="#showMapSeismes" prefHeight="125.0" prefWidth="125.0">
                      <graphic>
@@ -62,7 +62,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" layoutX="104.0" layoutY="10.0" spacing="5.0">
+            <VBox alignment="CENTER" layoutX="104.0" layoutY="10.0" spacing="5.0" styleClass="mainVBox">
                <children>
                   <Button fx:id="btnOverview" mnemonicParsing="false" onAction="#showOverview" prefHeight="125.0" prefWidth="125.0">
                      <graphic>
