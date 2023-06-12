@@ -199,33 +199,33 @@ public class ControllerSeisme {
      * Le filtre d'affichage de départ contient : ID, Date, Heure, Région, Intensité et Qualité de l'intensité à l'épicentre
      */
     private void setUpShowColumn(){
-        // Reset showColumn pour éviter IndexOutOfBoundExeption
-        if (showColumn.size() < tableView.getColumns().size()) {
-            // ID
-            showColumn.add(new SimpleBooleanProperty(true));
-            // Date
-            showColumn.add(new SimpleBooleanProperty(true));
-            // Heure
-            showColumn.add(new SimpleBooleanProperty(true));
-            // Nom
-            showColumn.add(new SimpleBooleanProperty(false));
-            // Region
-            showColumn.add(new SimpleBooleanProperty(true));
-            // Choc
-            showColumn.add(new SimpleBooleanProperty(false));
-            // x RGF93
-            showColumn.add(new SimpleBooleanProperty(false));
-            // y RGF93
-            showColumn.add(new SimpleBooleanProperty(false));
-            // Latitude
-            showColumn.add(new SimpleBooleanProperty(false));
-            // Longitude
-            showColumn.add(new SimpleBooleanProperty(false));
-            // Intensité
-            showColumn.add(new SimpleBooleanProperty(true));
-            // Qualité intensité épicentre
-            showColumn.add(new SimpleBooleanProperty(true));
-        }
+        // Reset showColumn pour éviter IndexOutOfBoundExeption (les bind resteront car attribués à numeros d'element dans la liste et non les élément eux même)
+        showColumn.clear();
+        // ID
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Date
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Heure
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Nom
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Region
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Choc
+        showColumn.add(new SimpleBooleanProperty(false));
+        // x RGF93
+        showColumn.add(new SimpleBooleanProperty(false));
+        // y RGF93
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Latitude
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Longitude
+        showColumn.add(new SimpleBooleanProperty(false));
+        // Intensité
+        showColumn.add(new SimpleBooleanProperty(true));
+        // Qualité intensité épicentre
+        showColumn.add(new SimpleBooleanProperty(true));
+
     }
 
     /**
