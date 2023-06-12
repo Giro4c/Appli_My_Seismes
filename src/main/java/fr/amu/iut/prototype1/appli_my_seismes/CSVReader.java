@@ -74,7 +74,7 @@ public class CSVReader {
         String qualiteIntensite;
         for (int indexSeisme = 1; indexSeisme < listDonnees.size(); ++indexSeisme){
             csvLine = listDonnees.get(indexSeisme).split(",");
-            if (csvLine.length != Seisme.COUNT_ATTRIBUTE_LABELS) continue;
+            if (csvLine.length < (Seisme.COUNT_ATTRIBUTE_LABELS - 1)) continue;
             // For the ID attribute
             if (csvLine[0].equals("")){
                 id = null;
@@ -133,7 +133,12 @@ public class CSVReader {
                 intensite = Double.valueOf(csvLine[10]);
             }
             // For the QualiteIntensite attribute
-            qualiteIntensite = csvLine[11];
+            if (csvLine.length > Seisme.COUNT_ATTRIBUTE_LABELS - 1){
+                qualiteIntensite = csvLine[11];
+            }
+            else{
+                qualiteIntensite = "";
+            }
 
             listSeismes.add(new Seisme(id, date, heure, nom, region, choc,
                     xRGF93, yRGF93, latitude, longitude, intensite, qualiteIntensite));

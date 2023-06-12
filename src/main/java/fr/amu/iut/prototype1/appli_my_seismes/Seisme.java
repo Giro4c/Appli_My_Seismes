@@ -25,11 +25,6 @@ import java.util.ArrayList;
 public class Seisme {
 
     public static final int COUNT_ATTRIBUTE_LABELS = 12;
-    public static final int DEFAULT_INVALID_ID = -1;
-    public static final double DEFAULT_INVALID_XRGF93 = 1300001;
-    public static final double DEFAULT_INVALID_YRGF93 = 7200001;
-    public static final double DEFAULT_INVALID_LATITUDE = 361;
-    public static final double DEFAULT_INVALID_LONGITUDE = 361;
     public static final double DEFAULT_INVALID_INTENSITE = -1;
     private static ArrayList<String> initialListLabelsAttributs = new ArrayList<>();
 
@@ -125,10 +120,29 @@ public class Seisme {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Seisme seisme = (Seisme) o;
-        return (this.id == seisme.id && this.calendar.equals(seisme.calendar) && this.nom.equals(seisme.nom) &&
-                this.region.equals(seisme.region) && this.choc == seisme.choc && this.stringXRGF93 == seisme.stringXRGF93 &&
-                this.stringYRGF93 == seisme.stringYRGF93 && this.stringLatitude == seisme.stringLatitude && this.stringLongitude == seisme.stringLongitude &&
-                this.stringIntensite == seisme.stringIntensite && this.qualiteIntensiteEpicentre.equals(qualiteIntensiteEpicentre));
+        // Pour éviter NullPointerException
+        if ((this.id != null && !this.id.equals(seisme.id))
+                || (this.id == null && seisme.id != null)) return false;
+        if ((this.xRGF93 != null && !this.xRGF93.equals(seisme.xRGF93))
+                || (this.xRGF93 == null && seisme.xRGF93 != null)) return false;
+        if ((this.yRGF93 != null && !this.yRGF93.equals(seisme.yRGF93))
+                || (this.yRGF93 == null && seisme.yRGF93 != null)) return false;
+        if ((this.latitude != null && !this.latitude.equals(seisme.latitude))
+                || (this.latitude == null && seisme.latitude != null)) return false;
+        if ((this.longitude != null && !this.longitude.equals(seisme.longitude))
+                || (this.longitude == null && seisme.longitude != null)) return false;
+        if ((this.calendar != null && !this.calendar.equals(seisme.calendar))
+                || (this.calendar == null && seisme.calendar != null)) return false;
+        if ((this.nom.getValue() != null && !this.nom.getValue().equals(seisme.nom.getValue()))
+                || (this.nom.getValue() == null && seisme.nom.getValue() != null)) return false;
+        if ((this.region.getValue() != null && !this.region.getValue().equals(seisme.region.getValue()))
+                || (this.region.getValue() == null && seisme.region.getValue() != null)) return false;
+        if ((this.choc.getValue() != null && !this.choc.getValue().equals(seisme.choc.getValue()))
+                || (this.choc.getValue() == null && seisme.choc.getValue() != null)) return false;
+        if ((this.qualiteIntensiteEpicentre.getValue() != null && !this.qualiteIntensiteEpicentre.getValue().equals(seisme.qualiteIntensiteEpicentre.getValue()))
+                || (this.qualiteIntensiteEpicentre.getValue() == null && seisme.qualiteIntensiteEpicentreProperty().getValue() != null)) return false;
+
+        return true;
     }
 
     @Override

@@ -4,6 +4,7 @@ import javafx.beans.Observable;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 
@@ -18,15 +19,89 @@ import java.util.spi.CalendarDataProvider;
 public class Test {
 
     public static void main(String[] args){
-        experimentationOnCalender();
+        //experimentationOnCalender();
         //testEqualsInteger();
         //testStringSplitForTime();
         //testStringSplitForDate();
         //testCSVReader();
+        testEquals();
 
     }
 
-    private void testObservables(){
+    private static void testEquals(){
+
+        // String
+//        String str1 = "";
+//        String str2 = "";
+//        System.out.println(str1.equals(""));
+//        System.out.println(str2.equals(""));
+//        System.out.println(str1.equals(str2));
+
+//        StringProperty strProp1 = new SimpleStringProperty("");
+//        StringProperty strProp2 = new SimpleStringProperty("");
+//        System.out.println(strProp1.equals(""));
+//        System.out.println(strProp2.equals(""));
+//        System.out.println(strProp1.equals(strProp2));
+
+//        System.out.println(strProp1.getValue().equals(""));
+//        System.out.println(strProp2.getValue().equals(""));
+//        System.out.println(strProp1.getValue().equals(strProp2.getValue()));
+
+        // Integer
+        Integer integer1 = null;
+        Integer integer2 = null;
+        Integer integer3 = Integer.valueOf(1);
+        Integer integer4 = Integer.valueOf(1);
+
+//        System.out.println(integer1 == integer2);
+//        System.out.println(integer1 == integer3);
+//        System.out.println(integer3.equals(integer1));
+
+        System.out.println(testBool1(integer3, integer4));
+        System.out.println(testBool2(integer3, integer4));
+        System.out.println();
+        integer4 = Integer.valueOf(4);
+        System.out.println(testBool1(integer3, integer4));
+        System.out.println(testBool2(integer3, integer4));
+        System.out.println();
+        integer4 = null;
+        System.out.println(testBool1(integer3, integer4));
+        System.out.println(testBool2(integer3, integer4));
+        System.out.println();
+        integer4 = Integer.valueOf(4);
+        integer3 = null;
+        System.out.println(testBool1(integer3, integer4));
+        System.out.println(testBool2(integer3, integer4));
+        System.out.println();
+        integer4 = null;
+        System.out.println(testBool1(integer3, integer4));
+        System.out.println(testBool2(integer3, integer4));
+        System.out.println();
+
+
+
+    }
+
+    private static boolean testBool1(Integer integer1, Integer integer2){
+        if (integer1 != null){
+            if (!integer1.equals(integer2)){
+                return false;
+            }
+        }
+        else if (integer2 != null){
+            return false;
+        }
+        return true;
+    }
+    private static boolean testBool2(Integer integer1, Integer integer2){
+        if ((integer1 != null && !integer1.equals(integer2))
+                || (integer1 == null && integer2 != null)){
+            return false;
+        }
+        return true;
+    }
+
+    private static void testObservables(){
         ObservableValue<String> obsString = new SimpleStringProperty();
         System.out.println(obsString.getValue());
         ObservableValue<Boolean> obsBoolean = new SimpleBooleanProperty();
