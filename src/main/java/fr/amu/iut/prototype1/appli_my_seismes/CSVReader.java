@@ -16,7 +16,7 @@ public class CSVReader {
      * @param csvFileName Le chemin d'accès au fichier CSV à lire.
      * @return ArrayList de Strings sans guillemets représentant chaque ligne du fichier CSV lu.
      */
-    public static ArrayList<String> CSVFileReader(String csvFileName){
+    public static ArrayList<String> CSVFileReader(String csvFileName) throws FileNotFoundException {
         ArrayList<String> listDonnees = new ArrayList<>();
         try {
             BufferedReader csvReader = new BufferedReader(new FileReader(csvFileName));
@@ -29,7 +29,9 @@ public class CSVReader {
         }
         catch (FileNotFoundException e) {
             System.out.println("Le fichier CSV n'a pas été trouvé : " + csvFileName);
-            e.printStackTrace(); }
+            e.printStackTrace();
+            throw e;
+        }
         catch (IOException e) {
             System.out.println("Une erreur est survenue : " + csvFileName);
             e.printStackTrace();

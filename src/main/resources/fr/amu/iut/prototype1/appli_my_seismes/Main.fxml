@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -10,7 +12,20 @@
 
 <VBox alignment="CENTER" prefHeight="460.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.MainControler">
    <children>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="186.0" prefWidth="460.0" VBox.vgrow="ALWAYS">
+      <VBox>
+         <children>
+            <Label text="Vous pouvez entrer le chemin vers un fichier csv ici.">
+               <font>
+                  <Font name="System Italic" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="fieldCsvPath" prefHeight="26.0" prefWidth="357.0" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="130.0" prefWidth="460.0" VBox.vgrow="ALWAYS">
          <children>
             <Label text="Accueil :">
                <font>

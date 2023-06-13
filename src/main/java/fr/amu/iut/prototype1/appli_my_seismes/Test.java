@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -108,11 +109,12 @@ public class Test {
     }
 
     private static void testCSVReader(){
-        ArrayList<String> testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv");
-
-//        for (String str : testCSV){
-//            System.out.println(str);
-//        }
+        ArrayList<String> testCSV = null;
+        try {
+            testCSV = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_MINI.csv");
+        } catch (FileNotFoundException e) {
+            testCSV = new ArrayList<>();
+        }
 
         ArrayList<Seisme> testCSVSeismes = CSVReader.StringArrayToSeismeArrayList(testCSV);
 

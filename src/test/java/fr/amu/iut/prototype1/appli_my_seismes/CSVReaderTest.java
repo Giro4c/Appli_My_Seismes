@@ -2,6 +2,7 @@ package fr.amu.iut.prototype1.appli_my_seismes;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,20 +11,29 @@ class CSVReaderTest {
 
     @Test
     void CSVFileReader() {
-        assertEquals(SisFrance_CSV_String_Test(),
-                CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_TEST.csv"));
+        ArrayList<String> listExpected = SisFrance_CSV_String_Test();
+        ArrayList<String> listTestCsv = null;
+        try {
+            listTestCsv = CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_TEST.csv");
+        } catch (FileNotFoundException e) {
+            listTestCsv = new ArrayList<>();
+        }
+        assertEquals(listExpected.size(), listTestCsv.size());
+        assertEquals(listExpected, listTestCsv);
     }
 
     @Test
     void stringArrayToSeismeArrayList() {
         ArrayList<Seisme> listExpected = SisFrance_CSV_Seisme_Test();
-        ArrayList<Seisme> listTestCsv = CSVReader.StringArrayToSeismeArrayList(
-                        CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_TEST.csv"));
+        ArrayList<Seisme> listTestCsv = null;
+        try {
+            listTestCsv = CSVReader.StringArrayToSeismeArrayList(
+                            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_TEST.csv"));
+        } catch (FileNotFoundException e) {
+            listTestCsv = new ArrayList<>();
+        }
         assertEquals(listExpected.size(), listTestCsv.size());
-        assertEquals(SisFrance_CSV_Seisme_Test(),
-                CSVReader.StringArrayToSeismeArrayList(
-                        CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_TEST.csv")));
-
+        assertEquals(listExpected, listTestCsv);
 
     }
 

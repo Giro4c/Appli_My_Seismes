@@ -16,10 +16,6 @@ import java.util.ArrayList;
  */
 public class TrieurControler extends VBox {
 
-    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
-            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
-    private ObservableList<Seisme> listeSeismesTrie = FXCollections.observableArrayList();
-
     // Tous les checkBox des attributs ----------------------------
     @FXML
     private CheckBox checkID;

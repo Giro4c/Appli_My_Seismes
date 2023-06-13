@@ -6,9 +6,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,9 +25,12 @@ public class MainControler extends VBox {
     Button btnMap;
     @FXML
     Button btnOverview;
+    @FXML
+    TextField fieldCsvPath;
 
-    private final static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
-            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+    private static final String DEFAULT_CSV_PATH = "src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv";
+
+    private final static ArrayList<Seisme> initialListeSeismes = initInitialListeSeismes();
     private static ObservableList<Seisme> listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
 
     // Lecture Du CSV choisi et conversion des lignes en objet Seisme
@@ -41,9 +46,6 @@ public class MainControler extends VBox {
 
         // Initialisation liste variable de séismes
 //        listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
-
-//        initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
-//            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
 
 
     }
@@ -96,6 +98,20 @@ public class MainControler extends VBox {
         stageTable.setScene(scene);
         stageTable.show();
 
+    }
+
+    @FXML
+    public void loadNewCSV(){
+
+    }
+
+    private static ArrayList<Seisme> initInitialListeSeismes(){
+        try {
+            return CSVReader.StringArrayToSeismeArrayList(
+                    CSVReader.CSVFileReader(DEFAULT_CSV_PATH));
+        } catch (FileNotFoundException e) {
+            return new ArrayList<Seisme>();
+        }
     }
 
 }
