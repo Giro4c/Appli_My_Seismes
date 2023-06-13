@@ -7,6 +7,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -25,7 +27,25 @@ public class Test {
         //testStringSplitForTime();
         //testStringSplitForDate();
         //testCSVReader();
-        testEquals();
+        //testEquals();
+        testImageViewSrc();
+
+    }
+
+    private static void testImageViewSrc(){
+//        ImageView imageView = new ImageView("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("main/resources/fr/amu/iut/prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("resources/fr/amu/iut/prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("fr/amu/iut/prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("amu/iut/prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("iut/prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("prototype1/appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("appli_my_seismes/imgHome.png");
+//        ImageView imageView = new ImageView("imgHome.png");
+
+//        ImageView imageView = new ImageView();
+//        imageView.setImage(new Image(Test.class.getResource("imgHome.png").toString()));
+
 
     }
 
