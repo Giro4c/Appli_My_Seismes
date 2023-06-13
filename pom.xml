@@ -96,7 +96,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>fr.amu.iut.prototype1.appli_my_seismes/fr.amu.iut.prototype1.appli_my_seismes.HelloApplication</mainClass>
+              <mainClass>fr.amu.iut.prototype1.appli_my_seismes/fr.amu.iut.prototype1.appli_my_seismes.Main</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

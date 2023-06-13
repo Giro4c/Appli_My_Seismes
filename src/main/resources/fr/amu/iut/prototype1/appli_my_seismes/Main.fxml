@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox stylesheets="@Main.css" styleClass="mainVBox" alignment="CENTER" prefHeight="460.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.MainControler">
+<VBox stylesheets="@Main.css" styleClass="mainVBox" alignment="CENTER" prefHeight="460.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.MainController">
    <children>
       <VBox>
          <children>
@@ -52,7 +52,7 @@
                      <graphic>
                         <ImageView fitHeight="87.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true" rotate="-7.4">
                            <image>
-                              <Image url="@imgTable.png" />
+                              <Image url="@functionalities/imgTable.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -70,7 +70,7 @@
                      <graphic>
                         <ImageView fitHeight="118.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@imgFrance.png" />
+                              <Image url="@functionalities/imgFrance.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -88,7 +88,7 @@
                      <graphic>
                         <ImageView fitHeight="121.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@imgGraph.png" />
+                              <Image url="@functionalities/imgGraph.png" />
                            </image>
                         </ImageView>
                      </graphic>
