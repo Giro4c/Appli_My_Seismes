@@ -1,0 +1,26 @@
+.img{
+    -fx-background-image:url("Overview.png");
+    -fx-background-size: cover ;
+}
+.img2{
+    -fx-background-image:url("Overview3.png");
+    -fx-background-size: cover ;
+}
+.img3{
+    -fx-background-image:url("Overview2.png");
+    -fx-background-size: cover ;
+}
+.img4{
+    -fx-background-image:url("Overview4.png");
+    -fx-background-size: cover ;
+}
+.img5{
+    -fx-background-image:url("Overview5.png");
+    -fx-background-size: cover ;
+}
+
+
+.labell{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
