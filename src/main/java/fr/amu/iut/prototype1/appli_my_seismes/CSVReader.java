@@ -74,7 +74,7 @@ public class CSVReader {
         String qualiteIntensite;
         for (int indexSeisme = 1; indexSeisme < listDonnees.size(); ++indexSeisme){
             csvLine = listDonnees.get(indexSeisme).split(",");
-            if (csvLine.length < (Seisme.COUNT_ATTRIBUTE_LABELS - 1)) continue;
+            if (csvLine.length < (Seisme.COUNT_ATTRIBUTE_LABELS - 1) || csvLine.length > Seisme.COUNT_ATTRIBUTE_LABELS) continue;
             // For the ID attribute
             if (csvLine[0].equals("")){
                 id = null;
@@ -102,35 +102,35 @@ public class CSVReader {
                 xRGF93 = null;
             }
             else {
-                xRGF93 = Double.valueOf(csvLine[6]);
+                xRGF93 = Double.parseDouble(csvLine[6]);
             }
             // For the yRFG93 attribute
             if (csvLine[7].equals("")){
                 yRGF93 = null;
             }
             else {
-                yRGF93 = Double.valueOf(csvLine[7]);;
+                yRGF93 = Double.parseDouble(csvLine[7]);;
             }
             // For the Latitude attribute
             if (csvLine[8].equals("")){
                 latitude = null;
             }
             else {
-                latitude = Double.valueOf(csvLine[8]);;
+                latitude = Double.parseDouble(csvLine[8]);;
             }
             // For the Longitude attribute
             if (csvLine[9].equals("")){
                 longitude = null;
             }
             else {
-                longitude = Double.valueOf(csvLine[9]);;
+                longitude = Double.parseDouble(csvLine[9]);;
             }
             // For the Intensite attribute
             if (csvLine[10].equals("")){
                 intensite = null;
             }
             else {
-                intensite = Double.valueOf(csvLine[10]);
+                intensite = Double.parseDouble(csvLine[10]);
             }
             // For the QualiteIntensite attribute
             if (csvLine.length > Seisme.COUNT_ATTRIBUTE_LABELS - 1){
