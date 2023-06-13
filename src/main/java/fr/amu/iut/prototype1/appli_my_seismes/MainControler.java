@@ -24,8 +24,7 @@ public class MainControler extends VBox {
     @FXML
     Button btnOverview;
 
-    private /*final*/ static ArrayList<Seisme> initialListeSeismes = /*new ArrayList<>();*/
-            CSVReader.StringArrayToSeismeArrayList(
+    private final static ArrayList<Seisme> initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(
             CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
     private static ObservableList<Seisme> listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
 
