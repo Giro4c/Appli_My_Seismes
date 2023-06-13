@@ -21,6 +21,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -39,8 +40,11 @@ public class Carte extends VBox {
 
     }
 
+    /**
+     * Configure la carte et sa couche de marqueurs.
+     */
     private void setUpMapView(){
-//        VBox mapContainer = new VBox();
+
         this.setPrefSize(640, 680);
 
         /* Définit la plate-forme pour éviter "javafx.platform is not defined" */
@@ -71,15 +75,22 @@ public class Carte extends VBox {
         mapView.flyTo(0, mapCenterPoint, 0.1);
 
         this.getChildren().add(mapView);
-//        this.getChildren().add(mapContainer);
 
     }
 
+    /**
+     * Crée et ajoute la HBox en dessous de la carte qui contient le bouton de retour vers la page d'accueil et
+     * la légende de la carte.
+     */
     private void setUpLegend(){
         HBox bottomBox = new HBox(newHomeBtn(), newLegend());
         this.getChildren().add(bottomBox);
     }
 
+    /**
+     * Crée le bouton de retour vers la page d'accueil puisque Carte n'a pas de fxml associé.
+     * @return Un bouton de retour à la page d'accueil de l'application.
+     */
     private Button newHomeBtn(){
         Button btnHome = new Button();
         btnHome.setText("");
@@ -89,6 +100,15 @@ public class Carte extends VBox {
         imgHomeBtn.setFitHeight(80);
         imgHomeBtn.setFitWidth(80);
         btnHome.setGraphic(imgHomeBtn);
+        // Event retour à la page d'accueil
+        btnHome.setOnAction(actionEvent -> {
+            try {
+                MainControler.showHomePage();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         return btnHome;
     }
 

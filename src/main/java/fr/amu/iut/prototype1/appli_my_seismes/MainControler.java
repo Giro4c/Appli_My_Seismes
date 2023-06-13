@@ -73,13 +73,14 @@ public class MainControler extends VBox {
      * Affiche la fenêtre de la carte de France des séismes.
      */
     @FXML
-    public void showMapSeismes(){
+    public void showMapSeismes() throws IOException {
 
         /*
          * IMPORTANT mettre la taille de la fenêtre pour éviter l'erreur
          * java.lang.OutOfMemoryError
          */
-        Scene scene = new Scene(new Carte(), 640, 600);
+        Scene scene = new Scene(new Carte(), 640, 680);
+
         Stage stageMap = new Stage();
         stageMap.setScene(scene);
         stageMap.setTitle("Carte sismique");
@@ -100,6 +101,22 @@ public class MainControler extends VBox {
         stageTable.setTitle("Overview");
         stageTable.setScene(scene);
         stageTable.show();
+
+    }
+
+    /**
+     * Affiche la fenêtre de la page d'accueil de l'application.<br>
+     * Fonction disponible à l'utilisation pour toutes les classes.
+     */
+    public static void showHomePage() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stageHome = new Stage();
+        stageHome.setTitle("Visualisateur de données sismiques");
+        stageHome.setScene(scene);
+        stageHome.show();
 
     }
 
@@ -124,7 +141,6 @@ public class MainControler extends VBox {
                 System.out.println("Fichier non lu, erreur de chemin");
             }
         }
-
 
     }
 

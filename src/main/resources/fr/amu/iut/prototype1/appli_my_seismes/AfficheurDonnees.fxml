@@ -22,7 +22,7 @@
             </font>
          </Button>
             <Region HBox.hgrow="ALWAYS" />
-         <Button fx:id="btnHome" accessibleText="Retour à la page d'accueil." mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+         <Button fx:id="btnHome" accessibleText="Retour à la page d'accueil." mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
             <graphic>
                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                   <image>

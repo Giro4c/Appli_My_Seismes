@@ -51,6 +51,9 @@ public class ControllerSeisme {
     @FXML
     private Button btnNumPSuiv;
 
+    @FXML
+    private Button btnHome;
+
     private ObservableList<Seisme> listSeismesPage = FXCollections.observableArrayList();
     private IntegerProperty numPageActuelle = new SimpleIntegerProperty(1);
     private final int COUNT_LINES = 15;
@@ -81,10 +84,20 @@ public class ControllerSeisme {
         // Paramétrage de Table View
         setUpTable();
 
+        // Paramètrage du bouton de retour vers l'accueil
+        btnHome.setOnAction(actionEvent -> {
+            try {
+                MainControler.showHomePage();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
         // Création des bindings
         createBindings();
 
-        // Déclaration de l'event handler
+        // Déclaration de l'event handler des pages de tableau
         EventHandler<ActionEvent> switchPage = actionEvent -> {
             Button btn = (Button) actionEvent.getSource();
             if (btn.getText().equals("Début")){

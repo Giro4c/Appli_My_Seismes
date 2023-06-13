@@ -5,16 +5,18 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 public class ControllerOverview {
 
-//    private static ArrayList<Seisme> listeSeisme = CSVReader.StringArrayToSeismeArrayList(
-//            CSVReader.CSVFileReader("src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv"));
+    @FXML
+    private Button btnHome;
 
     // Elements graphiques -----------------------------------------------------
         // StackedBarChart mostAffectedChart
@@ -76,7 +78,17 @@ public class ControllerOverview {
 
 
     public void initialize() {
+        // Crée le change listener pour mettre à jour les graphiques
         initListeSeismeListener();
+        // Event retour à la page d'accueil
+        btnHome.setOnAction(actionEvent -> {
+            try {
+                MainControler.showHomePage();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        // Met en place les graphiques
         setUpAllGraphics();
     }
 
