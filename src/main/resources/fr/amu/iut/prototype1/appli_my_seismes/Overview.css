@@ -24,3 +24,8 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+.chart-pie-label {
+    -fx-fill: #ffffff;
+    -fx-font-size: 1em;
+}
