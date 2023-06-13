@@ -12,26 +12,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.ControllerSeisme">
+<BorderPane prefHeight="700.0" stylesheets="@AfficheurDonnees.css" styleClass="BorderPane" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.ControllerSeisme">
 
     <top>
-        <HBox alignment="BOTTOM_CENTER" prefHeight="125.0" prefWidth="1200.0">
-         <Button fx:id="btnWindowTri" mnemonicParsing="false" onAction="#openParamsTri" prefHeight="62.0" prefWidth="162.0" text="Filtrer">
+        <HBox alignment="BOTTOM_CENTER"  prefHeight="125.0">
+         <Button fx:id="btnWindowTri" mnemonicParsing="false" onAction="#openParamsTri" prefHeight="62.0" prefWidth="162.0" text="Filtrer" styleClass="HBox" >
             <font>
                <Font name="Arial Bold" size="31.0" />
             </font>
          </Button>
             <Region HBox.hgrow="ALWAYS" />
-         <Button fx:id="btnHome" accessibleText="Retour à la page d'accueil." mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
+        <Button fx:id="btnHome" accessibleText="Retour à la page d'accueil." mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
             <graphic>
-               <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@imgHome.png" />
-                  </image>
-               </ImageView>
+                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imgHome.png" />
+                    </image>
+                </ImageView>
             </graphic>
-         </Button>
-         <Region layoutX="223.0" layoutY="60.0" HBox.hgrow="ALWAYS" />
+        </Button>
+            <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="btnWindowAffichage" alignment="CENTER" onAction="#openParamsAffichage" prefHeight="58.0" prefWidth="196.0" text="Affichage" HBox.hgrow="NEVER">
             <font>
                <Font name="Arial Bold" size="31.0" />
@@ -48,7 +48,7 @@
     </top>
 
     <center>
-        <VBox alignment="CENTER" prefHeight="476.0" prefWidth="1200.0" style="-fx-padding: 30px;">
+        <VBox alignment="CENTER" prefHeight="476.0" prefWidth="1200.0" style="-fx-padding: 30px;" >
             <TableView fx:id="tableView" BorderPane.alignment="CENTER">
                 <columns>
                     <TableColumn id="column1" maxWidth="200" minWidth="200" prefWidth="200" text="ID" />
@@ -74,17 +74,17 @@
         </VBox>
     </center>
     <bottom>
-        <HBox prefHeight="45.0" prefWidth="300.0" spacing="50" style="-fx-padding: 30px;" BorderPane.alignment="CENTER">
-            <Button fx:id="btnDebut" prefHeight="25" prefWidth="100" text="Début" />
-            <Button fx:id="btnPrecedent" prefHeight="25" prefWidth="100" text="Précédent">
+        <HBox prefHeight="45.0" prefWidth="300.0" spacing="50" style="-fx-padding: 30px;" BorderPane.alignment="CENTER" >
+            <Button fx:id="btnDebut" styleClass="Bouton" prefHeight="25" prefWidth="100" text="Début" />
+            <Button fx:id="btnPrecedent" styleClass="Bouton" prefHeight="25" prefWidth="100" text="Pred">
             </Button>
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnNumPPred" />
-            <Button fx:id="btnNumPActu" />
-            <Button fx:id="btnNumPSuiv" />
+            <Button fx:id="btnNumPPred" styleClass="Bouton" />
+            <Button fx:id="btnNumPActu" styleClass="Bouton" />
+            <Button fx:id="btnNumPSuiv" styleClass="Bouton" />
             <Region HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnSuivant" prefHeight="25" prefWidth="100" text="Suivant" HBox.hgrow="NEVER" />
-            <Button fx:id="btnFin" prefHeight="25" prefWidth="100" text="Fin" />
+            <Button fx:id="btnSuivant" styleClass="Bouton" prefHeight="25" prefWidth="100" text="Suivant" HBox.hgrow="NEVER" />
+            <Button fx:id="btnFin" styleClass="Bouton" prefHeight="25" prefWidth="100" text="Fin" />
         </HBox>
     </bottom>
 
