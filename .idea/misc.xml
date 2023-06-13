@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="JavadocGenerationManager">
-<<<<<<< HEAD
+
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../docBis" />
     <option name="OPTION_SCOPE" value="private" />
     <option name="OPTION_INCLUDE_LIBS" value="true" />
-=======
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../../../../Qt" />
-    <option name="OPTION_SCOPE" value="private" />
-    <option name="OPTION_DOCUMENT_TAG_USE" value="true" />
->>>>>>> 18cedced166674c7cac236a730d0c54463303261
+
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
