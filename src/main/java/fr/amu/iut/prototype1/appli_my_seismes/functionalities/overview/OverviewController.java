@@ -282,8 +282,10 @@ public class OverviewController {
                         .count())
                 .collect(Collectors.toList());
 
+        long totalSeismes = nombreSeismesParRegion.stream().mapToLong(Long::valueOf).sum();
+
         // Définir un seuil pour la catégorie "autres" des régions moins fréquentes
-        long seuil = 80; // Seuil
+        double seuil = 0.03*totalSeismes; // Seuil
 
         // Créer une liste pour stocker les données du pie
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
