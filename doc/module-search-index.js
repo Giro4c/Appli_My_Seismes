@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"fr.amu.iut.prototype1.appli_my_seismes"}];updateSearchResults();
