@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -27,10 +28,12 @@ public class MainControler extends VBox {
     Button btnOverview;
     @FXML
     TextField fieldCsvPath;
+    @FXML
+    Label labelCsvError;
 
     private static final String DEFAULT_CSV_PATH = "src/main/resources/fr/amu/iut/prototype1/appli_my_seismes/SisFrance_seismes_20230604151458.csv";
 
-    private final static ArrayList<Seisme> initialListeSeismes = initInitialListeSeismes();
+    private static ArrayList<Seisme> initialListeSeismes = initInitialListeSeismes();
     private static ObservableList<Seisme> listeSeismesTries = FXCollections.observableArrayList(initialListeSeismes);
 
     // Lecture Du CSV choisi et conversion des lignes en objet Seisme
@@ -102,6 +105,26 @@ public class MainControler extends VBox {
 
     @FXML
     public void loadNewCSV(){
+
+        System.out.println("Action text field path csv");
+        if (fieldCsvPath.getText().equals("")){
+            initialListeSeismes = initInitialListeSeismes();
+            listeSeismesTries.setAll(initialListeSeismes);
+            labelCsvError.setVisible(false);
+            System.out.println("Fichier lu et listes mises à jour");
+        }
+        else {
+            try {
+                initialListeSeismes = CSVReader.StringArrayToSeismeArrayList(CSVReader.CSVFileReader(fieldCsvPath.getText()));
+                listeSeismesTries.setAll(initialListeSeismes);
+                labelCsvError.setVisible(false);
+                System.out.println("Fichier lu et listes mises à jour");
+            } catch (Exception e){
+                labelCsvError.setVisible(true);
+                System.out.println("Fichier non lu, erreur de chemin");
+            }
+        }
+
 
     }
 
