@@ -251,6 +251,7 @@ public class ControllerSeisme {
         Stage stageFiltreAffiche = new Stage();
         stageFiltreAffiche.setTitle("Paramètres d'affichage");
         stageFiltreAffiche.setScene(new Scene(fxmlloaderFiltreAffich.load()));
+        stageFiltreAffiche.setResizable(false);
         stageFiltreAffiche.show();
     }
 
@@ -265,6 +266,7 @@ public class ControllerSeisme {
         Stage statgeFiltreTri = new Stage();
         statgeFiltreTri.setTitle("Paramètres de filtrage");
         statgeFiltreTri.setScene(scene);
+        statgeFiltreTri.setResizable(false);
         statgeFiltreTri.show();
     }
 

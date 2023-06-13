@@ -97,10 +97,11 @@ public class MainControler extends VBox {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Overview.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
-        Stage stageTable = new Stage();
-        stageTable.setTitle("Overview");
-        stageTable.setScene(scene);
-        stageTable.show();
+        Stage stageOverview = new Stage();
+        stageOverview.setTitle("Overview");
+        stageOverview.setScene(scene);
+        stageOverview.setResizable(false);
+        stageOverview.show();
 
     }
 

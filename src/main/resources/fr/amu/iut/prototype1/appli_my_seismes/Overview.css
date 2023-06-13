@@ -27,5 +27,18 @@
 
 .chart-pie-label {
     -fx-fill: #ffffff;
-    -fx-font-size: 1em;
 }
+
+.chart-pie-label {
+    -fx-fill: #ffffff;
+}
+.chart-bar-label {
+    -fx-fill: #ffffff;
+}
+.axis-label {
+    -fx-text-fill: #ffffff;
+}
+pieQualite.title {
+    -fx-text-fill: #ffffff;
+}
+

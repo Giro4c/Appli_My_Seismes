@@ -16,156 +16,150 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox stylesheets="@Overview.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.ControllerOverview">
-    <children>
-        <TabPane prefHeight="600.0" prefWidth="1000" >
-            <tabs>
+<TabPane prefHeight="600.0" prefWidth="1000" stylesheets="@Overview.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.prototype1.appli_my_seismes.ControllerOverview">
+    <tabs>
 
-                <Tab closable="false" text="Données">
-                    <content >
-                        <VBox alignment="CENTER" spacing="30.0" styleClass="img" >
-                            <padding> <Insets top="140" right="140" bottom="140" left="140" /></padding>
-                            <HBox alignment="CENTER_LEFT"   >
-                                <Label text="Nombre total de seismes : "    styleClass="labell" />
-                                <Label fx:id="seismeTotaux" styleClass="labell" />
-                            </HBox>
+        <Tab closable="false" text="Données">
+            <content>
+                <VBox alignment="CENTER" spacing="30.0" styleClass="img">
+                    <padding> <Insets bottom="140" left="140" right="140" top="140" /></padding>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="labell" text="Nombre total de seismes : " />
+                        <Label fx:id="seismeTotaux" styleClass="labell" />
+                    </HBox>
 
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Région la plus affectée par les séismes : " styleClass="labell"  />
-                                <Label fx:id="regionPlusAffecte" styleClass="labell" />
-                            </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="labell" text="Région la plus affectée par les séismes : " />
+                        <Label fx:id="regionPlusAffecte" styleClass="labell" />
+                    </HBox>
 
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Région la moins affectée par les séismes : " styleClass="labell"  />
-                                <Label fx:id="regionMoinsAffecte" styleClass="labell" />
-                            </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="labell" text="Région la moins affectée par les séismes : " />
+                        <Label fx:id="regionMoinsAffecte" styleClass="labell" />
+                    </HBox>
 
-                            <HBox alignment="CENTER_LEFT" style="-fx-spacing: 0;">
-                                <Label text="La ou les dates et régions des seismes les plus intenses : " styleClass="labell"  />
-                                <Label fx:id="seismePlusIntense" styleClass="labell" />
-                                <opaqueInsets>
-                                    <Insets />
-                                </opaqueInsets>
-                                <VBox.margin>
-                                    <Insets />
-                                </VBox.margin>
-                            </HBox>
+                    <HBox alignment="CENTER_LEFT" style="-fx-spacing: 0;">
+                        <Label styleClass="labell" text="La ou les dates et régions des seismes les plus intenses : " />
+                        <Label fx:id="seismePlusIntense" styleClass="labell" />
+                        <opaqueInsets>
+                            <Insets />
+                        </opaqueInsets>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                    </HBox>
 
-                            <HBox alignment="CENTER_LEFT" >
-                                <Label text="Nombre de seismes d'intensité supérieure à 5 : " styleClass="labell"  />
-                                <Label fx:id="totalSeismeSuperieurA5" styleClass="labell" />
-                            </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="labell" text="Nombre de seismes d'intensité supérieure à 5 : " />
+                        <Label fx:id="totalSeismeSuperieurA5" styleClass="labell" />
+                    </HBox>
 
-                            <HBox alignment="CENTER_LEFT">
-                                <Label text="Intensité : "  styleClass="labell" />
-                                <Label fx:id="IntensiteMin"  styleClass="labell" />
-                                <Label fx:id="IntensiteMoy" styleClass="labell" />
-                                <Label fx:id="IntensiteMax" styleClass="labell" />
-                                <Label fx:id="IntensiteEtendu" styleClass="labell"  />
-                                <Label fx:id="IntensiteMediane" styleClass="labell" />
-                                <Label fx:id="IntensiteEcartype" styleClass="labell" />
-                            </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="labell" text="Intensité : " />
+                        <Label fx:id="IntensiteMin" styleClass="labell" />
+                        <Label fx:id="IntensiteMoy" styleClass="labell" />
+                        <Label fx:id="IntensiteMax" styleClass="labell" />
+                        <Label fx:id="IntensiteEtendu" styleClass="labell" />
+                        <Label fx:id="IntensiteMediane" styleClass="labell" />
+                        <Label fx:id="IntensiteEcartype" styleClass="labell" />
+                    </HBox>
 
-                            <HBox alignment="CENTER_LEFT" styleClass="img">
-                                <Label text="Nombre de régions : " styleClass="labell" />
-                                <Label fx:id="regionTotaux" styleClass="labell" />
-                            </HBox>
-                            <Button fx:id="btnHome" accessibleText="Retour à la page d'accueil." mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
-                                <graphic>
-                                    <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@imgHome.png" />
-                                        </image>
-                                    </ImageView>
-                                </graphic>
-                            </Button>
-                            <padding>
-                                <Insets top="5.0" />
-                            </padding>
+                    <HBox alignment="CENTER_LEFT" styleClass="img">
+                        <Label styleClass="labell" text="Nombre de régions : " />
+                        <Label fx:id="regionTotaux" styleClass="labell" />
+                    </HBox>
+                    <Button fx:id="btnHome" accessibleText="Retour à la page d'accueil." mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: transparent;">
+                        <graphic>
+                            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@imgHome.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
 
-                        </VBox>
-                    </content>
-                </Tab>
-                <Tab closable="false" text="Camembert Régions" >
-                    <content>
-                        <VBox styleClass="img4">
+                </VBox>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Camembert Régions">
+            <content>
+                <VBox styleClass="img4">
 
 
-                            <PieChart fx:id="PieRegion" prefHeight="600" prefWidth="600"  styleClass="labell" />
+                    <PieChart fx:id="PieRegion" prefHeight="600" prefWidth="600" styleClass="labell" />
 
 
 
 
-                        </VBox>
-                    </content>
-                </Tab>
-                <Tab closable="false" text="Intensités Régions"  >
-                    <content>
-                        <VBox>
+                </VBox>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Intensités Régions">
+         <content>
+
+   
+                    <VBox styleClass="img3">
+                     <StackedBarChart fx:id="mostAffectedChart" prefHeight="563.0" prefWidth="960.0" styleClass="labell">
+                         <xAxis>
+                             <CategoryAxis side="BOTTOM" tickLabelFill="WHITE" fx:id="xAxisMostAffected" />
+                         </xAxis>
+                         <yAxis>
+                             <NumberAxis fx:id="yAxisMostAffected" side="LEFT" tickLabelFill="WHITE" />
+                         </yAxis>
+                         <VBox.margin>
+                             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                         </VBox.margin>
+                     </StackedBarChart>
+                 </VBox>
+         </content>
+        </Tab>
+        <Tab closable="false" text="Camembert Qualité Intensité">
+            <content>
+                <VBox styleClass="img2">
+
+                    <PieChart fx:id="PieQualite" prefHeight="600" prefWidth="600" styleClass="labell" />
+
+                </VBox>
+            </content>
+        </Tab>
+        <Tab closable="false" text="Séismes et Temps">
+            <content>
+                <VBox alignment="CENTER" styleClass="img5">
+                    <children>
+                        <ScatterChart fx:id="scatterChart" legendSide="RIGHT" styleClass="labell" title="Nombre de séismes en fonction de l'année sur un siècle au maximum">
+                            <xAxis>
+                                <NumberAxis forceZeroInRange="false" label="Durée (en années)" minorTickCount="2000" side="BOTTOM" styleClass="labell" tickLabelFill="WHITE" upperBound="1100.0" fx:id="xScatterAxis" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="yScatterAxis" label="Nombre de séismes" prefHeight="360.0" prefWidth="31.0" side="LEFT" styleClass="labell" tickLabelFill="WHITE" upperBound="15.0" />
+                            </yAxis>
+                        </ScatterChart>
+                    </children>
+                </VBox>
+            </content>
+        </Tab>
+
+        <Tab closable="false" text="Intensités et Séismes">
+            <content>
+                <VBox styleClass="img3">
+                    <BarChart fx:id="intensityChart" prefHeight="563.0" prefWidth="960.0" styleClass="labell">
+                        <xAxis>
+                            <CategoryAxis side="BOTTOM" fx:id="xAxisIntensity" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis fx:id="yAxisIntensity" side="LEFT" />
+                        </yAxis>
+                        <VBox.margin>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </VBox.margin>
+                    </BarChart>
+                </VBox>
+            </content>
+        </Tab>
 
 
-                            <VBox styleClass="img3"  >
-                                <StackedBarChart fx:id="mostAffectedChart" prefHeight="563.0" prefWidth="960.0" styleClass="labell" >
-                                    <xAxis>
-                                        <CategoryAxis side="BOTTOM" fx:id="xAxisMostAffected"/>
-                                    </xAxis>
-                                    <yAxis>
-                                        <NumberAxis fx:id="yAxisMostAffected" side="LEFT" />
-                                    </yAxis>
-                                    <VBox.margin>
-                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"  />
-                                    </VBox.margin>
-                                </StackedBarChart>
-                            </VBox>
-                        </VBox>
-                    </content>
-                </Tab>
-                <Tab closable="false" text="Camembert Qualité Intensité" >
-                    <content>
-                        <VBox styleClass="img2">
-
-                            <PieChart fx:id="PieQualite" prefHeight="600" prefWidth="600"  styleClass="labell"  />
-
-                        </VBox>
-                    </content>
-                </Tab>
-                <Tab closable="false" text="Séismes et Temps">
-                    <content>
-                        <VBox alignment="CENTER" styleClass="img5">
-                            <children>
-                                <ScatterChart fx:id="scatterChart" title="Nombre de séismes en fonction de l'année sur un siècle au maximum" styleClass="labell">
-                                    <xAxis>
-                                        <NumberAxis forceZeroInRange="false" label="Durée (en années)" styleClass="labell" minorTickCount="2000" side="BOTTOM" upperBound="1100.0" fx:id="xScatterAxis" />
-                                    </xAxis>
-                                    <yAxis>
-                                        <NumberAxis fx:id="yScatterAxis" label="Nombre de séismes" styleClass="labell" prefHeight="360.0" prefWidth="31.0" side="LEFT" upperBound="15.0" />
-                                    </yAxis>
-                                </ScatterChart>
-                            </children>
-                        </VBox>
-                    </content>
-                </Tab>
-
-                <Tab closable="false" text="Intensités et Séismes">
-                    <content>
-                        <VBox styleClass="img3">
-                            <BarChart fx:id="intensityChart" prefHeight="563.0" prefWidth="960.0"  styleClass="labell">
-                                <xAxis>
-                                    <CategoryAxis side="BOTTOM" fx:id="xAxisIntensity" />
-                                </xAxis>
-                                <yAxis>
-                                    <NumberAxis fx:id="yAxisIntensity" side="LEFT" />
-                                </yAxis>
-                                <VBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                </VBox.margin>
-                            </BarChart>
-                        </VBox>
-                    </content>
-                </Tab>
-
-
-            </tabs>
-        </TabPane>
-    </children>
-</HBox>
+    </tabs>
+</TabPane>
